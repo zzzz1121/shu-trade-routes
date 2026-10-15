@@ -1,0 +1,1 @@
+{"version":"2.0.0","tasks":[{"label":"试玩蜀地钱路","type":"shell","command":"sh scripts/dev.sh","isBackground":true,"problemMatcher":[]}]}
