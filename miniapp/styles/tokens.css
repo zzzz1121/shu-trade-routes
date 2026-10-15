@@ -1,5 +1,6 @@
-/* Reference-led V0.1 design tokens; original vector stand-ins, not final artwork. */
+/* Shared visual tokens for the reference-led illustrated interface. */
 page,:root{
+ --art-saturation:.62;
  --paper:#f5f1e6;--white:#fffdf7;--surface:#eee9dc;--ink:#283943;--muted:#68766f;
  --blue:#355d70;--gold:#b68e57;--brown:#886d4d;--green:#8fa48c;--water:#a9cbd0;
  --line:#dfd9ca;--danger:#a35444;--radius:20px;--small-radius:12px;
