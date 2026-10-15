@@ -27,3 +27,9 @@ html,body,page{margin:0;height:100%;overflow:hidden;background:#e9e8df;color:var
 .scene-placard{pointer-events:auto}
 .approved-cover{margin:18px -26px;overflow:hidden}
 .cover-art.approved-cover img,.cover-art.approved-cover image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+
+/* Keep only contextual feedback; no reserved rows for instructional copy. */
+.map-stage{padding-bottom:0}
+.dock{flex-basis:auto}
+.feedback:empty{display:none}
+.wallet + .feedback:empty + .action-panel,.wallet + .action-panel{margin-top:8px}

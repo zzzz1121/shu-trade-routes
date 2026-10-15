@@ -37,7 +37,7 @@ function feedback(result, action, before, level){
   return '抵达'+(n.id===level.goal?'交付商行':n.name)+(fee?' · 过桥 −'+fee+' 铁钱':' · 行动 +1');
  }
  if(action.type==='exchange')return '已兑换：−'+action.amount+' 铁钱，+'+(s.note-before.note)+' 交子';
- if(action.type==='depart')return '已出发 · 点击相邻地点前进';
+ if(action.type==='depart')return '已出发';
  if(action.type==='buy')return '布料 +1 · 铁钱 −'+action.iron+' · 交子 −'+action.note;
  return result.message;
 }
