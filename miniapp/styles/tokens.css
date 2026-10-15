@@ -1,2 +1,10 @@
-/* 临时视觉令牌；替换正式美术时从此统一调整。 */
-page, :root {--paper:#f8f5ed;--ink:#303d40;--muted:#68797b;--blue:#536f78;--gold:#a37b3b;--brown:#87694e;--line:#d8d3c6;--white:#fffdf7;--danger:#9b493d;--radius:16px;--font:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+/* Reference-led V0.1 design tokens; original vector stand-ins, not final artwork. */
+page,:root{
+ --paper:#f5f1e6;--white:#fffdf7;--surface:#eee9dc;--ink:#283943;--muted:#68766f;
+ --blue:#355d70;--gold:#b68e57;--brown:#886d4d;--green:#8fa48c;--water:#a9cbd0;
+ --line:#dfd9ca;--danger:#a35444;--radius:20px;--small-radius:12px;
+ --shadow:0 6px 20px rgba(64,73,59,.07);--node-shadow:0 3px 8px rgba(55,65,49,.13);
+ --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;
+ --font:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+ --text-xs:11px;--text-sm:12px;--text-base:14px;--text-lg:18px;--text-title:28px;
+}

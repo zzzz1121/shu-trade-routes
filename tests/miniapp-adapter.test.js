@@ -41,3 +41,10 @@ test('小程序 Page 适配器：非法移动反馈、选择器范围与规则�
   assert.equal(p.data.p, 0);
   action(p, 'rules'); assert.equal(p.data.rules, true);
 });
+test('原生展示：点击当前地点不移动，桥费明确，规则分页不影响状态',()=>{
+ const p=page();move(p,'warehouse');assert.equal(p.data.error,false);assert.equal(p.data.s.steps,0);
+ action(p,'x+');action(p,'x+');action(p,'exchange');action(p,'depart');
+ p.onMove({currentTarget:{dataset:{building:'bridge'}}});assert.match(p.data.message,/过桥 −1/);assert.equal(p.data.s.steps,1);
+ const before=p.session.state;move(p,'bridge');assert.deepEqual(p.session.state,before);assert.equal(p.data.error,false);
+ action(p,'rules');action(p,'rule-next');assert.equal(p.data.rulePage,1);assert.equal(p.data.ruleTitle,'买布与商路');action(p,'rules');assert.equal(p.data.rules,false);assert.deepEqual(p.session.state,before);
+});

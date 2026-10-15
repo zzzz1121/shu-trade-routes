@@ -1,0 +1,45 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.ShuScene=factory();})(this,function(){
+// Presentation coordinates only: no adjacency, cost or game state is stored here.
+const ratio=634/522;
+const positions={warehouse:[22,47],bridge:[43,24],street:[27,75],alley:[49,82],shop:[77,50],delivery:[80,86]};
+// Independent art frames in one atlas, never used to determine gameplay.
+const frames={warehouse:[0,31,27,37],bridge:[27,9,34,34],shop:[64,22,36,36],street:[29,50,13,23],alley:[42,58,17,22],delivery:[61,62,39,34]};
+const paths={
+ 'warehouse-bridge':[[22,47],[28,42],[30,34],[43,24]],
+ 'bridge-shop':[[43,24],[54,26],[62,35],[77,50]],
+ 'warehouse-street':[[22,47],[19,55],[22,63],[27,75]],
+ 'street-alley':[[27,75],[33,75],[42,81],[49,82]],
+ 'alley-shop':[[49,82],[58,81],[65,70],[72,59],[77,50]],
+ 'shop-delivery':[[77,50],[85,58],[88,70],[80,86]]
+};
+function tile(id,r){const [x,y,w,h]=r;return {id,style:'left:'+x+'%;top:'+y+'%;width:'+w+'%;height:'+h+'%;',imageStyle:'width:'+(10000/w)+'%;height:'+(10000/h)+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%;'};}
+function subtract(a,b){const [x,y,w,h]=a,[bx,by,bw,bh]=b,l=Math.max(x,bx),t=Math.max(y,by),r=Math.min(x+w,bx+bw),d=Math.min(y+h,by+bh);if(l>=r||t>=d)return [a];return [[x,y,w,t-y],[x,d,w,y+h-d],[x,t,l-x,d-t],[r,t,x+w-r,d-t]].filter(r=>r[2]>0&&r[3]>0);}
+let remaining=[[0,0,100,100]];Object.values(frames).forEach(frame=>{remaining=remaining.flatMap(r=>subtract(r,frame));});
+const terrainTiles=remaining.map((r,i)=>tile('terrain-'+i,r));
+function decorate(v){
+ v.terrainTiles=terrainTiles;
+ v.artRegions=v.nodes.map(n=>Object.assign(tile(n.id,frames[n.id]),{name:n.name}));
+ v.nodes=v.nodes.map(n=>{const pos=positions[n.id];return Object.assign({},n,{name:n.id==='delivery'?'交付商行':n.name,style:'left:'+pos[0]+'%;top:'+pos[1]+'%;',asset:'/assets/approved/town-atlas.png',goal:n.id===v.level.goal,tag:n.current?'所在':n.reachable?'可达':''});});
+ v.edges=v.level.edges.map(e=>({key:e.join('-')}));
+ v.routeSegments=[];
+ v.edges.forEach(e=>{const points=paths[e.key];if(!points)return;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b[0]-a[0],dy=(b[1]-a[1])/ratio;v.routeSegments.push({id:e.key+'-'+i,edge:e.key,style:'left:'+a[0]+'%;top:'+a[1]+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});}});
+ v.bagWeight=v.s.departed?v.weight:0;
+ v.slots=Array.from({length:v.level.capacity},(_,i)=>({id:i,kind:i<v.bagWeight?(i<v.s.iron?'iron':'cloth'):'empty'}));
+ v.locationName=v.nodes.find(n=>n.current).name;
+ v.preparationText='待携带 '+v.weight+' / '+v.level.capacity+' 格'+(v.weight>v.level.capacity?'，请先兑换减重':'，可确认出发');
+ return v;
+}
+function feedback(result, action, before, level){
+ if(!result.ok)return result.message;
+ const s=result.state;
+ if(action.type==='move'){
+  const n=level.nodes.find(n=>n.id===s.location),fee=before.iron-s.iron;
+  return '抵达'+(n.id===level.goal?'交付商行':n.name)+(fee?' · 过桥 −'+fee+' 铁钱':' · 行动 +1');
+ }
+ if(action.type==='exchange')return '已兑换：−'+action.amount+' 铁钱，+'+(s.note-before.note)+' 交子';
+ if(action.type==='depart')return '已出发 · 点击相邻地点前进';
+ if(action.type==='buy')return '布料 +1 · 铁钱 −'+action.iron+' · 交子 −'+action.note;
+ return result.message;
+}
+return {decorate:decorate,feedback:feedback,frames:frames,terrainTiles:terrainTiles};
+});

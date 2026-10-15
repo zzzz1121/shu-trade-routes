@@ -1,6 +1,6 @@
 # 蜀地钱路 / Shu Trade Routes · V0.1
 
-北宋四川交子文化背景的二维轻策略解谜原型。已实现第一关《一车铁钱》，采用临时图形。游戏数值不代表真实宋代货币兑换比例。
+北宋四川交子文化背景的二维轻策略解谜原型。已实现第一关《一车铁钱》，采用参考图指导的生成式游戏美术。游戏数值不代表真实宋代货币兑换比例。
 
 ## 本地试玩
 
@@ -20,7 +20,7 @@ npm start
 npm test
 ```
 
-规则测试使用 Node 内置 test/assert，不需安装测试框架。可选浏览器回归：安装 Playwright 并准备 Chrome，保持试玩服务运行，再执行 `node tests/browser-smoke.cjs`。浏览器脚本默认使用 Chrome；可用 BROWSER_CHANNEL 更换。截图输出到 outputs/。
+规则测试使用 Node 内置 test/assert，不需安装测试框架。可选浏览器回归：安装 Playwright 并准备 Chrome，保持试玩服务运行，再执行 `node tests/fixed-screen.cjs`。固定屏测试脚本使用 Chrome。截图输出到 outputs/。
 
 ## 小红书开发者工具
 
@@ -28,7 +28,7 @@ npm test
 2. 创建/导入小程序，代码目录选择本仓库的 **miniapp/**，填写自己的真实 AppID。
 3. 使用工具生成的 project.config.json。本仓库不提供虚构 AppID，也不套用微信配置。
 4. 编译 pages/index/index 页面，再用预览二维码真机检查。
-5. 若工具只能新建模板，先在另一个空目录创建，再将本仓库 miniapp/ 的 app、pages、core、styles 复制进去，保留工具生成的项目配置。
+5. 若工具只能新建模板，先在另一个空目录创建，再将本仓库 miniapp/ 的 app、pages、core、styles、ui、assets 复制进去，保留工具生成的项目配置。
 
 页面文件为 `.xhsml/.css/.js/.json`，公共模块使用官方支持的 CommonJS。没有调用 wx API，没有网络、登录或支付接口。
 
@@ -42,7 +42,10 @@ npm test
 - miniapp/core/engine.js：纯规则、原子状态转换、完整撤销与重试。
 - miniapp/core/presenter.js：两端共用的预览结果、地图展示数据及规则文案。
 - miniapp/pages/index/：小红书原生页面；首页、介绍、游戏与结算由页面状态切换。
-- miniapp/styles/：共用临时样式和视觉令牌。
+- miniapp/styles/：共用组件样式和视觉令牌。
+- miniapp/ui/scene.js：视觉坐标和展示映射，不改变关卡拓扑。
+- miniapp/assets/approved/town-atlas.png：依据最新参考图编辑生成的场景图集。
+- miniapp/assets/generated/：资源图标、结算插画和此前生成的备份素材。
 - web/：浏览器适配器，直接加载相同规则模块。
 - assets/temporary/、assets/final/：临时与正式资产区。
 - tests/：规则测试和可选浏览器点击回归。
@@ -64,8 +67,16 @@ npm test
 
 ## 后续优先级
 
-1. 在真实小红书工具编译并真机验收：CSS 变量、模板表达式、按钮默认样式、安全区域与点击反馈。
+1. 在真实小红书工具编译并真机验收：PNG资源包体、CSS 变量、模板表达式、按钮默认样式、安全区域与点击反馈。
 2. 小规模试玩验证兑换引导与失败解释；再决定是否增加可选提示、可行性提示和本地存档。
 3. 视觉定稿后按资产清单替换临时图形；进一步将界面中的第一关文案/数字配置化。规则已数据驱动，但 UI 尚不是任意关卡编辑器。
 
 不包含后端、排行、分享支付、第二三关、正式美术或上线发布。
+
+## 固定屏界面更新
+
+当前首页、游戏、交易、结算及规则均为固定屏，不上下滚动。规则可分页。回归运行 `node tests/fixed-screen.cjs`（需Playwright和Chrome，先启动服务）。最新截图 outputs/fixed-prepare-390.png。
+
+## 最新参考图场景版
+
+主地图与首页已使用参考图编辑生成的场景图集，保留完整建筑/河道/植被构图，文字、路线标记及交互继续由代码控制。采用矩形分区，不是六张透明建筑精灵；详见 docs/visual-spec.md。最新实际截图 outputs/game-preview.png、outputs/approved-map-preview.png。20项自动测试及三种手机尺寸固定屏浏览器回归通过。

@@ -1,0 +1,102 @@
+{
+  "assets": [
+    {
+      "file": "miniapp/assets/generated/alley.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1457290,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/bridge.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1203431,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/cloth.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1460038,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/delivery.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1959277,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/iron.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1379196,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/note.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 862425,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/shop.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1719953,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/street.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1492063,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/terrain.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGB",
+      "bytes": 2181532,
+      "hasTransparency": false
+    },
+    {
+      "file": "miniapp/assets/generated/tree.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 946539,
+      "hasTransparency": true
+    },
+    {
+      "file": "miniapp/assets/generated/warehouse.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "bytes": 1975756,
+      "hasTransparency": true
+    }
+  ],
+  "totalBytes": 16637500,
+  "referenceScene": {
+    "file": "miniapp/assets/approved/town-atlas.png",
+    "width": 1382,
+    "height": 1138,
+    "bytes": 2176611,
+    "reference": "docs/references/approved-game-ui.png",
+    "method": "Built-in imagegen reference edit; runtime rectangular atlas regions",
+    "transparent": false
+  }
+}
