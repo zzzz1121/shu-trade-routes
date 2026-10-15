@@ -2,6 +2,20 @@
 
 北宋四川交子文化背景的二维轻策略解谜原型。已实现第一关《一车铁钱》，采用参考图指导的生成式游戏美术。游戏数值不代表真实宋代货币兑换比例。
 
+## 在线试玩与仓库
+
+在线版：https://shu-trade-routes.liu-ze-min-7252.chatgpt.site （当前仅站点所有者账号可访问）。
+
+GitHub私有仓库：https://github.com/zzzz1121/shu-trade-routes 。另一台电脑登录有权限的GitHub账号后克隆：
+
+```sh
+git clone https://github.com/zzzz1121/shu-trade-routes.git
+cd shu-trade-routes
+npm start
+```
+
+网页静态包：`npm run build:web` 输出到 `dist/`，与本地试玩及小程序共用同一套规则源文件。Sites站点身份保存在 `.openai/hosting.json`；后续发布复用这个站点，不另建。GitHub保存完整开发源码，Sites发布浏览器运行包；推送GitHub不会自动发布Sites。
+
 ## 本地试玩
 
 安装 Node.js 18 或更新版本，用 VS Code 打开本仓库目录，在终端执行：

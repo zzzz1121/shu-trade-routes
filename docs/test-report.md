@@ -24,3 +24,7 @@
 ## 上下延展回归
 
 实际执行 tests/terrain-extension.cjs，375×812、390×844、430×932均通过：扩图加载成功，地形覆盖整个地图区域，顶部任务区至底部面板间没有空白带，中央地图比例保持634:522，扩图层不拦截点击。原tests/fixed-screen.cjs全流程再次通过。原生模板基础XML结构检查通过。
+
+## 在线发布验收
+
+使用 scripts/build-web.js 将现有运行文件打包到独立静态目录，未改游戏规则。BASE_URL=http://127.0.0.1:4174 执行 tests/fixed-screen.cjs，针对实际发布目录的三个手机尺寸、两条通关路线和全部操作状态通过。Sites返回status=succeeded；站点当前为所有者私有访问。

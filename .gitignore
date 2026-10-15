@@ -4,3 +4,4 @@ work/
 miniapp/project.config.json
 miniapp/project.private.config.json
 outputs/*.zip
+dist/
