@@ -5,6 +5,7 @@
 |资源|位置|身份 / 用途|透明|
 |---|---|---|---|
 |用户最新原始地图参考|docs/references/approved-game-ui.png|正式视觉参考，不是运行时背景|否|
+|上下延展地形|miniapp/assets/approved/town-extended.png|imagegen 以原图集扩展；填充地图上下空间，独立底层|否|
 |去文字场景图集|miniapp/assets/approved/town-atlas.png|imagegen 依据参考图编辑；当前地图和首页使用，等待用户验收|否|
 |iron / note / cloth.png|miniapp/assets/generated/|此前生成的三种钱袋资源图标|是|
 |warehouse / delivery.png|miniapp/assets/generated/|此前生成的结算页插画，后续需与新场景统一|是|

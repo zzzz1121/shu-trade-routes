@@ -1,5 +1,11 @@
 # Imagegen 提示词记录
 
+## town-extended（上下场景延展）
+
+内置 imagegen 编辑现有 town-atlas.png，非透明背景；结果保存在 miniapp/assets/approved/town-extended.png。运行时作为独立外围地形底层，原中央图集仍保留，沿上下边缘融合。
+
+Use case: precise-object-edit / vertical outpainting. Input is the EDIT TARGET, an existing game town illustration. Extend the canvas vertically ABOVE and BELOW this exact image; do not zoom or crop the existing composition. Target portrait canvas approximately 1536 x 2304, aspect ratio 2:3. The ORIGINAL whole image must stay horizontally full-width, centered vertically, with its existing aspect ratio and its buildings, bridge, river, paths, rocks and trees at exactly the same scale and relative positions. The original scene should occupy the central approximately 55% of the final canvas height, with new terrain occupying about 22.5% above and 22.5% below. Preserve the central illustration with maximum fidelity. Outpaint the upper and lower missing landscape naturally: continue the existing river's upper-left course and banks into the top area, continue the trees and small grey rock clusters along both sides, extend warm pale ground with subtle grassy patches and small scattered shrubs through the center. Lower extension: continue foreground low plants, trees near the edges, and pale softly faceted ground with small patches of greenery; do not create broad empty uniform beige bands. The new areas should have gentle natural landscape detail distributed across their width, with enough open ground to remain calm, not dense forest. Same elevated isometric camera, same modern faceted digital game illustration, same light, matching original colors so seamless joining is possible (the app will apply its own desaturation). NO additional buildings, new bridges, mountains, fog, sky, borders, frames, vignettes, UI, text, icons or route markers. Absolutely preserve all six existing gameplay landmarks in their original central arrangement. This is a seamless terrain extension, not a redesigned or enlarged town.
+
 ## town-atlas（最新参考图场景版）
 
 内置 imagegen，编辑输入 docs/references/approved-game-ui.png，transparent_background=false。结果复制至 miniapp/assets/approved/town-atlas.png。场景分区渲染，全部 UI 与逻辑路线由代码覆盖。下方较早生成记录保留供溯源；旧建筑不再用于主地图。

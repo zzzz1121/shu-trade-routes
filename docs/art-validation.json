@@ -98,5 +98,14 @@
     "reference": "docs/references/approved-game-ui.png",
     "method": "Built-in imagegen reference edit; runtime rectangular atlas regions",
     "transparent": false
+  },
+  "extendedScene": {
+    "file": "miniapp/assets/approved/town-extended.png",
+    "width": 1024,
+    "height": 1536,
+    "bytes": 2489617,
+    "reference": "miniapp/assets/approved/town-atlas.png",
+    "method": "Built-in imagegen vertical outpainting",
+    "transparent": false
   }
 }

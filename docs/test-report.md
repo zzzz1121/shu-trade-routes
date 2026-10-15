@@ -20,3 +20,7 @@
 小红书官方编译器、模拟器和真机；当前无AppID和官方工具。Node VM中的Page/setData测试及XML结构检查不能替代官方编译。图集重复引用的原生内存表现、发布资源包体、系统安全区仍须平台验证。没有声称所有可能bug已经消除。
 
 本次未修改core/engine.js、core/level.js、core/presenter.js。
+
+## 上下延展回归
+
+实际执行 tests/terrain-extension.cjs，375×812、390×844、430×932均通过：扩图加载成功，地形覆盖整个地图区域，顶部任务区至底部面板间没有空白带，中央地图比例保持634:522，扩图层不拦截点击。原tests/fixed-screen.cjs全流程再次通过。原生模板基础XML结构检查通过。

@@ -7,9 +7,9 @@ function icon(name){return `<img class="resource-icon" src="/miniapp/assets/gene
 function mapView(v){
  const atlas='/miniapp/assets/approved/town-atlas.png';
  const tiles=items=>items.map(t=>`<div class="scene-tile" style="${t.style}"><img src="${atlas}" style="${t.imageStyle}" alt="" draggable="false"></div>`).join('');
- return `<div class="map-stage"><div class="map reference-map" aria-label="商路地图">
- <div class="scene-terrain" aria-hidden="true">${tiles(v.terrainTiles)}</div>
- <div class="scene-buildings" aria-hidden="true">${tiles(v.artRegions)}</div>
+ return `<div class="map-stage"><div class="scene-continuation" aria-hidden="true"><div class="continuation-frame"><img class="continuation-art" src="/miniapp/assets/approved/town-extended.png" alt="" draggable="false"></div></div><div class="map reference-map" aria-label="商路地图">
+ <div class="scene-art"><div class="scene-terrain" aria-hidden="true">${tiles(v.terrainTiles)}</div>
+ <div class="scene-buildings" aria-hidden="true">${tiles(v.artRegions)}</div></div>
  <div class="road-layer" aria-hidden="true">${v.routeSegments.map(e=>`<div class="route route-dash" data-edge="${e.edge}" style="${e.style}"></div>`).join('')}</div>
  <div class="art-hit-layer">${v.artRegions.map(n=>`<button class="atlas-building-hit" style="${n.style}" data-building="${n.id}" aria-label="前往${n.name}建筑"></button>`).join('')}</div>
  <div class="interaction-layer">${v.nodes.map(n=>`<button class="node scene-node ${n.current?'current':''} ${n.reachable?'reachable':''}" style="${n.style}" data-node="${n.id}" aria-label="前往${n.name}${n.current?'，当前所在地':''}"><span class="scene-placard">${n.name}</span><span class="scene-pin"><i></i></span>${n.current?'<span class="you-marker">所在</span>':''}</button>`).join('')}</div>
