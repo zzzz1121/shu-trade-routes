@@ -33,7 +33,7 @@ function decorate(v){
 function modular(v){
  v.modular=true;v.terrainTiles=[];v.artRegions=[];v.routeSegments=[];
  const ratio=634/522;
- v.nodes.forEach(n=>{v.artRegions.push({id:n.id,name:n.name,style:'left:'+(n.x-17)+'%;top:'+(n.y-29)+'%;width:34%;height:32%;',imageStyle:'width:300%;height:200%;left:'+(-(n.art%3)*100)+'%;top:'+(-Math.floor(n.art/3)*100)+'%;'});});
+ v.nodes.forEach(n=>{v.artRegions.push({id:n.id,name:n.name,market:n.art===1,style:'left:'+(n.x-17)+'%;top:'+(n.y-29)+'%;width:34%;height:32%;',imageStyle:'width:300%;height:200%;left:'+(-(n.art%3)*100)+'%;top:'+(-Math.floor(n.art/3)*100)+'%;'});});
  v.level.edges.forEach(e=>{const a=v.nodes.find(n=>n.id===e[0]),b=v.nodes.find(n=>n.id===e[1]),dx=b.x-a.x,dy=(b.y-a.y)/ratio;v.routeSegments.push({id:e.join('-'),edge:e.join('-'),style:'left:'+a.x+'%;top:'+a.y+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});});
  return v;
 }

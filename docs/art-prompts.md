@@ -60,3 +60,11 @@ Create a polished isometric game inventory illustration: two neatly folded lengt
 
 Single small tree sprite for a polished isometric miniature-town game. Full tree with compact sculpted foliage masses in desaturated sage and olive green, short warm brown trunk, soft daylight, clean digital illustration with gentle 2.5D depth and controlled detail. Centered complete silhouette, 12% transparent margin, genuine alpha transparent background. No scenery, rocks, text, border or UI. Square PNG.
 
+
+## V2 模块素材
+
+使用 imagegen 技能和内置 imagegen，未使用外部下载、CLI API 或矢量占位。
+
+- 建筑：以 town-atlas.png 为风格参考，生成3列2行透明精灵图集；统一斜俯视，灰瓦木构，六建筑完整置于各单元，不含文字与路径。
+- 地形：以 town-atlas.png 为参考，生成无建筑、无道路的竖屏地表，边缘树木岩石，上方小段河流，中央可布置建筑。运行时统一降饱和。
+- 货物：四图标2×2透明精灵图集：粮食、药包、茶包、纸墨，低饱和材质，独立单元。九图标请求因网络错误失败，未接入其结果；纸币使用已生成的 note.png 加代码印记。

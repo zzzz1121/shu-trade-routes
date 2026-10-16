@@ -8,7 +8,7 @@ Page({
  },
  refresh:function(){
   const v=Scene.decorate(this.game.view());
-  v.resources.concat(v.cargo).forEach(r=>{r.spriteStyle='left:'+(-(r.icon%3)*100)+'%;top:'+(-Math.floor(r.icon/3)*100)+'%;';});
+  v.resources.concat(v.cargo).forEach(r=>{r.spriteStyle='left:'+(-(r.icon%2)*100)+'%;top:'+(-Math.floor(r.icon/2)*100)+'%;';});
   v.backdrop=v.modular?'/assets/v2/terrain.png':'/assets/approved/town-extended.png';
   v.atlas=v.modular?'/assets/v2/buildings.png':'/assets/approved/town-atlas.png';
   v.ready=true;this.setData(v);

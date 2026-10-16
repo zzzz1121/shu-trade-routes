@@ -31,7 +31,7 @@ function create(storage={}){
   if(id==='play'||id==='skip-intro'){ui.screen='play';if(id==='skip-intro'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();}else lesson('money');return;}
   if(id==='close'){if(ui.modal&&ui.modal.kind==='lesson')session.markTutorial(ui.modal.id);ui.modal=null;return;}
   if(id==='confirm-move'){const m=ui.modal;if(m&&m.kind==='move'&&m.canMove)act({type:'move',to:m.nodeId});return;}
-  if(id==='lesson-next'){const m=ui.modal;if(!m||m.kind!=='lesson')return;session.markTutorial(m.id);ui.modal=null;if(m.id==='money')lesson('exchange');return;}
+  if(id==='lesson-next'){const m=ui.modal;if(!m||m.kind!=='lesson')return;session.markTutorial(m.id);ui.modal=null;if(m.id==='money'&&l.exchange)lesson('exchange');return;}
   if(id==='skip-tutorial'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();ui.modal=null;return;}
   if(id==='replay'){ui.modal={kind:'story',title:l.intro[0],body:l.intro[1]};return;}
   if(id==='rules'){ui.modal={kind:'rules',page:0};return;}

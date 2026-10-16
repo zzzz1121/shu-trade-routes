@@ -17,7 +17,7 @@ function view(session,ui){
  const s=session.state,l=session.level,t=l.transactions.find(t=>t.nodeId===s.nodeId&&!s.completedTransactions.includes(t.id));
  const resources=[{id:'iron',name:s.departed?'铁钱':'仓库铁钱',value:s.departed?s.iron:s.warehouseIron,asset:'iron',icon:8}];
  const n=s.departed?s.notesByIssuer:s.preparation.notesByIssuer;
- const issuers=[...new Set([l.issuer,...Object.keys(n).filter(k=>n[k])])];issuers.forEach(k=>resources.push({id:k,name:l.number<3?'交子':currency(k),value:n[k],asset:'note',icon:{a:4,b:5,official:6}[k]}));
+ const issuers=[...new Set([l.issuer,...Object.keys(n).filter(k=>n[k])])];issuers.forEach(k=>resources.push({id:k,name:l.number<3?'交子':currency(k),value:n[k],asset:'note',seal:l.number<3?'':{a:'甲',b:'乙',official:'官'}[k],icon:{a:4,b:5,official:6}[k]}));
  const cargo=Object.keys(l.goods).map(k=>({id:k,name:l.goods[k].name,value:s.cargoById[k]||0,icon:l.goods[k].icon,asset:k==='cloth'?'cloth':null}));
  const load=E.weight(s,l),panel={title:l.nodes.find(n=>n.id===s.nodeId).name,meta:'',steppers:[],choices:[],preview:'',buttons:[],kind:'travel'};
  const stepper=(key,label,value,max)=>({key,label,value,minus:key+'-',plus:key+'+',minDisabled:value<=0,maxDisabled:value>=max});

@@ -37,7 +37,7 @@ function transition(state,action,l=Levels){
   t=l.transactions.find(t=>t.id===action.transactionId);
   if(!t||t.type!==action.type)return bad('UNKNOWN_TRANSACTION','这笔交易不存在。');
   if(!s.departed||s.nodeId!==t.nodeId)return bad('WRONG_LOCATION','请到对应地点交易。');
-  if(s.completedTransactions.includes(t.id))return bad('TRANSACTION_ALREADY_DONE','这笔委托已经交易完成。');
+  if(s.completedTransactions.includes(t.id)||(t.exclusive&&l.transactions.some(other=>other.exclusive===t.exclusive&&s.completedTransactions.includes(other.id))))return bad('TRANSACTION_ALREADY_DONE','这笔委托已经交易完成。');
   if(t.type==='buy'){
    const pay=action.notes||{};if(!integer(action.iron)||!money(pay))return bad('INVALID_AMOUNT','付款数量必须是非负整数。');
    if(Object.keys(pay).some(k=>pay[k]>0&&!t.accepts.includes(k)))return bad('NOTE_ISSUER_NOT_ACCEPTED','这家铺子不接受当前商号的交子。');

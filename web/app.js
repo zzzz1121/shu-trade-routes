@@ -3,11 +3,11 @@ const root=document.querySelector('#app');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function btn(label,id,kind='primary',disabled=false){return `<button class="${kind}" data-action="${id}" ${disabled?'disabled':''}>${esc(label)}</button>`;}
 function buttons(items){return items.map(b=>btn(b.label,b.id,b.kind,b.disabled)).join('');}
-function sprite(i,cls='resource-icon'){return `<span class="${cls} goods-sprite"><img src="/miniapp/assets/v2/goods.png" style="left:${-(i%3)*100}%;top:${-Math.floor(i/3)*100}%" alt=""></span>`;}
-function icon(item){return item.asset?`<img class="resource-icon" src="/miniapp/assets/generated/${item.asset}.png" alt="">`:sprite(item.icon);}
+function sprite(i,cls='resource-icon'){return `<span class="${cls} goods-sprite"><img src="/miniapp/assets/v2/goods.png" style="left:${-(i%2)*100}%;top:${-Math.floor(i/2)*100}%" alt=""></span>`;}
+function icon(item){return item.asset?`<span class="money-object"><img class="resource-icon" src="/miniapp/assets/generated/${item.asset}.png" alt="">${item.seal?`<i class="note-seal ${item.id}">${item.seal}</i>`:''}</span>`:sprite(item.icon);}
 function mapView(v){
  const atlas=v.modular?'/miniapp/assets/v2/buildings.png':'/miniapp/assets/approved/town-atlas.png';
- const tiles=items=>items.map(t=>`<div class="scene-tile" style="${t.style}"><img src="${atlas}" style="${t.imageStyle}" alt="" draggable="false"></div>`).join('');
+ const tiles=items=>items.map(t=>`<div class="scene-tile ${t.market?'market-sprite':''}" style="${t.style}"><img src="${atlas}" style="${t.imageStyle}" alt="" draggable="false"></div>`).join('');
  return `<div class="map-stage"><div class="scene-continuation" aria-hidden="true"><div class="continuation-frame"><img class="continuation-art" src="${v.modular?'/miniapp/assets/v2/terrain.png':'/miniapp/assets/approved/town-extended.png'}" alt=""></div></div><div class="map reference-map ${v.modular?'modular-map':''}" aria-label="商路地图">
  <div class="scene-art"><div class="scene-terrain">${tiles(v.terrainTiles)}</div><div class="scene-buildings">${tiles(v.artRegions)}</div></div>
  <div class="road-layer" aria-hidden="true">${v.routeSegments.map(e=>`<div class="route route-dash" data-edge="${e.edge}" style="${e.style}"></div>`).join('')}</div>

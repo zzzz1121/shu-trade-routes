@@ -1,0 +1,21 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),Levels=require('../miniapp/core/level');
+const examples={
+ l02:[[{node:'grain_shop',iron:3,note:1},{node:'medicine_shop',iron:1,note:3},{node:'delivery'}],[{node:'medicine_shop',iron:1,note:3},{node:'grain_shop',iron:3,note:1},{node:'side_street'},{node:'delivery'}]],
+ l03:[[{node:'east_market',iron:2,note:4},{node:'delivery'}],[{node:'exchange',trade:true},{node:'west_market',iron:1,note:3},{node:'delivery'}]],
+ l04:[[{node:'tea_shop',trade:true,receive:'iron'},{node:'toll_crossing'},{node:'cloth_shop',iron:4,note:2},{node:'delivery'}],[{node:'tea_shop',trade:true,receive:'note'},{node:'street'},{node:'back_alley'},{node:'cloth_shop',iron:2,note:4},{node:'delivery'}]],
+ l05:[[{node:'east_market',iron:1,note:5},{node:'delivery'}],[{node:'xu_exchange',amount:3,trade:true},{node:'west_market',iron:5,note:0},{node:'delivery'}]],
+ l06:[[{node:'toll_bridge'},{node:'cloth_shop',iron:3,note:1},{node:'tea_shop',iron:0,note:4},{node:'delivery'}],[{node:'street'},{node:'back_alley'},{node:'cloth_shop',iron:2,note:2},{node:'tea_shop',iron:1,note:3},{node:'delivery'}]]
+};
+(async()=>{const b=await chromium.launch({channel:'chrome',headless:true}),page=await b.newPage(),errors=[],http=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)http.push(r.url());});const action=id=>page.locator(`[data-action="${id}"]`).first().click();
+async function check(label){const d=await page.evaluate(()=>({h:innerHeight,w:innerWidth,dh:document.documentElement.scrollHeight,dw:document.documentElement.scrollWidth,over:[...document.querySelectorAll('button')].filter(b=>{const r=b.getBoundingClientRect();return r.width&&r.height&&(r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1)}).map(b=>b.textContent)}));assert.ok(d.dh<=d.h&&d.dw<=d.w,label+' page overflow');assert.deepEqual(d.over,[],label+' controls overflow');}
+for(const [width,height] of [[375,812],[390,844],[430,932]]){await page.setViewportSize({width,height});await page.goto(process.env.BASE_URL||'http://127.0.0.1:4173');await page.evaluate(ids=>localStorage.setItem('shu-trade-progress-v2',JSON.stringify({version:2,completed:ids,tutorialDone:ids,last:'l01'})),Levels.all.map(l=>l.id));await page.reload();
+ for(const l of Levels.all.filter(l=>l.number>1))for(const [ri,route] of examples[l.id].entries()){
+  await action('chapters');await check('chapters');await action('level:'+l.id);await check(l.id+' start');if(ri===0)await page.screenshot({path:`outputs/v2-${l.id}-${width}.png`});
+  for(const step of route){await page.locator(`[data-node="${step.node}"]`).click();await check('node preview');await action('confirm-move');await check('move');
+   if(step.iron!==undefined){for(const [key,target] of [['p',step.iron],['n',step.note]]){const control=page.locator(`[data-action="${key}+"]`);if(!await control.count())continue;const current=Number(await control.locator('..').locator('.stepper-value b').innerText());for(let i=0;i<Math.abs(target-current);i++)await action(key+(target>current?'+':'-'));}await check('payment');await action('transact');}
+   if(step.receive)await action('receive-'+step.receive);if(step.amount)for(let i=1;i<step.amount;i++)await action('amount+');if(step.trade)await action('transact');
+  }
+  await action('deliver');await check('result');assert.equal(await page.getByRole('heading',{name:'委托完成'}).count(),1,l.id);await action('undo');await check('undo');
+ }
+}
+assert.deepEqual(errors,[]);assert.deepEqual(http,[]);console.log('PASS campaign: both reference strategies per level, 3 phone sizes, visible nodes and controls, atomic payment/swap/sale/redemption, victory/undo, no asset or JS errors');await b.close();})().catch(e=>{console.error(e);process.exit(1)});
