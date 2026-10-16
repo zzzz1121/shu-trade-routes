@@ -41,11 +41,14 @@ function view(session,ui){
  const total=s.iron+Object.values(s.notesByIssuer).reduce((a,b)=>a+b,0);
  const ledger=s.events.filter(e=>['exchange','buy','sell','swap','redeem'].includes(e.type)||e.type==='move'&&e.fee).map((e,i)=>({id:i,text:eventText(e,l)}));
  const fee=s.events.reduce((sum,e)=>sum+(e.fee||0),0);
+ const review=l.reviews&&l.reviews.find(r=>s.routeHistory.includes(r.node));
+ const purchases=s.events.filter(e=>e.type==='buy').map(e=>l.goods[e.cargo].name);
+ const routeReview=review?review.text:l.nodes.some(n=>n.toll)?(s.events.some(e=>e.type==='move'&&e.fee)?'这一趟走得快，开销也多些。':'多走几步，留下了一份钱。'):'采购顺序：'+purchases.join(' → ');
  return {s,level:l,resources,cargo,weight:load,canUndo:session.canUndo,slots:Array.from({length:l.capacity},(_,i)=>({id:i,kind:i<load?(i<s.iron?'iron':'cloth'):'empty'})),panel,
  nodes:l.nodes.map(n=>Object.assign({},n,{current:n.id===s.nodeId,reachable:s.departed&&s.status==='playing'&&E.adjacent(s.nodeId,n.id,l),style:'left:'+n.x+'%;top:'+n.y+'%;'})),edges:l.edges,
  pathText:s.routeHistory.map(id=>l.nodes.find(n=>n.id===id).name).join(' → '),total,ledger,fee,remainingText:paymentText(s.iron,s.notesByIssuer),
  resultText:s.status==='won'?l.outro[1]:s.failureReason,
- routeReview:s.events.some(e=>e.type==='move'&&e.fee)?'这一趟走得快，开销也多些。':'多走几步，留下了一份钱。',
+ routeReview,
  rules:[['钱袋与行动','铁钱每单位占 1 格，交子不占负重。钱袋上限 '+l.capacity+' 格。只有沿相邻道路移动耗步，最多 '+l.maxSteps+' 步。每次进入收费地点都需支付标示铁钱。'],...l.transactions.map(t=>[l.nodes.find(n=>n.id===t.nodeId).name,tradeRule(t,l)]),['交付与撤销','买齐委托货物后到商行交付。购买先扣款再装货；出售先卸货再收款。撤销恢复上一完整状态，重试不会丢失已解锁章节。']]};
 }
 return {view,tradeRule,eventText,paymentText,button,currency};
