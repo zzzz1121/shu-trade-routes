@@ -47,9 +47,9 @@ function view(session,ui){
  return {s,level:l,resources,cargo,weight:load,canUndo:session.canUndo,slots:Array.from({length:l.capacity},(_,i)=>({id:i,kind:i<load?(i<s.iron?'iron':'cloth'):'empty'})),panel,
  nodes:l.nodes.map(n=>Object.assign({},n,{current:n.id===s.nodeId,reachable:s.departed&&s.status==='playing'&&E.adjacent(s.nodeId,n.id,l),style:'left:'+n.x+'%;top:'+n.y+'%;'})),edges:l.edges,
  pathText:s.routeHistory.map(id=>l.nodes.find(n=>n.id===id).name).join(' → '),total,ledger,fee,remainingText:paymentText(s.iron,s.notesByIssuer),
- resultText:s.status==='won'?l.outro[1]:s.failureReason,
+ resultText:s.status==='won'?l.outro[1]:s.failureReason,ending:s.status==='won'?(l.ending||''):'',
  routeReview,
- rules:[['钱袋与行动','铁钱每单位占 1 格，交子不占负重。钱袋上限 '+l.capacity+' 格。只有沿相邻道路移动耗步，最多 '+l.maxSteps+' 步。每次进入收费地点都需支付标示铁钱。'],...l.transactions.map(t=>[l.nodes.find(n=>n.id===t.nodeId).name,tradeRule(t,l)]),['交付与撤销','买齐委托货物后到商行交付。购买先扣款再装货；出售先卸货再收款。撤销恢复上一完整状态，重试不会丢失已解锁章节。']]};
+ rules:[...(l.exchange?[['仓库兑换',l.initial.warehouseIron+' 铁钱在仓库，出发前可兑换一次：投入 X 铁钱，获得 X−'+l.exchange.fee+' 交子；X 至少为 '+l.exchange.min+'。兑换后剩余铁钱全部携带，拟装载不超过 '+l.capacity+' 格才能出发。']]:[]),['钱袋与行动','铁钱每单位占 1 格，交子不占负重。钱袋上限 '+l.capacity+' 格。只有沿相邻道路移动耗步，最多 '+l.maxSteps+' 步。每次进入收费地点都需支付标示铁钱。'],...l.transactions.map(t=>[l.nodes.find(n=>n.id===t.nodeId).name,tradeRule(t,l)]),['交付与撤销','买齐委托货物后到商行交付。购买先扣款再装货；出售先卸货再收款。撤销恢复上一完整状态，重试不会丢失已解锁章节。']]};
 }
 return {view,tradeRule,eventText,paymentText,button,currency};
 });

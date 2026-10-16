@@ -4,6 +4,7 @@ const KEY='shu-trade-progress-v2';
 function normalize(data){if(!data||data.version!==2)return {version:2,completed:[],tutorialDone:[],last:'l01'};const valid=id=>Levels.all.some(l=>l.id===id);return {version:2,completed:Array.isArray(data.completed)?data.completed.filter(valid):[],tutorialDone:Array.isArray(data.tutorialDone)?data.tutorialDone.filter(valid):[],last:valid(data.last)?data.last:'l01'};}
 function create(storage={}){
  let progress;try{progress=normalize(storage.read&&storage.read(KEY));}catch{progress=normalize(null);}
+ const last=Levels.get(progress.last);if(last.number>1&&!progress.completed.includes(Levels.all[last.number-2].id))progress.last='l01';
  let session=E.createSession(Levels.get(progress.last));
  const ui={screen:'home',x:3,payIron:0,payNote:0,amount:1,receive:'iron',message:'',error:false,modal:null,hint:0,skip:false,tradeId:null};
  const save=()=>{try{if(storage.write)storage.write(KEY,progress);}catch{ui.message='本机进度未能保存，本次仍可继续。';ui.error=true;}};
@@ -11,19 +12,19 @@ function create(storage={}){
  function defaults(){const t=session.level.transactions.find(t=>t.nodeId===session.state.nodeId&&!session.state.completedTransactions.includes(t.id));ui.tradeId=t?t.id:null;ui.payIron=t&&t.type==='buy'?t.minIron:0;ui.payNote=0;ui.receive='iron';ui.amount=1;}
  function lesson(id){const l=session.level;if(ui.skip||progress.tutorialDone.includes(l.id)||session.state.tutorialFlags[id]||!l.lessons[id])return;ui.modal={kind:'lesson',id,title:l.lessons[id][0],body:l.lessons[id][1]};}
  function begin(id){const l=Levels.get(id);if(!unlocked(l))return;session=E.createSession(l);Object.assign(ui,{screen:'intro',x:3,message:'',error:false,modal:null,hint:0,skip:progress.tutorialDone.includes(l.id)});defaults();progress.last=l.id;save();if(ui.skip)ui.screen='play';}
- function act(a){const r=session.act(a);ui.error=!r.ok;ui.message=r.ok?P.eventText(r.event,session.level):r.message;if(!r.ok)return;
-  ui.modal=null;defaults();
+ function act(a){const lessonId=ui.modal&&ui.modal.kind==='lesson'?ui.modal.id:null;const r=session.act(a);ui.error=!r.ok;ui.message=r.ok?P.eventText(r.event,session.level):r.message;if(!r.ok)return;
+  if(lessonId)session.markTutorial(lessonId);ui.modal=null;defaults();
   if(r.state.status==='won'){if(!progress.completed.includes(session.level.id))progress.completed.push(session.level.id);if(!progress.tutorialDone.includes(session.level.id))progress.tutorialDone.push(session.level.id);save();}
   else if(r.state.status==='playing'){if(a.type==='depart')lesson('route');else if(a.type==='move')lesson(r.state.nodeId);}
  }
- function selectNode(id){if(ui.modal)return;const l=session.level,n=l.nodes.find(n=>n.id===id);if(!n)return;
+ function selectNode(id){if(ui.modal&&ui.modal.kind!=='lesson')return;const l=session.level,n=l.nodes.find(n=>n.id===id);if(!n)return;
   const s=session.state,r=id===s.nodeId?null:E.transition(s,{type:'move',to:id},l),trades=l.transactions.filter(t=>t.nodeId===id).map(t=>P.tradeRule(t,l));
   ui.modal={kind:'move',nodeId:id,title:n.name,body:[id===s.nodeId?'当前所在地':'移动 1 步'+(n.toll?' · 每次进入付 '+n.toll+' 铁钱':' · 无通行费'),...trades,...(r&&!r.ok?[r.message]:[])].join('\n'),canMove:!!(r&&r.ok)};
  }
  function dispatch(id){const l=session.level,s=session.state;
-  // A modal owns input; background clicks and stale double-click events cannot execute actions.
+  // Confirmation dialogs own input; teaching cards leave gameplay available.
   const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next'];
-  if(ui.modal&&!modalActions.includes(id))return;
+  if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
   if(id==='start'){begin(progress.last);return;}
   if(id==='chapters'){ui.screen='chapters';ui.modal=null;return;}

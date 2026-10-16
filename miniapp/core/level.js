@@ -49,6 +49,16 @@ const all=[{
  intro:['许掌柜','今日能兑出的铁钱有限，得按规矩来。东、西两市都能买纸墨，自己选路。'],outro:['许掌柜','纸券方便，可人人都急着换钱时，就没那么简单了。'],
  hints:['东市与西市收的货款不同。','西市只收铁钱，许记最多兑付三份。','东市可付 1 铁钱 + 5 甲票；或先兑足 3 铁钱，再去西市付 5 铁钱。'],
  lessons:{money:['阿禾','许记门口，怎么有这么多人等着换钱？'],xu_exchange:['许掌柜','今天最多只能兑三份，也只能办理一次。'],west_market:['阿禾','这家只收现钱。']}
+},{
+ ending:'钱的样子变了，做生意的账，还得继续算。',
+ id:'l06',number:6,title:'新交子',mission:'买齐布料与茶货，送至商行',capacity:5,maxSteps:5,start:'warehouse',goal:'delivery',issuer:'official',
+ initial:{iron:4,notes:{official:5},cargo:{}},goods:{cloth:{name:'布料',weight:2,icon:7},tea:{name:'茶货',weight:1,icon:2}},
+ nodes:[node('warehouse','货仓',18,44,0),node('toll_bridge','收费桥',47,27,2,1),node('cloth_shop','布坊',80,43,1),node('street','街巷',18,73,3),node('back_alley','后巷',46,87,3),node('tea_shop','茶行',78,68,1),node('delivery','交付商行',78,93,4)],
+ edges:[['warehouse','toll_bridge'],['toll_bridge','cloth_shop'],['warehouse','street'],['street','back_alley'],['back_alley','cloth_shop'],['cloth_shop','tea_shop'],['tea_shop','delivery']],
+ transactions:[buy('buy-cloth','cloth_shop','cloth',4,2,0,'official'),buy('buy-tea','tea_shop','tea',4,0,3,'official')],target:{cargo:{cloth:1,tea:1},transactions:['buy-cloth','buy-tea']},
+ intro:['罗掌柜','一段时间后。如今有了新的交子，这笔买卖，你应该能独立办妥了。'],outro:['罗掌柜','头一回叫你送布，你还在为钱袋发愁。如今两笔生意，已经算得清楚。'],
+ hints:['两家店都接受官交子，但最低付款条件不同。','选择商路时，也算上两次采购后的负重。','走桥：布付 3 铁钱 + 1 官交子，茶付 4 官交子。免费路：布付 2 铁钱 + 2 官交子，茶付 1 铁钱 + 3 官交子。'],
+ lessons:{}
 }];
 return Object.assign({},all[0],{all,get:id=>all.find(l=>l.id===id)||all[0],issuerNames:{a:'甲号交子',b:'乙号交子',official:'官交子'}});
 });

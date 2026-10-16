@@ -1,6 +1,6 @@
 /* Shared visual tokens for the reference-led illustrated interface. */
 page,:root{
- --art-saturation:.62;
+ --art-saturation:.62;--modular-saturation:.55;--official-seal:#4c755b;
  --paper:#f5f1e6;--white:#fffdf7;--surface:#eee9dc;--ink:#283943;--muted:#68766f;
  --blue:#355d70;--gold:#b68e57;--brown:#886d4d;--green:#8fa48c;--water:#a9cbd0;
  --line:#dfd9ca;--danger:#a35444;--radius:20px;--small-radius:12px;

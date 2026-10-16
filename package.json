@@ -1,11 +1,13 @@
 {
   "name": "shu-di-qian-lu",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "start": "node scripts/serve.js",
     "test": "node --test tests/*.test.js",
-    "build:web": "node scripts/build-web.js"
+    "build:web": "node scripts/build-web.js",
+    "test:browser": "node tests/fixed-screen.cjs && node tests/campaign-browser.cjs",
+    "test:layout": "node tests/terrain-extension.cjs"
   },
   "engines": {
     "node": ">=18"
