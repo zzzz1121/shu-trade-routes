@@ -71,7 +71,7 @@ Single small tree sprite for a polished isometric miniature-town game. Full tree
 # 角色生成补充
 
 
-## 0.4.1 角色与叙事界面（2026-10-16）
+## 0.4.1 角色与叙事界面（2026-10-16，已被否定并替换）
 
 使用内置 image_gen，逐角色生成透明位图；没有调用外部 API 或使用 SVG 头像。以下为实际提示词。生成结果以原始 RGBA PNG 保存，未做二次图像编辑。
 
@@ -103,4 +103,33 @@ Middle-aged Chinese male shopkeeper Luo, broad calm face, tidy short mustache, h
 
 ```text
 Lean Chinese male merchant Xu aged about forty, clean-shaven angular face, hair tied under a simple slate cloth cap, muted dark teal plain robe with ivory collar, holds a few blank beige paper notes in one hand, attentive thoughtful expression, approachable not villainous.
+```
+
+
+## 0.4.2 块面卡通人物（当前版本）
+
+内置 image_gen 生成，transparent_background=true。第一张以 approved-game-ui.png 为风格参考；另外两张同时参考该地图和新阿禾，保持一致造型。原始PNG直接替换运行资源，不进行二次绘图。
+
+阿禾：`miniapp/assets/characters/ahe.png`
+
+```text
+Use case: stylized-concept. Create a GAME CHARACTER SPRITE, NOT a realistic person or portrait. Reference image is ONLY the game's existing map art style: match its simple geometric painted shapes, toy-like miniature scale, flat matte colors and softly faceted shading. Subject: Ahe, a young Chinese woman traveling merchant in Song-inspired everyday clothing, sage-green short jacket, ivory shirt, simple brown shoulder bag, dark hair tied into a practical low ponytail. Waist-up, entire head and shoulders visible, facing slightly right, one hand on bag strap. CLEARLY STYLIZED CARTOON: slightly enlarged rounded head, very simple small dark dot eyes, short curved brows, tiny wedge nose, small smiling mouth; flat skin color with just ONE soft shadow shape; hair built from 5-8 large solid shapes; clothing folds built from a handful of broad polygons. Designed to read at 100 pixels tall. Gently friendly, capable, ordinary merchant. Matte restrained low-saturation sage, blue-gray, walnut and ivory palette matching reference. Clean digital game illustration, 2D cutout with slight 2.5D volume, minimal internal lines. NO realistic anatomy shading, NO photographic facial features, NO realistic eye irises or eyelashes, NO individual hair strands, NO pores, NO cloth texture, NO semi-realism, NO oil painting, NO anime beauty portrait, NO cinematic lighting, NO glow, NO thick black outlines. Isolated on genuine transparent background, no scenery, no writing, no border. Portrait 2:3 composition.
+```
+
+掌柜共用提示词：
+
+```text
+Create one transparent waist-up GAME CHARACTER SPRITE. Image 1 is the approved map STYLE reference, Image 2 is the NEW CARTOON CHARACTER STYLE reference: precisely match image 2's flat geometric painted shapes, large simplified head, dark oval eyes with no detailed iris, wedge nose, simple curved mouth, broad polygonal hair and cloth shadows. Keep mature age through face shape and costume, not realistic wrinkles. No photographic or semi-realistic rendering, no skin texture, no hair strands, no cloth grain, no anime eyes, no thick black outline. Low saturation, matte soft 2.5D facets, visually belongs in this miniature board game. Full head, shoulders and hands visible; simple 2:3 portrait composition, facing slightly right. Genuine transparent background, no scenery, text, labels or frame.
+```
+
+`miniapp/assets/characters/luo.png`
+
+```text
+Luo, a middle-aged Chinese shopkeeper with a broad rounded face, small tidy mustache, simple dark gray cloth cap, warm muted brown Song-inspired everyday robe with slate trim. Calm friendly smile, holds a plain tan ledger in both hands. Cartoon like image2, NOT a portrait of a real man.
+```
+
+`miniapp/assets/characters/xu.png`
+
+```text
+Xu, a lean adult Chinese merchant about forty, longer slightly angular cartoon face, clean-shaven, simple blue-gray cloth cap, muted dark teal Song-inspired everyday robe with ivory collar. Holds two plain beige paper notes, attentive and thoughtful but friendly expression. Cartoon like image2, NOT a portrait of a real man.
 ```
