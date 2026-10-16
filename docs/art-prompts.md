@@ -68,3 +68,39 @@ Single small tree sprite for a polished isometric miniature-town game. Full tree
 - 建筑：以 town-atlas.png 为风格参考，生成3列2行透明精灵图集；统一斜俯视，灰瓦木构，六建筑完整置于各单元，不含文字与路径。
 - 地形：以 town-atlas.png 为参考，生成无建筑、无道路的竖屏地表，边缘树木岩石，上方小段河流，中央可布置建筑。运行时统一降饱和。
 - 货物：四图标2×2透明精灵图集：粮食、药包、茶包、纸墨，低饱和材质，独立单元。九图标请求因网络错误失败，未接入其结果；纸币使用已生成的 note.png 加代码印记。
+# 角色生成补充
+
+
+## 0.4.1 角色与叙事界面（2026-10-16）
+
+使用内置 image_gen，逐角色生成透明位图；没有调用外部 API 或使用 SVG 头像。以下为实际提示词。生成结果以原始 RGBA PNG 保存，未做二次图像编辑。
+
+共同提示词：
+
+```text
+Use case: illustration-story. Asset: transparent waist-up character portrait for a restrained Chinese merchant strategy game. Modern clean digital illustration, softly shaded clear shapes, natural adult proportions, readable friendly face, subtle hand-painted facets matching low saturation isometric Chinese town art. Muted sage green, slate blue, ivory and walnut brown, no saturated colors. Three-quarter view facing slightly right toward viewer, complete head and shoulders and hands fully inside frame, waist at bottom. Plain genuine transparent background. Song-inspired ordinary everyday clothes, no fantasy ornament, no armor, no chibi, no anime idol, no heavy outlines, no text, no frame, no background scenery.
+```
+
+### ahe
+
+保存：`miniapp/assets/characters/ahe.png`；1024×1536；透明背景。
+
+```text
+Young Chinese woman merchant Ahe, dark hair half tied into a practical low ponytail, warm alert eyes, subtle confident smile, sage gray short outer jacket over ivory crossed-collar shirt, simple brown shoulder satchel strap, one hand lightly holding satchel strap.
+```
+
+### luo
+
+保存：`miniapp/assets/characters/luo.png`；1024×1536；透明背景。
+
+```text
+Middle-aged Chinese male shopkeeper Luo, broad calm face, tidy short mustache, hair tied under a simple dark cloth cap, warm brown plain robe with muted slate trim, holds a closed tan ledger with both hands, trustworthy relaxed welcoming expression.
+```
+
+### xu
+
+保存：`miniapp/assets/characters/xu.png`；1024×1536；透明背景。
+
+```text
+Lean Chinese male merchant Xu aged about forty, clean-shaven angular face, hair tied under a simple slate cloth cap, muted dark teal plain robe with ivory collar, holds a few blank beige paper notes in one hand, attentive thoughtful expression, approachable not villainous.
+```

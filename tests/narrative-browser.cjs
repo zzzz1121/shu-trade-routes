@@ -1,0 +1,14 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{
+ const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true}),page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url()+': '+r.status());});
+ const action=id=>page.locator(`[data-action="${id}"]`).first().click();
+ async function check(label){await page.locator('img').evaluateAll(imgs=>Promise.all(imgs.map(i=>i.decode())));const r=await page.evaluate(()=>({overflow:document.documentElement.scrollHeight>innerHeight||document.documentElement.scrollWidth>innerWidth,bad:[...document.querySelectorAll('button,.commission-card,.dialogue-copy,.chapter-card-copy')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&(r.bottom>innerHeight+1||r.top<0||r.left<0||r.right>innerWidth+1||(!e.matches(".node")&&e.scrollHeight>e.clientHeight+2))}).map(e=>e.className)}));assert.equal(r.overflow,false,label);assert.deepEqual(r.bad,[],label);}
+ fs.mkdirSync('work/narrative-qa',{recursive:true});
+ for(const [width,height] of [[375,812],[390,844],[430,932]]){
+  await page.setViewportSize({width,height});await page.goto(process.env.BASE_URL||'http://127.0.0.1:4173');await page.evaluate(()=>localStorage.clear());await page.reload();await check('home');await page.screenshot({path:`work/narrative-qa/home-${width}.png`});await action('chapters');await check('chapters');await page.screenshot({path:`work/narrative-qa/chapters-${width}.png`});
+  for(let i=1;i<=6;i++){
+   const id='l0'+i;await page.evaluate(({id,i})=>localStorage.setItem('shu-trade-progress-v2',JSON.stringify({version:2,completed:Array.from({length:i-1},(_,k)=>'l0'+(k+1)),tutorialDone:[],last:id})),{id,i});await page.reload();await check('home '+id);await action('start');await check('intro '+id);assert.ok(await page.locator('.hero-portrait').evaluate(e=>e.naturalWidth>0));await page.screenshot({path:`work/narrative-qa/intro-${id}-${width}.png`});await action('play');await check('lesson '+id);if(await page.locator('[data-action=skip-tutorial]').count())await action('skip-tutorial');await action('replay');await check('story '+id);assert.equal(await page.locator('.important-dialogue .dialogue-portrait').count(),1);await page.screenshot({path:`work/narrative-qa/story-${id}-${width}.png`});await action('close');
+  }
+ }
+ assert.deepEqual(errors,[]);console.log('PASS narrative: home/chapters + 6 openings/replays at 3 phone sizes, decoded portraits, no overflow, clipped copy or asset errors');await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

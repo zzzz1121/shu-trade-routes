@@ -1,5 +1,6 @@
 const Controller=require('../../core/controller');
 const Scene=require('../../ui/scene');
+const Narrative=require('../../ui/narrative');
 Page({
  data:{ready:false},
  onLoad:function(){
@@ -7,7 +8,7 @@ Page({
   this.refresh();
  },
  refresh:function(){
-  const v=Scene.decorate(this.game.view());
+  const v=Narrative.decorate(Scene.decorate(this.game.view()),'/assets');
   v.resources.concat(v.cargo).forEach(r=>{r.spriteStyle='left:'+(-(r.icon%2)*100)+'%;top:'+(-Math.floor(r.icon/2)*100)+'%;';});
   v.backdrop=v.modular?'/assets/v2/terrain.png':'/assets/approved/town-extended.png';
   v.atlas=v.modular?'/assets/v2/buildings.png':'/assets/approved/town-atlas.png';

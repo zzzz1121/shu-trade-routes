@@ -1,6 +1,6 @@
 # 蜀地钱路 · 六关可玩原型
 
-按《完整游戏策划文档 V2.0》实现，程序版本 **0.4.0**。手机竖屏固定屏，纯 JavaScript 规则、原生小红书页面和浏览器入口共用逻辑。仅保留本地试玩和私有 GitHub，不部署在线站点。
+按《完整游戏策划文档 V2.0》实现，程序版本 **0.4.1**。手机竖屏固定屏，纯 JavaScript 规则、原生小红书页面和浏览器入口共用逻辑。仅保留本地试玩和私有 GitHub，不部署在线站点。
 
 ## 在 VS Code 运行
 
@@ -21,6 +21,12 @@ npm start
 ```
 
 工作前 `git pull --ff-only`，完成修改后提交并推送；请勿把个人 AppID、开发者工具私有配置或令牌提交。GitHub 同步代码与素材，**不跨电脑同步游玩进度**。
+
+## 本次界面更新
+
+首页显示最近章节、当前委托和通关进度；章节页采用六张场景卡。每关开场包含短叙事、角色与场景构图、委托卡和开始/跳过入口。常规教学采用底部角色对白，剧情重播采用半屏卡；结算增加角色回应。
+
+阿禾、罗掌柜、许掌柜为当前生成半身资源，尚非最终美术定稿。剧情与素材绑定集中在 `miniapp/ui/narrative.js`，布局在 `miniapp/styles/narrative.css`；核心规则与六关数值没有修改。
 
 ## 已实现
 
@@ -44,7 +50,7 @@ npm start
 3. 入口 `app.json` → `pages/index/index`；页面使用 `.js/.json/.xhsml/.css`，存储使用 `xhs.getStorageSync/setStorageSync` 官方示例签名。
 4. 工具中编译并进行设备预览，重点检查模板表达式、CSS 变量/遮罩/clip-path、图片布局、安全区和本地存储。
 
-**当前没有 AppID、官方工具编译或真机结果。** Native adapter 测试是 Node 中的 Page/setData 模拟，不是平台测试。素材尚未做发布级优化，完整 `miniapp/assets` 约 26 MiB（含前期未使用生成素材）；平台包体、类目和准入条件仍待确认，不能据此直接发布。
+**当前没有 AppID、官方工具编译或真机结果。** Native adapter 测试是 Node 中的 Page/setData 模拟，不是平台测试。素材尚未做发布级优化，完整 `miniapp/assets` 约 33 MiB（含前期未使用生成素材）；平台包体、类目和准入条件仍待确认，不能据此直接发布。
 
 ## 测试
 
@@ -61,6 +67,7 @@ npm run build:web
 npm install --no-save playwright@1.62.1
 npm run test:browser
 npm run test:layout
+npm run test:narrative
 ```
 
 需要本地服务正在运行，并安装 Chrome。可用 `BROWSER_CHANNEL=chromium` 改用已安装的 Playwright Chromium。`BASE_URL` 可替换规则/关卡浏览器测试的入口。截图输出到 `outputs/`。
