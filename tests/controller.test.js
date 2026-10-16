@@ -10,3 +10,11 @@ test('损坏/不支持版本进度恢复默认，读写失败不影响游玩',()
 test('新章节只在前章通关后开放，进度重载与中途局面分离',()=>{let saved;const storage={read:()=>saved,write:(key,data)=>saved=JSON.parse(JSON.stringify(data))};const g=C.create(storage);g.dispatch('chapters');g.dispatch('level:l02');assert.equal(g.view().screen,'chapters');g.dispatch('level:l01');win(g);g.dispatch('next');assert.equal(g.session.level.id,'l02');const reloaded=C.create(storage);assert.equal(reloaded.view().lastTitle,'两笔买卖');reloaded.dispatch('start');assert.equal(reloaded.session.state.stepsUsed,0);assert.equal(reloaded.session.state.iron,5);assert.equal(reloaded.progress.completed.includes('l01'),true);});
 test('教学不锁住实际操作；非法操作不推进标记；合法操作可撤销教学状态',()=>{const g=app();g.dispatch('play');const before=g.session.state;g.dispatch('depart');assert.deepEqual(g.session.state,before);assert.equal(g.view().modal.kind,'lesson');g.dispatch('exchange');assert.equal(g.session.state.exchanged,true);assert.equal(g.session.state.tutorialFlags.money,true);g.dispatch('undo');assert.deepEqual(g.session.state,before);});
 test('损坏存档的最近章节不能绕过解锁或导致开始按钮无响应',()=>{const g=C.create({read:()=>({version:2,completed:[],tutorialDone:[],last:'l06'})});g.dispatch('start');assert.equal(g.view().screen,'intro');assert.equal(g.session.level.id,'l01');});
+
+test('行商菜单只改变界面：取消保留状态，功能入口可达，背景交易被拦截',()=>{
+ const c=C.create();c.dispatch('start');c.dispatch('skip-intro');const before=c.session.state;
+ c.dispatch('menu');assert.equal(c.view().modal.kind,'menu');c.dispatch('exchange');assert.deepEqual(c.session.state,before);c.selectNode('bridge');assert.equal(c.view().modal.kind,'menu');c.dispatch('close');assert.deepEqual(c.session.state,before);
+ c.dispatch('menu');c.dispatch('rules');assert.equal(c.view().modal.kind,'rules');c.dispatch('close');c.dispatch('menu');c.dispatch('replay');assert.equal(c.view().modal.kind,'story');c.dispatch('close');
+ c.dispatch('exchange');assert.ok(c.session.state.exchanged);c.dispatch('menu');c.dispatch('retry');assert.equal(c.view().modal,null);assert.equal(c.session.state.exchanged,false);
+ c.dispatch('menu');c.dispatch('chapters');assert.equal(c.view().screen,'chapters');assert.equal(c.view().modal,null);
+});

@@ -1,7 +1,7 @@
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs');
 (async()=>{
  const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true}),page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url()+': '+r.status());});
- const action=id=>page.locator(`[data-action="${id}"]`).first().click();
+ const action=async id=>{if(["rules","replay","retry","chapters"].includes(id)&&!await page.locator(`[data-action="${id}"]`).count())await page.locator("[data-action=menu]").click();await page.locator(`[data-action="${id}"]`).first().click();};
  async function check(label){await page.locator('img').evaluateAll(imgs=>Promise.all(imgs.map(i=>i.decode())));const r=await page.evaluate(()=>({overflow:document.documentElement.scrollHeight>innerHeight||document.documentElement.scrollWidth>innerWidth,bad:[...document.querySelectorAll('button,.commission-card,.dialogue-copy,.chapter-card-copy')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&(r.bottom>innerHeight+1||r.top<0||r.left<0||r.right>innerWidth+1||(!e.matches(".node")&&e.scrollHeight>e.clientHeight+2))}).map(e=>e.className)}));assert.equal(r.overflow,false,label);assert.deepEqual(r.bad,[],label);}
  fs.mkdirSync('work/narrative-qa',{recursive:true});
  for(const [width,height] of [[375,812],[390,844],[430,932]]){
