@@ -2,9 +2,9 @@
 
 北宋四川交子文化背景的二维轻策略解谜原型。已实现第一关《一车铁钱》，采用参考图指导的生成式游戏美术。游戏数值不代表真实宋代货币兑换比例。
 
-## 在线试玩与仓库
+## 本地试玩与仓库
 
-在线版：https://shu-trade-routes.liu-ze-min-7252.chatgpt.site （当前仅站点所有者账号可访问）。
+当前只维护本地试玩和 GitHub，已停止 ChatGPT Sites 发布流程。
 
 GitHub私有仓库：https://github.com/zzzz1121/shu-trade-routes 。另一台电脑登录有权限的GitHub账号后克隆：
 
@@ -14,7 +14,7 @@ cd shu-trade-routes
 npm start
 ```
 
-网页静态包：`npm run build:web` 输出到 `dist/`，与本地试玩及小程序共用同一套规则源文件。Sites站点身份保存在 `.openai/hosting.json`；后续发布复用这个站点，不另建。GitHub保存完整开发源码，Sites发布浏览器运行包；推送GitHub不会自动发布Sites。
+网页静态包：`npm run build:web` 输出到 `dist/`，与本地试玩及小程序共用同一套规则源文件。构建静态包不会自动发布。历史托管配置已移到 `docs/archive/sites-hosting.json`，不再作为当前发布配置。
 
 ## 本地试玩
 
@@ -73,11 +73,6 @@ npm test
 
 指定解法：兑换 5 得 4 交子，带 3 铁钱；经桥付 1 钱，在布铺付 2 铁钱+4 交子，3 步交付余额 0。走街巷、后巷免桥费，4 步交付剩 1 铁钱。兑换 3/4 以及其他合法混合付款也能通关。
 
-## 两台电脑协作
-
-首次在第二台电脑：从 GitHub 克隆仓库，用 VS Code 打开，安装 Node 后 `npm start`。
-
-日常开始前 `git pull --ff-only`；完成后 `git add .`、`git commit -m "说明修改"`、`git push`。避免两台电脑同时修改同一文件；较大功能用单独分支。AppID/开发者工具本地配置被 gitignore 排除，每台电脑独立配置。不在仓库提交令牌或账号凭据。
 
 ## 后续优先级
 

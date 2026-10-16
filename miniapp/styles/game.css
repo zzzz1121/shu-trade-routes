@@ -44,3 +44,8 @@ html,body,page{margin:0;height:100%;overflow:hidden;background:#e9e8df;color:var
 .continuation-frame{position:absolute;left:0;top:50%;width:100%;aspect-ratio:2/3;min-height:100%;transform:translateY(-50%)}
 .continuation-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(var(--art-saturation))}
 .scene-art{position:absolute;inset:0;pointer-events:none;z-index:0;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(to bottom,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
+
+/* Continue foreground scenery behind the dock and its side gutters to the safe-area edge. */
+.panel-terrain{position:absolute;left:0;right:0;top:40%;bottom:0;overflow:hidden;pointer-events:none;z-index:0}
+.panel-terrain img,.panel-terrain image{position:absolute;left:0;bottom:0;display:block;width:100%;height:auto;aspect-ratio:2/3;filter:saturate(var(--art-saturation));pointer-events:none}
+.scene-continuation{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 32px),transparent)}
