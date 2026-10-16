@@ -17,6 +17,7 @@ function subtract(a,b){const [x,y,w,h]=a,[bx,by,bw,bh]=b,l=Math.max(x,bx),t=Math
 let remaining=[[0,0,100,100]];Object.values(frames).forEach(frame=>{remaining=remaining.flatMap(r=>subtract(r,frame));});
 const terrainTiles=remaining.map((r,i)=>tile('terrain-'+i,r));
 function decorate(v){
+ if(v.level.id!=='l01')return modular(v);
  v.terrainTiles=terrainTiles;
  v.artRegions=v.nodes.map(n=>Object.assign(tile(n.id,frames[n.id]),{name:n.name}));
  v.nodes=v.nodes.map(n=>{const pos=positions[n.id];return Object.assign({},n,{name:n.id==='delivery'?'交付商行':n.name,style:'left:'+pos[0]+'%;top:'+pos[1]+'%;',asset:'/assets/approved/town-atlas.png',goal:n.id===v.level.goal,tag:n.current?'所在':n.reachable?'可达':''});});
@@ -26,20 +27,15 @@ function decorate(v){
  v.bagWeight=v.s.departed?v.weight:0;
  v.slots=Array.from({length:v.level.capacity},(_,i)=>({id:i,kind:i<v.bagWeight?(i<v.s.iron?'iron':'cloth'):'empty'}));
  v.locationName=v.nodes.find(n=>n.current).name;
- v.preparationText='待携带 '+v.weight+' / '+v.level.capacity+' 格'+(v.weight>v.level.capacity?'，请先兑换减重':'，可确认出发');
+ v.modular=false;
  return v;
 }
-function feedback(result, action, before, level){
- if(!result.ok)return result.message;
- const s=result.state;
- if(action.type==='move'){
-  const n=level.nodes.find(n=>n.id===s.location),fee=before.iron-s.iron;
-  return '抵达'+(n.id===level.goal?'交付商行':n.name)+(fee?' · 过桥 −'+fee+' 铁钱':' · 行动 +1');
- }
- if(action.type==='exchange')return '已兑换：−'+action.amount+' 铁钱，+'+(s.note-before.note)+' 交子';
- if(action.type==='depart')return '已出发';
- if(action.type==='buy')return '布料 +1 · 铁钱 −'+action.iron+' · 交子 −'+action.note;
- return result.message;
+function modular(v){
+ v.modular=true;v.terrainTiles=[];v.artRegions=[];v.routeSegments=[];
+ const ratio=634/522;
+ v.nodes.forEach(n=>{v.artRegions.push({id:n.id,name:n.name,style:'left:'+(n.x-17)+'%;top:'+(n.y-29)+'%;width:34%;height:32%;',imageStyle:'width:300%;height:200%;left:'+(-(n.art%3)*100)+'%;top:'+(-Math.floor(n.art/3)*100)+'%;'});});
+ v.level.edges.forEach(e=>{const a=v.nodes.find(n=>n.id===e[0]),b=v.nodes.find(n=>n.id===e[1]),dx=b.x-a.x,dy=(b.y-a.y)/ratio;v.routeSegments.push({id:e.join('-'),edge:e.join('-'),style:'left:'+a.x+'%;top:'+a.y+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});});
+ return v;
 }
-return {decorate:decorate,feedback:feedback,frames:frames,terrainTiles:terrainTiles};
+return {decorate:decorate,frames:frames,terrainTiles:terrainTiles};
 });

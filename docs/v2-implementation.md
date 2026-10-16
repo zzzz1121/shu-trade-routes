@@ -1,0 +1,19 @@
+# V2.0 实施记录
+
+## 第一批：布匹之约
+
+已实现独立仓库/拟装载/随身资产、按商号交子与货物状态、交易编号、移动预览确认、独立金额调节、教学跳过、三级提示、交易账目和纯规则死局搜索。两个端共用 controller/presenter；规则仍由纯 JavaScript engine 的 apply/createSession 提供。
+
+核心契约：initial(level)、apply(state, action, level)、createSession(level)。命令失败返回原状态、code/message/details，不污染历史。transition 是不带死局检查的原子规则转换，供预览与有限搜索使用；canFinish 不改变真实状态。每次进入收费节点均扣费。
+
+初始仓库 warehouseIron=8，preparation 是拟装载资产，iron=0；出发后将拟装载转为随身资产并清空仓库。成功交付移除目标货物，delivery 保留交付前货物和负重。undo 恢复整份局面含事件/教学标记；章节解锁独立保存，不回退。
+
+24 项规则/控制器/场景/适配器测试通过；三种手机尺寸浏览器全流程通过。新增 getStorageSync/setStorageSync 依官方示例调用，待真机验证。
+
+## 历史来源
+
+主动查看的交子史话只使用两条简短概述，不在主界面增加免责声明。已于 2026-10-16 阅读原文：
+- 成都博物馆《看展丨“钱眼”看成都》：https://www.cdmuseum.com/xinwen/202204/2721.html
+- 何平（2023），全国哲学社会科学工作办公室：https://www.nopss.gov.cn/n1/2023/0911/c219544-40075019.html
+
+人物、商号、金额和商路为游戏设定；无文物图像下载。

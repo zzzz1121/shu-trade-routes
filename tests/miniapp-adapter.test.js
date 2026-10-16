@@ -1,50 +1,6 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const vm = require('node:vm');
-const fs = require('node:fs');
-const { createRequire } = require('node:module');
-const path = require('node:path');
-function page() {
-  const file = path.resolve(__dirname, '../miniapp/pages/index/index.js');
-  let instance;
-  vm.runInNewContext(fs.readFileSync(file, 'utf8'), {
-    require: createRequire(file),
-    Page: definition => { instance = definition; },
-  });
-  instance.setData = function (next) { Object.assign(this.data, next); };
-  instance.onLoad();
-  return instance;
-}
-function action(p, name) { p.onAction({ currentTarget: { dataset: { action: name } } }); }
-function move(p, node) { p.onMove({ currentTarget: { dataset: { node } } }); }
-test('小程序 Page 适配器：两种路线事件绑定与结算数据（非官方编译验证）', () => {
-  for (const route of [['bridge', 'shop'], ['street', 'alley', 'shop']]) {
-    const p = page();
-    action(p, 'intro'); action(p, 'play');
-    action(p, 'x+'); action(p, 'x+'); action(p, 'exchange'); action(p, 'depart');
-    route.forEach(n => move(p, n));
-    action(p, 'buy'); move(p, 'delivery'); action(p, 'deliver');
-    assert.equal(p.data.s.status, 'won');
-    action(p, 'undo'); assert.equal(p.data.s.status, 'playing');
-    assert.equal(p.data.s.cloth, 1);
-    action(p, 'retry'); assert.equal(p.data.s.iron, 8);
-    assert.equal(p.data.canUndo, false);
-  }
-});
-test('小程序 Page 适配器：非法移动反馈、选择器范围与规则开关', () => {
-  const p = page(); move(p, 'bridge');
-  assert.equal(p.data.error, true);
-  assert.equal(p.data.s.steps, 0);
-  for (let i = 0; i < 12; i++) action(p, 'x+');
-  assert.equal(p.data.x, 8);
-  for (let i = 0; i < 12; i++) action(p, 'p-');
-  assert.equal(p.data.p, 0);
-  action(p, 'rules'); assert.equal(p.data.rules, true);
-});
-test('原生展示：点击当前地点不移动，桥费明确，规则分页不影响状态',()=>{
- const p=page();move(p,'warehouse');assert.equal(p.data.error,false);assert.equal(p.data.s.steps,0);
- action(p,'x+');action(p,'x+');action(p,'exchange');action(p,'depart');
- p.onMove({currentTarget:{dataset:{building:'bridge'}}});assert.match(p.data.message,/过桥 −1/);assert.equal(p.data.s.steps,1);
- const before=p.session.state;move(p,'bridge');assert.deepEqual(p.session.state,before);assert.equal(p.data.error,false);
- action(p,'rules');action(p,'rule-next');assert.equal(p.data.rulePage,1);assert.equal(p.data.ruleTitle,'买布与商路');action(p,'rules');assert.equal(p.data.rules,false);assert.deepEqual(p.session.state,before);
-});
+const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path'),{createRequire}=require('node:module');
+function page(){const file=path.resolve(__dirname,'../miniapp/pages/index/index.js');let p;vm.runInNewContext(fs.readFileSync(file,'utf8'),{require:createRequire(file),Page:d=>p=d,xhs:{getStorageSync:()=>null,setStorageSync:()=>{}}});p.setData=function(data){Object.assign(this.data,data);};p.onLoad();return p;}
+const action=(p,id)=>p.onAction({currentTarget:{dataset:{action:id}}});
+function move(p,id){p.onMove({currentTarget:{dataset:{node:id}}});assert.equal(p.data.modal.kind,'move');action(p,'confirm-move');}
+test('原生适配器：共用控制器、移动确认、两路通关（非官方编译）',()=>{for(const route of [['bridge','shop'],['street','alley','shop']]){const p=page();action(p,'start');action(p,'skip-intro');action(p,'x+');action(p,'x+');action(p,'exchange');action(p,'depart');route.forEach(n=>move(p,n));for(let i=0;i<4;i++)action(p,'n+');action(p,'transact');move(p,'delivery');action(p,'deliver');assert.equal(p.data.s.status,'won');action(p,'undo');assert.equal(p.data.s.cargoById.cloth,1);action(p,'retry');assert.equal(p.data.s.iron,0);assert.equal(p.data.s.warehouseIron,8);}});
+test('原生适配器：当前地点资料与规则分页不耗步',()=>{const p=page();action(p,'start');action(p,'skip-intro');p.onMove({currentTarget:{dataset:{building:'warehouse'}}});assert.equal(p.data.modal.canMove,false);action(p,'close');action(p,'rules');action(p,'rule-next');assert.equal(p.data.modal.page,1);action(p,'close');assert.equal(p.data.s.stepsUsed,0);});

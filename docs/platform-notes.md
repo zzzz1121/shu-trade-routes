@@ -16,3 +16,7 @@
 技术选择：原生页面、浏览器 DOM、Node 标准库提供基础能力；无大型游戏引擎或生产依赖。此关卡无需额外渲染/状态库，避免为几处按钮引入跨平台框架。可选浏览器测试复用成熟开源 Playwright（测试环境库，不进入小程序包）。
 
 待平台验收：模板指令与表达式、CSS 变量/@import、页面滚动、安全区域、基础库兼容；A/B 路线真机点击、撤销、重试、重复点击。当前仅声明规则与浏览器验证通过。
+
+## 2026-10-16：本地进度 API
+
+复核小程序官方页面 getStorageSync（https://miniapp.xiaohongshu.com/doc/DC991729）和 setStorageSync（https://miniapp.xiaohongshu.com/doc/DC075758）的实例：`xhs.getStorageSync(key)`、`xhs.setStorageSync(key,data)`。官方参数表与实例对返回包装有表述差异；适配器兼容直接值及 data 包装。仅记录章节/教程进度，不保存中途局面。接口调用仍需开发者工具和真机复核。
