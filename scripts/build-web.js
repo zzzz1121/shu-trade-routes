@@ -21,3 +21,5 @@ console.log('Static game ready: ' + out);
 for (const file of ['buildings.png','terrain.png','goods.png']) copy('miniapp/assets/v2/' + file);
 
 for (const file of ['ahe.png','luo.png','xu.png']) copy('miniapp/assets/characters/' + file);
+
+copy('miniapp/assets/chapters/chapter-scenes.png');

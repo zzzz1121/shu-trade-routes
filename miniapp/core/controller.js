@@ -22,14 +22,15 @@ function create(storage={}){
   ui.modal={kind:'move',nodeId:id,title:n.name,body:[id===s.nodeId?'当前所在地':'移动 1 步'+(n.toll?' · 每次进入付 '+n.toll+' 铁钱':' · 无通行费'),...trades,...(r&&!r.ok?[r.message]:[])].join('\n'),canMove:!!(r&&r.ok)};
  }
  function dispatch(id){const l=session.level,s=session.state;
+  // Returning to the entry screen is also used for browser page restoration.
+  if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
   if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry'].includes(id))ui.modal=null;
-  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next'];
+  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next'];
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
   if(id==='start'){begin(progress.last);return;}
   if(id==='chapters'){ui.screen='chapters';ui.modal=null;return;}
-  if(id==='home'){ui.screen='home';return;}
   if(id==='play'||id==='skip-intro'){ui.screen='play';if(id==='skip-intro'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();}else lesson('money');return;}
   if(id==='close'){if(ui.modal&&ui.modal.kind==='lesson')session.markTutorial(ui.modal.id);ui.modal=null;return;}
   if(id==='confirm-move'){const m=ui.modal;if(m&&m.kind==='move'&&m.canMove)act({type:'move',to:m.nodeId});return;}
@@ -41,8 +42,6 @@ function create(storage={}){
   if(id==='rule-next'||id==='rule-prev'){const max=P.view(session,ui).rules.length-1;ui.modal.page=Math.max(0,Math.min(max,ui.modal.page+(id==='rule-next'?1:-1)));return;}
   if(id==='hint'){ui.hint=0;ui.modal={kind:'hint',title:'行商提示',body:l.hints[0]};return;}
   if(id==='hint-next'){ui.hint=Math.min(2,ui.hint+1);ui.modal.body=l.hints[ui.hint];return;}
-  if(id==='history'){ui.modal={kind:'history',page:0};return;}
-  if(id==='history-next'||id==='history-prev'){ui.modal.page=Math.max(0,Math.min(1,ui.modal.page+(id==='history-next'?1:-1)));return;}
   if(id==='retry'){session.reset();Object.assign(ui,{x:3,message:'',error:false,modal:null,skip:progress.tutorialDone.includes(l.id),hint:0});defaults();return;}
   if(id==='undo'){session.undo();ui.message='已撤销';ui.error=false;ui.modal=null;defaults();return;}
   if(id==='next'){const next=Levels.all[l.number];if(next)begin(next.id);else ui.screen='chapters';return;}
@@ -53,7 +52,6 @@ function create(storage={}){
  }
  function view(){const v=P.view(session,ui),m=ui.modal?Object.assign({},ui.modal):null;
   if(m&&m.kind==='rules'){const rule=v.rules[m.page];m.title=rule[0];m.body=rule[1];m.count=v.rules.length;}
-  if(m&&m.kind==='history'){const pages=[['交子的来路','北宋蜀地铁钱沉重，携带不便。民间票据的发展与商号信用和兑现能力相连。'],['从民间到官办','天圣元年设益州交子务，次年发行官交子。\n资料：成都博物馆；全国哲学社会科学工作办公室，何平（2023）。']];m.title=pages[m.page][0];m.body=pages[m.page][1];m.count=2;}
   return Object.assign(v,{screen:ui.screen,message:ui.message,error:ui.error,modal:m,hintLevel:ui.hint,chapters:Levels.all.map(l=>({id:l.id,title:l.title,number:l.number,mission:l.mission,locked:!unlocked(l),completed:progress.completed.includes(l.id)})),lastTitle:Levels.get(progress.last).title,hasProgress:progress.completed.length>0,nextLabel:lNext(v.level)});
  }
  function lNext(l){return l.number<Levels.all.length?'下一关':'查看全部章节';}

@@ -17,3 +17,10 @@ test('地点氛围文案不替代实时费用条件，查看与取消不改变�
 test('失败回应明确可撤销，不伪造通关回应',()=>{
  const v=game('l05').view();v.s.status='failed';N.decorate(v);assert.equal(v.outroActor.name,'阿禾');assert.match(v.outroText,/退回上一步/);
 });
+
+test('六关史话融入成功回应；失败和未交付不出现，不改变状态',()=>{
+ const texts=new Set();for(const l of L.all){const c=game(l.id);const before=c.session.state;let v=N.decorate(c.view());assert.equal(v.historyLine,'');v=c.view();v.s.status='failed';assert.equal(N.decorate(v).historyLine,'');v=c.view();v.s.status='won';v=N.decorate(v);assert.ok(v.historyLine.length>20);texts.add(v.historyLine);assert.deepEqual(c.session.state,before);}assert.equal(texts.size,6);
+});
+test('章节有六个独立插画单元且不改游戏拓扑',()=>{
+ const c=game('l06'),before=JSON.stringify(c.session.level);const v=N.decorate(c.view());assert.equal(new Set(v.chapters.map(x=>x.artStyle)).size,6);assert.equal(new Set(v.chapters.map(x=>x.positionStyle)).size,6);assert.ok(v.chapters.every(x=>x.scene.endsWith('/chapters/chapter-scenes.png')));assert.equal(v.chapterRoads.length,5);assert.equal(JSON.stringify(c.session.level),before);
+});

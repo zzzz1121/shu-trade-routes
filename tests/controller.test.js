@@ -18,3 +18,9 @@ test('行商菜单只改变界面：取消保留状态，功能入口可达，�
  c.dispatch('exchange');assert.ok(c.session.state.exchanged);c.dispatch('menu');c.dispatch('retry');assert.equal(c.view().modal,null);assert.equal(c.session.state.exchanged,false);
  c.dispatch('menu');c.dispatch('chapters');assert.equal(c.view().screen,'chapters');assert.equal(c.view().modal,null);
 });
+
+test('刷新重建时固定回首页，保留章节进度；缓存返回也能收起菜单回首页',()=>{
+ let saved={version:2,completed:['l01','l02'],tutorialDone:['l01','l02','l03'],last:'l03'};const storage={read:()=>saved,write:(k,v)=>{saved=JSON.parse(JSON.stringify(v));}};
+ let c=C.create(storage);assert.equal(c.view().screen,'home');c.dispatch('start');assert.equal(c.view().screen,'play');c.selectNode('exchange');c.dispatch('confirm-move');c.dispatch('menu');const state=c.session.state;c.dispatch('home');assert.equal(c.view().screen,'home');assert.equal(c.view().modal,null);assert.deepEqual(c.session.state,state);
+ c=C.create(storage);assert.equal(c.view().screen,'home');assert.equal(c.view().modal,null);assert.equal(c.session.state.stepsUsed,0);assert.deepEqual(c.progress,saved);assert.equal(c.view().chapters[2].locked,false);
+});
