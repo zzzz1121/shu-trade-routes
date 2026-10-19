@@ -9,7 +9,9 @@
     "test:browser": "node tests/fixed-screen.cjs && node tests/campaign-browser.cjs",
     "test:layout": "node tests/terrain-extension.cjs",
     "test:narrative": "node tests/narrative-browser.cjs",
-    "test:journey": "node tests/journey-browser.cjs"
+    "test:journey": "node tests/journey-browser.cjs",
+    "build:story": "python scripts/build-story-concept.py",
+    "test:story-ui": "node tests/story-concept-browser.cjs"
   },
   "engines": {
     "node": ">=18"

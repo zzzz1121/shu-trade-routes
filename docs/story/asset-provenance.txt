@@ -1,0 +1,11 @@
+概念美术记录（内置 imagegen）
+
+1. web/concept/market-dusk.png
+原创夜雨街市背景。提示词：Song-era Sichuan merchant visual novel; eye-level narrow riverside market lane at blue dusk after rain; timber shops, blue-grey tiles, stone bridge, amber paper lanterns, damp slate reflecting light, tea stall, bamboo baskets and folded blue cloth; foreground open for characters; hand-painted illustrated game environment; muted indigo, jade and amber; portrait composition; no text, no UI, no main character, no isometric map.
+结果：夜景氛围稿，细节较写实，与角色仍需后续统一笔触；本轮用作视觉提案，不称最终历史建筑复原。
+
+2. web/concept/ahe-expressions.png
+参考 miniapp/assets/characters/portraits-front.png 左侧阿禾。提示词：identity-preserving expression sprite sheet; ONLY Ahe; same sage jacket, ivory collar, ponytail, green tie, brown strap; front-facing same scale busts; exact 3-column 2-row grid; smile, worried, embarrassed, firm, hurt, relieved in row-major order; distinct face geometry; transparent canvas; no labels, no background no glow.
+结果：1254×1254透明图集，单格约418×627；按真实单格比例显示，不以方格强行拉伸。初稿可辨六表情；正式版仍需对齐眼位、颈部与胸像边缘。
+
+不覆盖旧人物稿；新素材仅用于独立视觉样机。

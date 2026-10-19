@@ -6,3 +6,6 @@ miniapp/project.private.config.json
 outputs/*.zip
 dist/
 outputs/v2-*.png
+outputs/story-home-*.png
+outputs/story-dialogue-*.png
+outputs/story-choice-*.png

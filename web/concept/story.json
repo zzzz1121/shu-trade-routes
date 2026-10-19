@@ -1,0 +1,2772 @@
+{
+  "title": "蜀地钱路 · 灯下旧账",
+  "version": 1,
+  "start": "p0",
+  "draft": true,
+  "scenes": [
+    {
+      "id": "p0",
+      "chapter": "序章·门还开着",
+      "title": "旧铺门前",
+      "time": "第一日，清晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "p0-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "门闩比你记得的沉。你抬起肩，门终于让出一道缝，积在门槛里的雨水先流了进去。"
+        },
+        {
+          "id": "p0-1",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "柜上的算盘还在，少了一颗珠。你把带回来的包袱放到桌上，桌脚轻轻一晃。"
+        },
+        {
+          "id": "p0-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "先修桌子，再开门。"
+        },
+        {
+          "id": "p0-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "顺序错了。"
+        },
+        {
+          "id": "p0-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "门外的人收拢纸伞，先拿鞋尖拨开那块松动的砖，再侧身进来。她的发带上沾着一粒细小的槐花。"
+        },
+        {
+          "id": "p0-5",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "先吃饭。桌子不饿，你饿。"
+        },
+        {
+          "id": "p0-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你怎么知道我今天回来？"
+        },
+        {
+          "id": "p0-7",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "你托人捎的那封信，我替你压在罗掌柜柜上了。他说今早有生意，我就来看看。"
+        },
+        {
+          "id": "p0-8",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她从袖里取出一个纸包。热气已经散了，饼却还软，边上留着两道没掰开的折痕。"
+        },
+        {
+          "id": "p0-9",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你已经替我把生意接了？"
+        },
+        {
+          "id": "p0-10",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "没有。接不接，得你自己说。"
+        },
+        {
+          "id": "p0-11",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "我只替你把饼买了。这个你可以欠着。"
+        },
+        {
+          "id": "p0-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你接过纸包。她没有催你出门，反倒蹲下，往晃动的桌脚下塞了一块木片。"
+        },
+        {
+          "id": "p0-13",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你不忙？"
+        },
+        {
+          "id": "p0-14",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "忙。今天要从罗记领货款，到布铺取布，再送回来。"
+        },
+        {
+          "id": "p0-15",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "不过，两个人一起，路上还能有个人说话。"
+        },
+        {
+          "id": "p0-16",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你取下挂在门后的旧钱袋。袋口内侧缝着一道蓝线，针脚细密，已经磨得发白。"
+        },
+        {
+          "id": "p0-17",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "这个带子……算了，先别装太满。"
+        },
+        {
+          "id": "p0-18",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你见过？"
+        },
+        {
+          "id": "p0-19",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "城里这样的旧东西多。走吧，趁布铺还没起价。"
+        }
+      ],
+      "next": "p1"
+    },
+    {
+      "id": "p1",
+      "chapter": "序章·门还开着",
+      "title": "桥头",
+      "time": "第一日，早晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "p1-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "雨停了，檐水还在落。你跟着阿禾穿过巷口，肩上的包袱一次次碰到门柱。"
+        },
+        {
+          "id": "p1-1",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "你是打算把整间铺子背过去？"
+        },
+        {
+          "id": "p1-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "账簿、衣裳、路上没吃完的干粮。哪样都用得上。"
+        },
+        {
+          "id": "p1-3",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "用得上，跟今天要背，是两回事。"
+        },
+        {
+          "id": "p1-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她朝你伸出手，手掌朝上，没有直接去拉你的带子。"
+        },
+        {
+          "id": "p1-5",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "分我一点？先说好，替你背东西不抵饼钱。"
+        },
+        {
+          "id": "p1-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "石桥上来了一辆小车，桥板被压得轻响。她往旁边让了半步，等你回答。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "p1-choice",
+        "prompt": "你怎么接她伸来的手？",
+        "options": [
+          {
+            "id": "share",
+            "text": "分一半给她。",
+            "set": {
+              "load": "share"
+            },
+            "target": "p1-share"
+          },
+          {
+            "id": "carry",
+            "text": "自己背，但请她带路。",
+            "set": {
+              "load": "carry"
+            },
+            "target": "p1-carry"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c11",
+      "chapter": "第一章·布匹之约",
+      "title": "罗记柜前",
+      "time": "第一日，上午",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c11-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜正把一条蓝布带绕到账本上。看见你，他的手停了停，才把绳结打好。"
+        },
+        {
+          "id": "c11-1",
+          "speaker": "罗掌柜",
+          "expression": "smile",
+          "text": "回来了。门开着？"
+        },
+        {
+          "id": "c11-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "开着。就是桌子有点不稳。"
+        },
+        {
+          "id": "c11-3",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "旧木头，受过潮。找人换条腿，比全扔了省。"
+        },
+        {
+          "id": "c11-4",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "他还给你留着第一笔工钱，怕你一回来就跑了。"
+        },
+        {
+          "id": "c11-5",
+          "speaker": "罗掌柜",
+          "expression": "smile",
+          "text": "我怕的是你们空着肚子给我搬布。"
+        },
+        {
+          "id": "c11-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "他将货单转向你。纸上写着布铺和交付的地址，货价、工钱分在两行，没混在一起。"
+        },
+        {
+          "id": "c11-7",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "货款是货款，工钱是工钱。送到就结，不拿你们的钱垫我的生意。"
+        },
+        {
+          "id": "c11-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "怎么还有交子？"
+        },
+        {
+          "id": "c11-9",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "布商收一部分。要带多少现钱，你们自己算。桥近，要付过路钱；后巷远些。"
+        },
+        {
+          "id": "c11-10",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "我认得路。今天听你安排。"
+        },
+        {
+          "id": "c11-11",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你看向她。她已经把手从钱袋边收回，等你先把货单看完。"
+        },
+        {
+          "id": "c11-12",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "还有，布铺若给许记的票，先带回来给我看。别急着拿到别家付。"
+        },
+        {
+          "id": "c11-13",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "许记的票有什么问题？"
+        },
+        {
+          "id": "c11-14",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "各家收的不同。问清楚，总没坏处。"
+        },
+        {
+          "id": "c11-15",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "他把账本往里推了一寸，蓝线下露出一角旧纸。折痕与阿禾早先避开的目光，在你心里轻轻碰了一下。"
+        }
+      ],
+      "next": "c12"
+    },
+    {
+      "id": "c12",
+      "chapter": "第一章·布匹之约",
+      "title": "布铺檐下",
+      "time": "第一日，中午",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c12-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "布匹放上柜时，沾着一股新浆的气味。阿禾把最外一层翻起来，给你看经纬间的细线。"
+        },
+        {
+          "id": "c12-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "看这里。不是让你找便宜，是别把坏的带回去。"
+        },
+        {
+          "id": "c12-load-carry",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "你早上自己背那一段，肩上都红了。这匹布总该让我扶一角吧。",
+          "condition": {
+            "load": "carry"
+          }
+        },
+        {
+          "id": "c12-load-share",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "刚才分给我的包袱里怎么还有空袋子？等回去，布你也得分我一角扶着。",
+          "condition": {
+            "load": "share"
+          }
+        },
+        {
+          "id": "c12-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你刚才怎么不替我说？"
+        },
+        {
+          "id": "c12-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "你问得挺清楚。我总不能连你要不要多看一眼都替你决定。"
+        },
+        {
+          "id": "c12-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把钱数好，她便撑着布的一角等你。手指白净的地方很少，指节上有一道已经结痂的擦伤。"
+        },
+        {
+          "id": "c12-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "手怎么了？"
+        },
+        {
+          "id": "c12-6",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "昨儿抬箱子，没扶稳。你别看，快好了。"
+        },
+        {
+          "id": "c12-7",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "抬什么箱子？"
+        },
+        {
+          "id": "c12-8",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "替许记搬的。空箱子。"
+        },
+        {
+          "id": "c12-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她把“空”字说得很轻，随后抖平布边，不再往下讲。"
+        },
+        {
+          "id": "c12-10",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "回去之后，罗掌柜要说布好，你记得分我一句功劳。"
+        },
+        {
+          "id": "c12-11",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "只分一句？"
+        },
+        {
+          "id": "c12-12",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "先一句。做熟了再加。"
+        },
+        {
+          "id": "c12-13",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们把布卷好。她没再提那只箱子，你也没有立刻追问。街上传来卖热汤的声音，午后的生意照常做着。"
+        }
+      ],
+      "next": "c13",
+      "interlude": {
+        "levelId": "l01",
+        "title": "布匹之约",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c13",
+      "chapter": "第一章·布匹之约",
+      "title": "商行后门",
+      "time": "第一日，傍晚",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c13-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜验过布，把工钱放在货单旁边，先问你累不累，才低头看布商附来的票。"
+        },
+        {
+          "id": "c13-1",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "这张我留着。"
+        },
+        {
+          "id": "c13-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你先前就在等它？"
+        },
+        {
+          "id": "c13-3",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "这笔往来我认得。我付给你们现钱，不耽误你们用。"
+        },
+        {
+          "id": "c13-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾把空手停在桌沿。你记起早上她替你垫的饼钱，刚要取钱，她却摆了摆手。"
+        },
+        {
+          "id": "c13-5",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "明早再说。你明早还来不来？"
+        },
+        {
+          "id": "c13-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "有生意？"
+        },
+        {
+          "id": "c13-7",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "有粥。生意也有，两家铺子，粮食和药材。"
+        },
+        {
+          "id": "c13-8",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜把许记的票夹进账本。蓝线正好压住票上的日期，印泥却从纸角透出来，红得很新。"
+        },
+        {
+          "id": "c13-9",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "到期了么？"
+        },
+        {
+          "id": "c13-10",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "到了。"
+        },
+        {
+          "id": "c13-11",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "那为什么不兑？"
+        },
+        {
+          "id": "c13-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "门外有车辙滚过。罗掌柜等声音过去，才重新拿起那枚压纸的钱。"
+        },
+        {
+          "id": "c13-13",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "明日再问。我先把今天的账结给你。"
+        },
+        {
+          "id": "c13-14",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾没有替他接话。出门时，她把伞递到你手里，自己走进檐下的一段阴影。"
+        }
+      ],
+      "next": "c21"
+    },
+    {
+      "id": "c21",
+      "chapter": "第二章·两笔买卖",
+      "title": "粥摊",
+      "time": "第二日，早晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c21-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾比你先到，面前摆着两只碗。她把其中一只推过来，用手背试了试碗沿的温度。"
+        },
+        {
+          "id": "c21-1",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "还热。今天算我来早了，不算你迟。"
+        },
+        {
+          "id": "c21-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "昨天的饼钱还没还。"
+        },
+        {
+          "id": "c21-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "记着呢。别以为一碗粥就能把那笔糊过去。"
+        },
+        {
+          "id": "c21-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她从钱袋里取出几枚铁钱，一枚枚按在桌上。数到最后，停了一下，又把其中一枚放回去。"
+        },
+        {
+          "id": "c21-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "不够？"
+        },
+        {
+          "id": "c21-6",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "够。给两碗，不加菜。"
+        },
+        {
+          "id": "c21-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你没有马上把自己的钱推过去。她也没等你解围，抬头便跟摊主说，今天菜咸，少放些。"
+        },
+        {
+          "id": "c21-8",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "我原来想，攒到月底，就出一趟远门。"
+        },
+        {
+          "id": "c21-9",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "往哪里？"
+        },
+        {
+          "id": "c21-10",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "往没走过的地方。先走到驿路那头，再看下一程。"
+        },
+        {
+          "id": "c21-11",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "就你一个人？"
+        },
+        {
+          "id": "c21-12",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "也不是没走过。只是……这次想拿自己的本钱去。"
+        },
+        {
+          "id": "c21-13",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她从贴身的小袋里取出一张纸，放到两只碗中间。纸边有一道蓝线，是后来缝上去的。"
+        },
+        {
+          "id": "c21-14",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "我把攒的钱存到许记了。说好这两天取。昨天柜上只说，再等等。"
+        },
+        {
+          "id": "c21-15",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "你先别替我答应什么。也别看我这样，就觉得我一定信得过他们。"
+        }
+      ],
+      "next": "c22"
+    },
+    {
+      "id": "c22",
+      "chapter": "第二章·两笔买卖",
+      "title": "粮铺与药铺之间",
+      "time": "第二日，午后",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c22-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "粮铺的伙计把粮袋压上你的肩，粗布立刻勒紧。阿禾替你扶住袋底，一直扶到你站稳。"
+        },
+        {
+          "id": "c22-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "先走哪家？"
+        },
+        {
+          "id": "c22-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "先看单子，不让钱和货一块把人压住。"
+        },
+        {
+          "id": "c22-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "这话好。昨天还想背着整间铺子走，今天就学会了。"
+        },
+        {
+          "id": "c22-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "药铺门口有人问能不能只用交子付。柜里回了一句，要看哪家开的，问话的人便把票重新收好。"
+        },
+        {
+          "id": "c22-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你昨天搬的空箱子，是钱箱？"
+        },
+        {
+          "id": "c22-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾没停步，只把粮袋往你肩里推正了些。等走出几步，她才点头。"
+        },
+        {
+          "id": "c22-7",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "柜上让我帮着搬到后屋。箱子比我想的轻。"
+        },
+        {
+          "id": "c22-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "为什么昨天不说？"
+        },
+        {
+          "id": "c22-9",
+          "speaker": "阿禾",
+          "expression": "hurt",
+          "text": "我怕我自己想多了。也怕话传出去，连最后一点都取不回来。"
+        },
+        {
+          "id": "c22-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她抬起脸看你，眼睛没有躲。这一次，她没有把话接成玩笑。"
+        },
+        {
+          "id": "c22-11",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "可你问了，我就不能还说是寻常货箱。"
+        },
+        {
+          "id": "c22-12",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "今天把东西送完，一起去问。"
+        },
+        {
+          "id": "c22-13",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "好。问他们，不问街上的传话。"
+        }
+      ],
+      "next": "c23",
+      "interlude": {
+        "levelId": "l02",
+        "title": "两笔买卖",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c23",
+      "chapter": "第二章·两笔买卖",
+      "title": "旧铺灯下",
+      "time": "第二日，入夜",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c23-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把白天沾湿的货单摊在桌上。阿禾坐到另一边，把她那张旧票压在一只空茶碗下。"
+        },
+        {
+          "id": "c23-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "蓝线是我自己缝的。怕纸烂，也怕跟别人的混。"
+        },
+        {
+          "id": "c23-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我钱袋里也是蓝线。"
+        },
+        {
+          "id": "c23-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "小时候借你家针线，剩下一大团。你家长辈说，拿去，省得我次次来借。"
+        },
+        {
+          "id": "c23-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你终于想起她蹲在门槛上穿针的样子。那时她手小，要把线头含软了，才能穿过针眼。"
+        },
+        {
+          "id": "c23-5",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "我不是特意留到现在的。线结实，没用完而已。"
+        },
+        {
+          "id": "c23-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "灯芯炸了一点细响。她把票往你面前推了推，又没有完全松手。"
+        },
+        {
+          "id": "c23-7",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "你要看，我就给你看。不想看也成。明天陪我去，站在旁边就好。"
+        },
+        {
+          "id": "c23-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "看不看，都不替你做主。"
+        },
+        {
+          "id": "c23-9",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "嗯。我就是想，柜里一问话，总得有个人听见。"
+        },
+        {
+          "id": "c23-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她说完，才把一直绷着的肩放下来。桌脚下的木片稳稳顶着，茶水没有晃。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "c23-choice",
+        "prompt": "她把自己的到期票推到你面前。",
+        "options": [
+          {
+            "id": "open",
+            "text": "经她同意，仔细看日期和数额。",
+            "set": {
+              "ticket": "open"
+            },
+            "target": "c23-open"
+          },
+          {
+            "id": "private",
+            "text": "不看她的私账，答应明天陪她去。",
+            "set": {
+              "ticket": "private"
+            },
+            "target": "c23-private"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c31",
+      "chapter": "第三章·谁信这张纸",
+      "title": "两市街口",
+      "time": "第三日，上午",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c31-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "东市愿收的票，到西市便被推回。你眼看着同一张纸在两张柜台前换了待遇，纸本身却没有变。"
+        },
+        {
+          "id": "c31-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "先记下来。别回头只记得哪家态度不好。"
+        },
+        {
+          "id": "c31-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你不生气？"
+        },
+        {
+          "id": "c31-3",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "生气。但人家不认许记，又不是今天才说。该问的是许记，为什么到日子不兑。"
+        },
+        {
+          "id": "c31-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们在换票铺前停下。换一张能用的票，要折去一部分数额。阿禾把指尖按在自己的旧票上，没有递出去。"
+        },
+        {
+          "id": "c31-5",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "如果只是晚一天，我不想折。如果还要晚很久……"
+        },
+        {
+          "id": "c31-ticket-private",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "我自己报日期和数额。若我急起来说乱了，你就提醒我先停一下。",
+          "condition": {
+            "ticket": "private"
+          }
+        },
+        {
+          "id": "c31-ticket-open",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "你昨夜看过日期了。到柜前，若他们改口，你替我再问一句。",
+          "condition": {
+            "ticket": "open"
+          }
+        },
+        {
+          "id": "c31-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "先问多久，再决定。"
+        },
+        {
+          "id": "c31-7",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "这回我想听个日子。不是“快了”，也不是“再来看看”。"
+        },
+        {
+          "id": "c31-8",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "一个提着菜篮的人擦过你们身边，回头问许记是不是关了。阿禾摇头，说她们正要去，没亲眼见过的事先别传。"
+        },
+        {
+          "id": "c31-9",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你替他们说话？"
+        },
+        {
+          "id": "c31-10",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "我替自己问清楚。要他们有错，就让他们认有的错。别拿没发生的凑。"
+        }
+      ],
+      "next": "c32",
+      "interlude": {
+        "levelId": "l03",
+        "title": "谁信这张纸",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c32",
+      "chapter": "第三章·谁信这张纸",
+      "title": "许记柜前",
+      "time": "第三日，正午",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c32-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许记开着门，柜台比外面安静。许掌柜看见阿禾手里的蓝线票，脸上的笑先挂起来，又慢慢收了回去。"
+        },
+        {
+          "id": "c32-1",
+          "speaker": "许掌柜",
+          "expression": "polite",
+          "text": "阿禾，今日怎么来得这样早？"
+        },
+        {
+          "id": "c32-2",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "过了日子，不算早。"
+        },
+        {
+          "id": "c32-3",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "他把票接过去，没去看数额，先看你。你把空手放在柜上，让他看清你没有在数什么。"
+        },
+        {
+          "id": "c32-4",
+          "speaker": "许掌柜",
+          "expression": "worried",
+          "text": "家父病着，城外那批货又耽搁。柜上现钱……"
+        },
+        {
+          "id": "c32-5",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "有多少？"
+        },
+        {
+          "id": "c32-6",
+          "speaker": "许掌柜",
+          "expression": "defensive",
+          "text": "总不能一来就掀钱匣。许记不是头一天做买卖。"
+        },
+        {
+          "id": "c32-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她向后退了一点。那不是被喝住的退法，她把票从他手下抽回来，重新放平。"
+        },
+        {
+          "id": "c32-8",
+          "speaker": "阿禾",
+          "expression": "hurt",
+          "text": "我也不是头一天在你这儿存钱。你拿从前的事回我，今天就不用回了？"
+        },
+        {
+          "id": "c32-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜张了张口，望向后屋。门帘静静垂着，没有人出来替他答话。"
+        },
+        {
+          "id": "c32-10",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "够付一部分。不够今日所有到期的。"
+        },
+        {
+          "id": "c32-11",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "那就从这里开始说。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "c32-choice",
+        "prompt": "你要许掌柜先回答哪件事？",
+        "options": [
+          {
+            "id": "ask",
+            "text": "先给出能兑的数额和确切日期。",
+            "set": {
+              "approach": "ask"
+            },
+            "target": "c32-ask"
+          },
+          {
+            "id": "confront",
+            "text": "先解释，为什么明知不够却一直隐瞒。",
+            "set": {
+              "approach": "confront"
+            },
+            "target": "c32-confront"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c33",
+      "chapter": "第三章·谁信这张纸",
+      "title": "许记后屋",
+      "time": "第三日，午后",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c33-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "账本从柜里取出来时，纸页还夹着一张写了一半的告示。上面只有“诸位”两个字，后面空着。"
+        },
+        {
+          "id": "c33-1",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "写了三回，没敢贴。"
+        },
+        {
+          "id": "c33-2",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "你怕他们看见，不怕他们白走？"
+        },
+        {
+          "id": "c33-3",
+          "speaker": "许掌柜",
+          "expression": "worried",
+          "text": "我怕一贴，外头全来了。钱箱更空，货也卖不出去。"
+        },
+        {
+          "id": "c33-4",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "所以让每个人以为，只有自己要等一天。"
+        },
+        {
+          "id": "c33-5",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜把半张纸翻过去。他没有否认，手指停在其中一笔来款旁边。"
+        },
+        {
+          "id": "c33-6",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "我以为船到了就能补。前天没到，昨天也没到。我不该拿没到的当已经有的。"
+        },
+        {
+          "id": "c33-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "账页上还有罗记的名字。日期比阿禾这张票更早，旁边画着一个圈，没有销账。"
+        },
+        {
+          "id": "c33-8",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "他知道？"
+        },
+        {
+          "id": "c33-9",
+          "speaker": "许掌柜",
+          "expression": "neutral",
+          "text": "他知道我缺钱。他说先替我接几笔，别把街上的生意一下子断了。"
+        },
+        {
+          "id": "c33-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你想起罗掌柜那句“明日再问”。原来在你们来问之前，有人已经替你们决定过，什么可以晚一天再知道。"
+        },
+        {
+          "id": "c33-11",
+          "speaker": "阿禾",
+          "expression": "hurt",
+          "text": "明天先去罗记。我要听他自己说。"
+        }
+      ],
+      "next": "c41"
+    },
+    {
+      "id": "c41",
+      "chapter": "第四章·转手生意",
+      "title": "罗记茶仓",
+      "time": "第四日，早晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c41-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "茶香压在没晒干的木头气味里。罗掌柜站在仓门边，手里没有账本。看见你们，他也没有先问买卖。"
+        },
+        {
+          "id": "c41-1",
+          "speaker": "罗掌柜",
+          "expression": "ashamed",
+          "text": "许记让你们看账了？"
+        },
+        {
+          "id": "c41-2",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "为什么先问这个，不问我钱取到了没有？"
+        },
+        {
+          "id": "c41-approach-confront",
+          "speaker": "罗掌柜",
+          "expression": "ashamed",
+          "text": "你昨天问他为什么瞒着。这句话，也该问我。",
+          "condition": {
+            "approach": "confront"
+          }
+        },
+        {
+          "id": "c41-approach-ask",
+          "speaker": "罗掌柜",
+          "expression": "ashamed",
+          "text": "许记说，你们先问能兑多少。我今天也不拿从前的交情挡这句话。",
+          "condition": {
+            "approach": "ask"
+          }
+        },
+        {
+          "id": "c41-3",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜把原本要让你们坐的凳子放下，自己站着。"
+        },
+        {
+          "id": "c41-4",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "我替许记收过几张票，原想给他们留点周转的工夫。没想到拖成这样。"
+        },
+        {
+          "id": "c41-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你昨天也没告诉我们。"
+        },
+        {
+          "id": "c41-6",
+          "speaker": "罗掌柜",
+          "expression": "ashamed",
+          "text": "是。我知道你刚回来，想让你先顺顺当当地做一笔。拿你不知道当省心，是我错。"
+        },
+        {
+          "id": "c41-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "他从腰间解下钥匙，开了茶仓。门后的几捆茶干净完整，封签上仍是罗记的字。"
+        },
+        {
+          "id": "c41-8",
+          "speaker": "罗掌柜",
+          "expression": "firm",
+          "text": "这些是我的货，可以卖。卖多少、收哪一种钱，一笔笔写明。我不让你替我担保，也不拿这笔钱充你们的工钱。"
+        },
+        {
+          "id": "c41-9",
+          "speaker": "阿禾",
+          "expression": "hurt",
+          "text": "卖了就全够？"
+        },
+        {
+          "id": "c41-10",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "不够。我先把这句说清楚。"
+        },
+        {
+          "id": "c41-11",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾握着自己的票，没有坐下。你也没有马上去接货单。仓门敞着，早上的光一直落到你们脚边。"
+        }
+      ],
+      "next": "c42",
+      "interlude": {
+        "levelId": "l04",
+        "title": "转手生意",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c42",
+      "chapter": "第四章·转手生意",
+      "title": "渡口茶摊",
+      "time": "第四日，午后",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c42-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "茶货卖出后，你把所得与采买的钱分开，分别记在两张纸上。阿禾端着两碗热水回来，看见你写到一半的字。"
+        },
+        {
+          "id": "c42-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "“替许记”后头，别写“无事”。谁也不知道后面还有什么。"
+        },
+        {
+          "id": "c42-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我想写，替许记送货。"
+        },
+        {
+          "id": "c42-3",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "哦。那是我看急了。"
+        },
+        {
+          "id": "c42-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她把热水推给你，握着自己的碗坐下。渡船在水上轻晃，一只空竹篓从船尾滚到中间，被船夫一脚拦住。"
+        },
+        {
+          "id": "c42-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你恼我么？"
+        },
+        {
+          "id": "c42-6",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "你做错什么了？"
+        },
+        {
+          "id": "c42-7",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "这几天总说一起问。问出来，也不见得更好受。"
+        },
+        {
+          "id": "c42-8",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "不好受，总比让我一直猜好。我恼的是你替我忍，连问也不肯问。"
+        },
+        {
+          "id": "c42-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她说这句话时没有提高声音。你反而听得更清楚。"
+        },
+        {
+          "id": "c42-10",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "以前我总想，别人都做了几十年的生意，我说一句不放心，像是不懂事。"
+        },
+        {
+          "id": "c42-11",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "现在我想，我拿去的也是一枚枚数出来的钱。问一句，不欠谁。"
+        },
+        {
+          "id": "c42-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "渡口有人过来问你们，罗记是不是也出了事。你看着刚分开的两张纸，知道接下来每一句话，都可能被别的人当真。"
+        }
+      ],
+      "next": "c43"
+    },
+    {
+      "id": "c43",
+      "chapter": "第四章·转手生意",
+      "title": "雨棚下的账桌",
+      "time": "第四日，傍晚",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c43-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们把能查的账摊在一起。纸页被风掀起，阿禾拿碗压住一角，罗掌柜用空茶罐压另一角。"
+        },
+        {
+          "id": "c43-1",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "柜上现钱、已经卖掉的茶、还在路上的货，分三栏。还没卖的，不能算进今天能兑的。"
+        },
+        {
+          "id": "c43-2",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "还有几笔我没写进去。怕一算，就真的不够。"
+        },
+        {
+          "id": "c43-3",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "本来就不够。"
+        },
+        {
+          "id": "c43-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜的手停在笔上，随后把漏下的几笔补齐。没有哪一笔因为没写，就真的消失过。"
+        },
+        {
+          "id": "c43-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "谁先知道？"
+        },
+        {
+          "id": "c43-6",
+          "speaker": "罗掌柜",
+          "expression": "hesitant",
+          "text": "先去跟几位相熟的商量，能少惊动些……"
+        },
+        {
+          "id": "c43-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你还没回答，阿禾已经把自己的票放到桌子正中。"
+        },
+        {
+          "id": "c43-8",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "我不想有一天才知道，原来相熟的人早就拿走了。"
+        },
+        {
+          "id": "c43-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜没有再把话说完。他取来一张新纸，等你们决定先怎么核对，明日又该怎么见所有来兑付的人。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "c43-choice",
+        "prompt": "明日前，你想先核实什么？",
+        "options": [
+          {
+            "id": "ledger",
+            "text": "留下核清账目，分开可兑的钱与未到的货。",
+            "set": {
+              "proof": "ledger"
+            },
+            "target": "c43-ledger"
+          },
+          {
+            "id": "visit",
+            "text": "带上现有账页，先走访等着兑付的人。",
+            "set": {
+              "proof": "visit"
+            },
+            "target": "c43-visit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c51",
+      "chapter": "第五章·兑付风波",
+      "title": "许记门外",
+      "time": "第五日，清晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c51-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "门外比铺里早醒。有人把小凳搬到檐下，有人攥着票，见谁从门里出来，就跟着站起来。"
+        },
+        {
+          "id": "c51-1",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜在你旁边展开钱匣，数出今天能兑的份额。你没有替他把剩下的空处盖住。"
+        },
+        {
+          "id": "c51-2",
+          "speaker": "许掌柜",
+          "expression": "worried",
+          "text": "这些，先给谁？"
+        },
+        {
+          "id": "c51-3",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "先把有多少写出来。别让我替所有人答。"
+        },
+        {
+          "id": "c51-proof-visit",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "昨日走访过的老客先认出你，却没要求插队。你将匿名记下的急需用途交给众人核对，是否先照顾急用者，仍要他们当面商量。",
+          "condition": {
+            "proof": "visit"
+          }
+        },
+        {
+          "id": "c51-proof-ledger",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "昨夜圈去的那笔重复来款仍留在账页上，谁来核对都能看见。首期数额旁，多了你与两位掌柜分别核过的记号。",
+          "condition": {
+            "proof": "ledger"
+          }
+        },
+        {
+          "id": "c51-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们约定了本次柜上可以办理的上限。有人只需一部分现钱，有人要赶路，能不能等，只有他们自己知道。"
+        },
+        {
+          "id": "c51-5",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "从前我说“放心”，说完就没下文了。"
+        },
+        {
+          "id": "c51-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "今天写什么，就做什么。不能做的也写。"
+        },
+        {
+          "id": "c51-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜往门外看。第一位来问话的人是个手提药包的老客，他看了钱匣很久，问的却是自己的那张票还算不算。"
+        },
+        {
+          "id": "c51-8",
+          "speaker": "许掌柜",
+          "expression": "firm",
+          "text": "算。今日兑不了的还欠着，不因我写了日子就抹掉。您若不愿等，我们把能办的法子一项项说。"
+        },
+        {
+          "id": "c51-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "没有人因此立刻放下心。至少这一回，柜上的人没有再让他们明日空跑。"
+        }
+      ],
+      "next": "c52",
+      "interlude": {
+        "levelId": "l05",
+        "title": "兑付风波",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c52",
+      "chapter": "第五章·兑付风波",
+      "title": "公开的账页",
+      "time": "第五日，午后",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c52-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "桌上摆着完整的到期票清单、已备现钱和货物估价。许掌柜将新开票的空纸收进匣里，上锁，把钥匙放到账本旁。"
+        },
+        {
+          "id": "c52-1",
+          "speaker": "许掌柜",
+          "expression": "firm",
+          "text": "旧欠没处置好，这些先不用。"
+        },
+        {
+          "id": "c52-2",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "愿意等的，每笔单独记应付、已付和日期。不愿意等的，谈货物折抵或处置家产。没人替别人点头。"
+        },
+        {
+          "id": "c52-3",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "我若选等，你别因为我站在这里，就觉得我能一直等。"
+        },
+        {
+          "id": "c52-4",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "不会。迟一次，你可以重新要求处置，不必替我留脸。"
+        },
+        {
+          "id": "c52-5",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你低头看自己的那笔。你有权尽快收回，也有权在看过账后接受分期。两种选择都会让眼前的人难受，难受却不该代替你的判断。"
+        },
+        {
+          "id": "c52-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我先说我自己的。"
+        },
+        {
+          "id": "c52-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾把茶碗端离账页。她没有看你会选哪一个，而是先在自己的票后面写下要求，写完才抬头。"
+        },
+        {
+          "id": "c52-8",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "我等第一期。我想看一次，说了的日子真的算数。"
+        },
+        {
+          "id": "c52-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "窗外有个孩子哭了一声，被大人抱起来。屋里谁也没说“大家都信你”。每个人只为自己的那张纸说话。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "c52-choice",
+        "prompt": "只决定你自己的这笔旧票。",
+        "options": [
+          {
+            "id": "scheduled",
+            "text": "看过账，接受写清日期的分次兑付。",
+            "set": {
+              "settlement": "scheduled"
+            },
+            "target": "c52-scheduled"
+          },
+          {
+            "id": "cash",
+            "text": "要求尽快清偿，接受当面核价的资产折抵。",
+            "set": {
+              "settlement": "cash"
+            },
+            "target": "c52-cash"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c53",
+      "chapter": "第五章·兑付风波",
+      "title": "桥头等雨停",
+      "time": "第六日，入夜",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c53-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们从许记出来时，又下起细雨。阿禾把钱袋裹在衣襟里，却把自己半边肩膀露在伞外。"
+        },
+        {
+          "id": "c53-1",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "伞往你那边一点。"
+        },
+        {
+          "id": "c53-2",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "那你就淋了。"
+        },
+        {
+          "id": "c53-3",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "可以靠近一点。"
+        },
+        {
+          "id": "c53-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她看你一眼，挪过半步。两个人的鞋尖都留在伞下，伞沿的水滴落在同一块石板上。"
+        },
+        {
+          "id": "c53-5",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "我原来打算，钱取出来就走。"
+        },
+        {
+          "id": "c53-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "现在呢？"
+        },
+        {
+          "id": "c53-7",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "还是想走。可我怕你觉得，这些天一起忙，都是我等着拿回路费。"
+        },
+        {
+          "id": "c53-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "难道你不该拿回自己的钱？"
+        },
+        {
+          "id": "c53-9",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "该。"
+        },
+        {
+          "id": "c53-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她答得很快，随后把那口气慢慢吐出来。"
+        },
+        {
+          "id": "c53-11",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "也想再陪你吃一顿早饭。两件事都是真的。"
+        },
+        {
+          "id": "c53-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她从袋里摸出最早那张饼钱的小纸条。纸上没有数，只有一个你一眼认不出的圆饼。"
+        },
+        {
+          "id": "c53-13",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "没打算跟你算清这个。可别的账，还是得清。"
+        },
+        {
+          "id": "c53-14",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "那这笔先记着。"
+        },
+        {
+          "id": "c53-15",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "好。别赖。"
+        }
+      ],
+      "next": "c54"
+    },
+    {
+      "id": "c54",
+      "chapter": "第五章·兑付风波",
+      "title": "第一次如期",
+      "time": "第七日，上午",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c54-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "这一次，阿禾没有比约定的时辰早到。你们走进许记，给她的第一笔现钱已经放在纸上。"
+        },
+        {
+          "id": "c54-1",
+          "speaker": "许掌柜",
+          "expression": "firm",
+          "text": "这是应付、这是实付。剩下的在后面，一笔没销。你核对。"
+        },
+        {
+          "id": "c54-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "阿禾数完，又从头数一遍。许掌柜站在柜后等着，没有催她信自己的手。"
+        },
+        {
+          "id": "c54-3",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "对。"
+        },
+        {
+          "id": "c54-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她在实付的那一栏旁按下记号，没有把整张旧票交出去。蓝线仍在，绷得有些毛了。"
+        },
+        {
+          "id": "c54-5",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "后头的账，我每次都让你们看。不是我说许记没事，事情就过去了。"
+        },
+        {
+          "id": "c54-6",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "茶仓呢？"
+        },
+        {
+          "id": "c54-7",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "空了一半。往后少做几笔生意，也得把该出的这部分出了。"
+        },
+        {
+          "id": "c54-8",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜将第一张贴出的告示留在门边。上面纸角卷起，他伸手压平，没有取下。"
+        },
+        {
+          "id": "c54-9",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "我过几日再定出门。今天……你那张桌子，是不是还没修？"
+        },
+        {
+          "id": "c54-10",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "有木片顶着。"
+        },
+        {
+          "id": "c54-11",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "木片也不是一辈子的法子。走吧，赚了工钱，总得给它买条好腿。"
+        },
+        {
+          "id": "c54-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们没能在七天里把所有旧账结完。那天以后，每一次到期，账都还要接着看，人也还要接着来。"
+        }
+      ],
+      "next": "c61"
+    },
+    {
+      "id": "c61",
+      "chapter": "第六章·新交子",
+      "title": "多年以后的旧铺",
+      "time": "多年后，秋日清晨",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c61-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "旧铺的门闩已经换过。你抬手便能推开，门后那张桌子四脚平稳，桌面却仍留着第一日茶碗烫出的圆印。"
+        },
+        {
+          "id": "c61-1",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "几年间，许记分次清偿旧欠，处置了部分家产，也失去了一些再没回来的客人。最后一笔销账那天，没有人敲锣。"
+        },
+        {
+          "id": "c61-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把那张盖有结清记号的旧单收好。官交子如今到了街市，新的生意用新的票，旧欠却不是换一张纸便能了事。"
+        },
+        {
+          "id": "c61-settlement-cash",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你的款项早已通过另行核价的货物折抵与补差清偿。其余人的分期记录，你只在受托核账时翻过，不把他们愿等的时间算成自己的恩德。",
+          "condition": {
+            "settlement": "cash"
+          }
+        },
+        {
+          "id": "c61-settlement-scheduled",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你的旧单上，每一期实付都在。后来你并不是每次都亲自去，有时让阿禾带回，有时许掌柜自己送来，到了最后一笔，你才签下结清。",
+          "condition": {
+            "settlement": "scheduled"
+          }
+        },
+        {
+          "id": "c61-3",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "今日有两样东西要买。布、茶。熟不熟？"
+        },
+        {
+          "id": "c61-4",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你把我当头一回跑商？"
+        },
+        {
+          "id": "c61-5",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "我怕你做大了，忘了我只分过一句功劳。"
+        },
+        {
+          "id": "c61-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她站在门口，肩上的行囊换了新的，袋口内侧却仍缝着蓝线。鞋上有外地的土，伞柄上多了一道细绳。"
+        },
+        {
+          "id": "c61-7",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "这几年去了不少地方。总以为再往前一点，就能把地图走完。"
+        },
+        {
+          "id": "c61-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "走完了吗？"
+        },
+        {
+          "id": "c61-9",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "没有。原来纸太小，不是路太短。"
+        },
+        {
+          "id": "c61-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "罗掌柜托来的新货单压在柜上。货款与工钱仍旧分行，旁边另写着每家商铺今日接受的票种。"
+        },
+        {
+          "id": "c61-11",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "先看条件，再出发。换了新票，也别省这个。"
+        }
+      ],
+      "next": "c62"
+    },
+    {
+      "id": "c62",
+      "chapter": "第六章·新交子",
+      "title": "重走旧路",
+      "time": "多年后，午后",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c62-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "石桥比从前多了一块补过的栏板。布铺换了门帘，茶行把柜台往外挪了一尺。阿禾跟着你走，没再抢着指路。"
+        },
+        {
+          "id": "c62-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "你现在不用我带了。"
+        },
+        {
+          "id": "c62-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你回来，就只为带路？"
+        },
+        {
+          "id": "c62-3",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "也收工钱。"
+        },
+        {
+          "id": "c62-4",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她把尾音拖得很轻。你看她，她便先去看手里的货单，纸上几个字，她来回看了两遍。"
+        },
+        {
+          "id": "c62-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "有句话想说？"
+        },
+        {
+          "id": "c62-6",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "我这次接到一趟远路。可以带个合伙人，也可以先辞了，留在城里做一年。"
+        },
+        {
+          "id": "c62-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她将货单折好，放进袋里，空出两只手。街上有人从你们之间穿过，她等人走远才接着说。"
+        },
+        {
+          "id": "c62-8",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "我都想过，不是一时起意。想走，是我自己的主意；想问你，也是。"
+        },
+        {
+          "id": "c62-9",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "若我的答案跟你想的不一样？"
+        },
+        {
+          "id": "c62-10",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "那就商量。商量不了，也不当谁欠谁。"
+        },
+        {
+          "id": "c62-11",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你想起最早那只朝你摊开的手。她从未真的要你放下所有东西，只是问，有没有一点愿意分给她。"
+        }
+      ],
+      "next": "c63",
+      "interlude": {
+        "levelId": "l06",
+        "title": "新交子",
+        "optional": true,
+        "onSkip": "按普通完成衔接下一幕，不删除剧情选项。",
+        "onFailure": "可重试、撤销或略过；人物承认遇到困难，不抹去既有关系选择。"
+      }
+    },
+    {
+      "id": "c63",
+      "chapter": "第六章·新交子",
+      "title": "商行灯下",
+      "time": "多年后，傍晚",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "c63-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "最后一匹布和一包茶交到罗记。罗掌柜给你们结工钱，眼睛比从前花，账上的两行却仍写得清楚。"
+        },
+        {
+          "id": "c63-1",
+          "speaker": "罗掌柜",
+          "expression": "smile",
+          "text": "这回谁领？"
+        },
+        {
+          "id": "c63-2",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "各领各的。一起做事，不是共用一只钱袋。"
+        },
+        {
+          "id": "c63-3",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "许掌柜来送新一季货目，在门边站了一会儿，等你们结完账才进来。他现在开口前，会先把能办的数量写给人看。"
+        },
+        {
+          "id": "c63-4",
+          "speaker": "许掌柜",
+          "expression": "neutral",
+          "text": "这批是现货，明早可验。余下的没有，我不先收。"
+        },
+        {
+          "id": "c63-5",
+          "speaker": "罗掌柜",
+          "expression": "neutral",
+          "text": "放这里。坐一会儿？"
+        },
+        {
+          "id": "c63-6",
+          "speaker": "许掌柜",
+          "expression": "relieved",
+          "text": "坐一会儿。"
+        },
+        {
+          "id": "c63-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "没有人再提那七天，好像不提便能让它没发生。也没有人把每句问候都变成道歉。你们终于能把一碗茶喝完，明天再做明天的事。"
+        },
+        {
+          "id": "c63-8",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "咱们呢？"
+        },
+        {
+          "id": "c63-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她看着你。灯映在她眼睛里，等的不是一道算出来的答案。"
+        }
+      ],
+      "next": null,
+      "choice": {
+        "id": "c63-choice",
+        "prompt": "这一次，你希望与她怎样走下去？",
+        "options": [
+          {
+            "id": "stay",
+            "text": "一起留一年，把铺子好好做起来。",
+            "set": {
+              "future": "stay"
+            },
+            "target": "c63-stay"
+          },
+          {
+            "id": "travel",
+            "text": "带上货单，与她合伙跑一趟远路。",
+            "set": {
+              "future": "travel"
+            },
+            "target": "c63-travel"
+          },
+          {
+            "id": "separate",
+            "text": "我守着铺子，你去走想走的路。",
+            "set": {
+              "future": "separate"
+            },
+            "target": "c63-separate"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e1",
+      "chapter": "结尾·灯下留人",
+      "title": "你的铺子",
+      "time": "尾声",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "e1-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把门口那盏灯往外挪了一点，阿禾站在凳上扶着灯架，叫你别只顾看，接住底下那枚松动的钉。"
+        },
+        {
+          "id": "e1-1",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "留一年？"
+        },
+        {
+          "id": "e1-2",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "先一年。明年想去哪儿，明年再说。"
+        },
+        {
+          "id": "e1-3",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她带回两只不一样的茶碗，挑了旧的那只留给自己。你问是不是舍不得新碗，她说旧碗厚，烫不着手。"
+        },
+        {
+          "id": "e1-4",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "你那边的账归你，我这边的归我。合着做的，一起对。"
+        },
+        {
+          "id": "e1-5",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "饼钱呢？"
+        },
+        {
+          "id": "e1-6",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "那个另算。"
+        },
+        {
+          "id": "e1-7",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她在柜角画了一个比从前像样些的圆饼，旁边又添一只茶碗。你看了一阵，也取过笔，给那只饼添上了一道热气。"
+        },
+        {
+          "id": "e1-8",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "这回像刚买的了。"
+        },
+        {
+          "id": "e1-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "街上还有人没散。她推开半扇窗，问你明早要不要早些起来。话没说完，自己先把第二只碗放到了桌上。"
+        },
+        {
+          "id": "e1-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "灯照得到柜台，也照得到门槛。门外有路，屋里有两个人各自写了一半的账。"
+        },
+        {
+          "id": "e1-11",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把笔搁下，替她扶住那扇要被风吹回来的窗。"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "e2",
+      "chapter": "结尾·远路有归",
+      "title": "城外驿路",
+      "time": "尾声",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "e2-0",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "出城前，你在门内放下一封托人照看的短笺。铺子照旧开着，只是这一季的货，要请伙计先验。"
+        },
+        {
+          "id": "e2-1",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "行李呢？"
+        },
+        {
+          "id": "e2-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你提起两只分得差不多重的包袱。她掂了掂其中一只，瞥你一眼。"
+        },
+        {
+          "id": "e2-3",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "你是不是又把重的留给自己了？"
+        },
+        {
+          "id": "e2-4",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "这回真没有。你那包有茶。"
+        },
+        {
+          "id": "e2-5",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "那好。路上谁先想喝，谁先找水。"
+        },
+        {
+          "id": "e2-6",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她把新地图展开，边角用蓝线补过。近处画着熟悉的桥，远处只点了几个待问的地名。"
+        },
+        {
+          "id": "e2-7",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "下一站，你想先去哪儿？"
+        },
+        {
+          "id": "e2-8",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "先走到前面那棵树。到了，再看。"
+        },
+        {
+          "id": "e2-9",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "好。"
+        },
+        {
+          "id": "e2-10",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她没有再走在你前面半步。两个人并着肩，避开路上的浅水。城门缩到身后时，你回头看了一眼。"
+        },
+        {
+          "id": "e2-11",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你知道铺子在哪里，也知道回去该敲哪扇门。这回带出城的除了本钱，还有一张留着空白、可以慢慢写的货单。"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "e3",
+      "chapter": "结尾·各自一程",
+      "title": "桥头送行",
+      "time": "尾声",
+      "kind": "scene",
+      "lines": [
+        {
+          "id": "e3-settlement-scheduled",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "当年你等过分期，如今那张旧单已经结清。阿禾把蓝线票收在自己的匣子里，不再随身带着，也没有扔。",
+          "condition": {
+            "settlement": "scheduled"
+          }
+        },
+        {
+          "id": "e3-settlement-cash",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "当年你选择尽快清偿自己的旧票。后来你与许记仍做小额现货生意，每次当面验清，既没回到从前，也没有因此互不来往。",
+          "condition": {
+            "settlement": "cash"
+          }
+        },
+        {
+          "id": "e3-2",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "我这回还是想自己去。"
+        },
+        {
+          "id": "e3-3",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "几时回来？"
+        },
+        {
+          "id": "e3-4",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "货单上没写。可也没写不回来。"
+        },
+        {
+          "id": "e3-5",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你把最后一点干粮塞进她包里，她伸手拦了一下，认出纸包的折法，又把手收了回去。"
+        },
+        {
+          "id": "e3-6",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "这个……还是你欠我的饼钱？"
+        },
+        {
+          "id": "e3-7",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "先付一部分。"
+        },
+        {
+          "id": "e3-8",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "那我得回来再收。"
+        },
+        {
+          "id": "e3-9",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "桥上过车，你们照旧往旁边让了半步。车过去之后，她没有立刻走，先转过身，认认真真看了看你。"
+        },
+        {
+          "id": "e3-10",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "有事写信。别把“不好开口”也写成“无事”。"
+        },
+        {
+          "id": "e3-11",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你也是。"
+        },
+        {
+          "id": "e3-12",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她点头，系紧行囊。你站到她不必再回头也能看见的位置，等她走过桥，才慢慢往自己的铺子去。"
+        },
+        {
+          "id": "e3-13",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "门还开着。桌子稳稳当当。你把两只碗洗净，其中一只倒扣在柜里，留着下回来人。"
+        }
+      ],
+      "next": null
+    },
+    {
+      "id": "p1-share",
+      "chapter": "序章·门还开着",
+      "title": "选项回应：分一半给她。",
+      "time": "第一日，早晨",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "p1-share-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "那你也别把自己的全留着。"
+        },
+        {
+          "id": "p1-share-1",
+          "speaker": "阿禾",
+          "expression": "smile",
+          "text": "知道了，合伙人。"
+        },
+        {
+          "id": "p1-share-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她没去挑轻的那件，接过半包东西，重新系紧。你们一前一后让过小车，才又并肩走起来。"
+        }
+      ],
+      "next": "c11"
+    },
+    {
+      "id": "p1-carry",
+      "chapter": "序章·门还开着",
+      "title": "选项回应：自己背，但请她带路。",
+      "time": "第一日，早晨",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "p1-carry-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "这段我先自己背。路你熟，慢一点等我。"
+        },
+        {
+          "id": "p1-carry-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "成。撑不住就说，别拿肩膀跟包袱赌气。"
+        },
+        {
+          "id": "p1-carry-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她收回手，将步子放慢。过桥时，每走几步便回头看一眼，等你跟上再往前。"
+        }
+      ],
+      "next": "c11"
+    },
+    {
+      "id": "c23-open",
+      "chapter": "第二章·两笔买卖",
+      "title": "选项回应：经她同意，仔细看日期和数额。",
+      "time": "第二日，入夜",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c23-open-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我看完还你。不抄，也不替你拿去换。"
+        },
+        {
+          "id": "c23-open-1",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "看吧。边上那道歪字是我记的，别笑。"
+        },
+        {
+          "id": "c23-open-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你看见她将一笔笔积攒的日期记在背面，最早的一笔比你想的早得多。你只指给她看约定的兑付日，没有把票拿离灯下。"
+        }
+      ],
+      "next": "c31"
+    },
+    {
+      "id": "c23-private",
+      "chapter": "第二章·两笔买卖",
+      "title": "选项回应：不看她的私账，答应明天陪她去。",
+      "time": "第二日，入夜",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c23-private-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "不用给我看。明天你问，我在旁边听。"
+        },
+        {
+          "id": "c23-private-1",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "好。真有哪里我听不明白的，再请你帮我看。"
+        },
+        {
+          "id": "c23-private-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "她把票折好，放回贴身的袋里，却将钱袋的系带留在桌上，慢慢给你补那道将要断开的针脚。"
+        }
+      ],
+      "next": "c31"
+    },
+    {
+      "id": "c32-ask",
+      "chapter": "第三章·谁信这张纸",
+      "title": "选项回应：先给出能兑的数额和确切日期。",
+      "time": "第三日，正午",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c32-ask-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "从前的招牌先放下。你现在能兑多少，余下要等到哪天？"
+        },
+        {
+          "id": "c32-ask-1",
+          "speaker": "许掌柜",
+          "expression": "worried",
+          "text": "钱匣可以开。日期……我得把后头的账也拿出来。"
+        },
+        {
+          "id": "c32-ask-2",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "拿出来。看过再说，别又先许一个日子。"
+        }
+      ],
+      "next": "c33"
+    },
+    {
+      "id": "c32-confront",
+      "chapter": "第三章·谁信这张纸",
+      "title": "选项回应：先解释，为什么明知不够却一直隐瞒。",
+      "time": "第三日，正午",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c32-confront-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你不是今日才知道不够。为什么来一个，就让一个再等？"
+        },
+        {
+          "id": "c32-confront-1",
+          "speaker": "许掌柜",
+          "expression": "defensive",
+          "text": "若那天贴出来，铺子怕是当天就要关。"
+        },
+        {
+          "id": "c32-confront-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "那是你的难处。让别人带着不知道的难处过日子，也是你的决定。"
+        },
+        {
+          "id": "c32-confront-3",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "是。我先把隐着的几笔拿来。"
+        }
+      ],
+      "next": "c33"
+    },
+    {
+      "id": "c43-ledger",
+      "chapter": "第四章·转手生意",
+      "title": "选项回应：留下核清账目，分开可兑的钱与未到的货。",
+      "time": "第四日，傍晚",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c43-ledger-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我在这里把每笔到期日核一遍。收不回来的钱，先别写成能给。"
+        },
+        {
+          "id": "c43-ledger-1",
+          "speaker": "阿禾",
+          "expression": "firm",
+          "text": "我去找愿意当面核对的人。不是替你们说情，是让他们自己看。"
+        },
+        {
+          "id": "c43-ledger-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "夜里你将一笔重复列入的茶款圈掉。总数少了一截，许掌柜捏着笔没有反驳。罗掌柜重新写了第一期数额，数字更难看，却终于对得上钱匣。"
+        }
+      ],
+      "next": "c51"
+    },
+    {
+      "id": "c43-visit",
+      "chapter": "第四章·转手生意",
+      "title": "选项回应：带上现有账页，先走访等着兑付的人。",
+      "time": "第四日，傍晚",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c43-visit-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我想先听听，谁等不起。这不是催得最响的人先拿。"
+        },
+        {
+          "id": "c43-visit-1",
+          "speaker": "阿禾",
+          "expression": "neutral",
+          "text": "我和你去。别只记谁跟掌柜熟。"
+        },
+        {
+          "id": "c43-visit-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你们问过后街的药客、要回乡的行脚人，也被一家人拒之门外。回来时，阿禾将几项急需的用途写下，隐去姓名。罗掌柜按当面确认过的数额重算了首期，不再拿沉默当同意。"
+        }
+      ],
+      "next": "c51"
+    },
+    {
+      "id": "c52-scheduled",
+      "chapter": "第五章·兑付风波",
+      "title": "选项回应：看过账，接受写清日期的分次兑付。",
+      "time": "第五日，午后",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c52-scheduled-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我的可以分次。每一次都写实付，哪笔迟了，要重新谈。"
+        },
+        {
+          "id": "c52-scheduled-1",
+          "speaker": "许掌柜",
+          "expression": "firm",
+          "text": "记在你名下。只代表你，不拿去劝别人。"
+        },
+        {
+          "id": "c52-scheduled-2",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你在自己那一栏落笔。旁边仍有拒绝等待的人，许掌柜另取一张纸，接着跟他们谈折抵。没有一纸“众人同意”。"
+        }
+      ],
+      "next": "c53"
+    },
+    {
+      "id": "c52-cash",
+      "chapter": "第五章·兑付风波",
+      "title": "选项回应：要求尽快清偿，接受当面核价的资产折抵。",
+      "time": "第五日，午后",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c52-cash-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我不能把周转的钱一直留在这里。可以谈折抵，但东西要验清，差额还记着。"
+        },
+        {
+          "id": "c52-cash-1",
+          "speaker": "许掌柜",
+          "expression": "ashamed",
+          "text": "后屋有我自己的几件货，还有一处可处置的家产。我拿清单来，不占今天给别人的这匣钱。"
+        },
+        {
+          "id": "c52-cash-2",
+          "speaker": "罗掌柜",
+          "expression": "firm",
+          "text": "估价另请人看。我在此事里有担保，不能只让我一句作数。"
+        },
+        {
+          "id": "c52-cash-3",
+          "speaker": "旁白",
+          "expression": "neutral",
+          "text": "你约好另请人核价，再按交割记录核补差款。阿禾看过你的记录，只问验货那天还要不要帮你搬货，没有劝你把体谅当成货款。"
+        }
+      ],
+      "next": "c53"
+    },
+    {
+      "id": "c63-stay",
+      "chapter": "第六章·新交子",
+      "title": "选项回应：一起留一年，把铺子好好做起来。",
+      "time": "多年后，傍晚",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c63-stay-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "留下来一年吧。不是替我看铺，是把你想做的那份也做起来。"
+        },
+        {
+          "id": "c63-stay-1",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "明年要是我还想走？"
+        },
+        {
+          "id": "c63-stay-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "明年再商量。你不欠我这一年以后的日子。"
+        },
+        {
+          "id": "c63-stay-3",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "那好。先从换两只不漏水的茶碗开始。"
+        }
+      ],
+      "next": "e1"
+    },
+    {
+      "id": "c63-travel",
+      "chapter": "第六章·新交子",
+      "title": "选项回应：带上货单，与她合伙跑一趟远路。",
+      "time": "多年后，傍晚",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c63-travel-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "你留一个人的位置给我。不是给你带行李，我也带一份生意。"
+        },
+        {
+          "id": "c63-travel-1",
+          "speaker": "阿禾",
+          "expression": "embarrassed",
+          "text": "本钱各记各的？"
+        },
+        {
+          "id": "c63-travel-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "各记各的，路一起走。"
+        },
+        {
+          "id": "c63-travel-3",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "说定了。明早别让我一个人在桥头等。"
+        }
+      ],
+      "next": "e2"
+    },
+    {
+      "id": "c63-separate",
+      "chapter": "第六章·新交子",
+      "title": "选项回应：我守着铺子，你去走想走的路。",
+      "time": "多年后，傍晚",
+      "kind": "branch",
+      "lines": [
+        {
+          "id": "c63-separate-0",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我想留下。你去吧，想回来时，这里还有一间铺子。"
+        },
+        {
+          "id": "c63-separate-1",
+          "speaker": "阿禾",
+          "expression": "worried",
+          "text": "你真不是怕我为难才这么说？"
+        },
+        {
+          "id": "c63-separate-2",
+          "speaker": "你",
+          "expression": "neutral",
+          "text": "我想了。你也想了。我们可以想得不一样。"
+        },
+        {
+          "id": "c63-separate-3",
+          "speaker": "阿禾",
+          "expression": "relieved",
+          "text": "好。那就认真送我一回，别装作只是顺路。"
+        }
+      ],
+      "next": "e3"
+    }
+  ],
+  "expressions": {
+    "ahe": [
+      "neutral",
+      "smile",
+      "worried",
+      "embarrassed",
+      "firm",
+      "hurt",
+      "relieved"
+    ],
+    "luo": [
+      "neutral",
+      "smile",
+      "hesitant",
+      "ashamed",
+      "firm",
+      "relieved"
+    ],
+    "xu": [
+      "neutral",
+      "polite",
+      "worried",
+      "defensive",
+      "ashamed",
+      "firm",
+      "relieved"
+    ]
+  }
+}
