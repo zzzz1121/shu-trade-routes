@@ -94,6 +94,24 @@ function apply(state,action,l=Levels,options={}){
   r.state.status='failed';r.state.failureReason=r.state.stepsUsed===l.maxSteps?'步数已用尽，委托尚未完成。':'当前资金、货物与剩余步数已无法完成委托。';r.message=r.state.failureReason;
  }return r;
 }
-function createSession(l=Levels){let s=initial(l),history=[];return {level:l,get state(){return clone(s);},get canUndo(){return history.length>0;},act(a){const r=apply(s,a,l);if(r.ok){history.push(clone(s));s=clone(r.state);}return r;},markTutorial(id){s.tutorialFlags[id]=true;},undo(){if(!history.length)return false;s=history.pop();return true;},reset(){s=initial(l);history=[];}};}
-return {initial,weight,adjacent,ready,apply,transition,actions,canFinish,createSession};
+function createSession(l=Levels){
+ let s=initial(l),history=[],records=[];
+ return {level:l,get state(){return clone(s);},get canUndo(){return history.length>0;},
+ act(a){const r=apply(s,a,l);if(r.ok){history.push({state:clone(s),length:records.length});records.push({action:clone(a)});s=clone(r.state);}return r;},
+ markTutorial(id){if(l.lessons[id]){s.tutorialFlags[id]=true;records.push({tutorial:id});}},
+ undo(){if(!history.length)return false;const previous=history.pop();s=previous.state;records.length=previous.length;return true;},
+ reset(){s=initial(l);history=[];records=[];},
+ snapshot(){return {version:1,levelId:l.id,records:clone(records)};}
+ };
+}
+// Rebuild through the real rules; stored balances/cargo are never trusted.
+function restoreSession(data){
+ if(!data||data.version!==1||!Array.isArray(data.records)||data.records.length>256)throw Error('Invalid saved run');
+ const l=Levels.all.find(l=>l.id===data.levelId);if(!l)throw Error('Unknown saved chapter');
+ const session=createSession(l);
+ for(const record of data.records){if(record&&record.action){if(!session.act(record.action).ok)throw Error('Invalid saved action');}
+ else if(record&&l.lessons[record.tutorial])session.markTutorial(record.tutorial);else throw Error('Invalid saved record');}
+ return session;
+}
+return {initial,weight,adjacent,ready,apply,transition,actions,canFinish,createSession,restoreSession};
 });

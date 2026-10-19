@@ -1,6 +1,6 @@
 {
   "name": "shu-di-qian-lu",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "private": true,
   "scripts": {
     "start": "node scripts/serve.js",
@@ -9,6 +9,7 @@
     "test:browser": "node tests/fixed-screen.cjs && node tests/campaign-browser.cjs",
     "test:layout": "node tests/terrain-extension.cjs",
     "test:narrative": "node tests/narrative-browser.cjs",
+    "test:experience": "npm run build:web && node tests/experience-browser.cjs",
     "test:journey": "node tests/journey-browser.cjs"
   },
   "engines": {

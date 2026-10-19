@@ -1,6 +1,6 @@
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs');
 (async()=>{const b=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true}),page=await b.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url());});
-const a=id=>page.locator(`[data-action="${id}"]`).first().click();
+const a=async id=>{if(id==='start'&&!await page.locator('[data-action=start]').count())id='resume';return page.locator(`[data-action="${id}"]`).first().click();};
 async function check(label){await page.locator('img').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));const s=await page.evaluate(()=>({scroll:document.documentElement.scrollHeight>innerHeight||document.documentElement.scrollWidth>innerWidth,bad:[...document.querySelectorAll('button,.stop-label,.history-line')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&(r.left<0||r.top<0||r.bottom>innerHeight+1||r.right>innerWidth+1)}).map(e=>e.className)}));assert.equal(s.scroll,false,label);assert.deepEqual(s.bad,[],label);}
 fs.mkdirSync('work/journey-qa',{recursive:true});
 for(const [width,height] of [[375,812],[390,844],[430,932]]){

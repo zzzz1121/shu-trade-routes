@@ -1,0 +1,53 @@
+{
+  "tool": "built-in image_gen",
+  "approvedReference": "miniapp/assets/characters/v3/reference-ahe.png",
+  "prompts": [
+    {
+      "id": "ahe",
+      "prompt": "Use case: identity-preserve. Production visual-novel expression sprite sheet on true transparent background. EXACT uniform 3 columns by 2 rows grid, no borders no labels no text. Each cell same size, same head position and same waist-up framing, clear margins. Read left to right top row: neutral attentive, warm smile, thoughtful hand near chin; bottom row: puzzled raised brow, worried, calm determined speaking with small open-hand gesture. Same exact person face hairstyle and costume across all 6 cells, natural adult proportions (NOT chibi). Frontal gaze at player. Match reference1's muted sage/cream/earth broad matte hand-painted color planes, understated shading, no fine-grained watercolor texture, no glamor realism. All six complete head and shoulders/waist within their own cell. Reference1 is the APPROVED identity and style: preserve this young adult woman exactly: face, sage ribbon ponytail, sage jacket cream cuffs/navy sash/brown satchel. Only expression/hand gesture changes."
+    },
+    {
+      "id": "luo",
+      "prompt": "Use case: identity-preserve. Production visual-novel expression sprite sheet on true transparent background. EXACT uniform 3 columns by 2 rows grid, no borders no labels no text. Each cell same size, same head position and same waist-up framing, clear margins. Read left to right top row: neutral attentive, warm smile, thoughtful hand near chin; bottom row: puzzled raised brow, worried, calm determined speaking with small open-hand gesture. Same exact person face hairstyle and costume across all 6 cells, natural adult proportions (NOT chibi). Frontal gaze at player. Match reference1's muted sage/cream/earth broad matte hand-painted color planes, understated shading, no fine-grained watercolor texture, no glamor realism. All six complete head and shoulders/waist within their own cell. Reference1 STYLE only; reference2 old identity/costume hints only, transform proportions to realistic adult matching reference1. Luo shopkeeper middle-aged man age45, gently weathered friendly face, small black moustache, black cloth merchant cap, brown outer robe grey collar cream inner, holds a ledger. No chibi eyes/head."
+    },
+    {
+      "id": "xu",
+      "prompt": "Use case: identity-preserve. Production visual-novel expression sprite sheet on true transparent background. EXACT uniform 3 columns by 2 rows grid, no borders no labels no text. Each cell same size, same head position and same waist-up framing, clear margins. Read left to right top row: neutral attentive, warm smile, thoughtful hand near chin; bottom row: puzzled raised brow, worried, calm determined speaking with small open-hand gesture. Same exact person face hairstyle and costume across all 6 cells, natural adult proportions (NOT chibi). Frontal gaze at player. Match reference1's muted sage/cream/earth broad matte hand-painted color planes, understated shading, no fine-grained watercolor texture, no glamor realism. All six complete head and shoulders/waist within their own cell. Reference1 STYLE only; reference2 old identity/costume hints only, transform proportions to realistic adult matching reference1. Xu shopkeeper man age30, clean-shaven narrower composed face, navy cloth cap, muted blue-teal outer robe ivory inner collar, holds two plain paper notes. Distinct from Luo, no moustache. No chibi eyes/head."
+    }
+  ],
+  "luoFinalPrompt": "Edit the attached sheet. Keep ONLY the adult mustached man on the RIGHT HALF of this image, with exactly that adult facial structure and natural eyes. REMOVE ALL women from output. Build SIX consistent expressions of this SAME ADULT MAN, in an EXACT THREE COLUMNS TWO ROWS grid, each cell square. Neutral, smile with eyes open, thoughtful hand chin / puzzled, worried, determined open hand. Adult age45, NORMAL-SIZE EYES with iris and white sclera, long adult face, natural adult nose. NO chibi, NO dot eyes, NO child face, NO pink cheek circles. Black cap, small mustache brown robe grey collar ivory inner, ledger unchanged. Real transparent clean cutouts with NO colored haze/background. No text, no borders. Same matte block-painted style as this image, same adult identity across six frames.",
+  "frames": {
+    "order": [
+      "neutral",
+      "smile",
+      "thinking",
+      "puzzled",
+      "worried",
+      "firm"
+    ],
+    "ahe": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "luo": [
+      0,
+      4,
+      2,
+      1,
+      3,
+      5
+    ],
+    "xu": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }
+}

@@ -9,3 +9,51 @@
 @media(max-height:740px){.journey-home,.chapter-opening{padding-top:8px;gap:8px}.journey-heading h1,.home-title{font-size:32px}.continue-card .story-visual{min-height:120px}.continue-copy{padding:12px 15px}.continue-copy h2,.continue-title{font-size:25px}.chapter-opening h1,.opening-title{font-size:28px;margin:5px 0}.chapter-opening>.story-visual{min-height:100px}.commission-card{padding:12px}.commission-card p,.commission-dialogue{font-size:14px;margin:7px 0 9px}.chapter-card-grid{gap:8px}.chapter-card-grid .stop-label{padding:7px;gap:4px}.chapter-card-grid .stop-title strong{font-size:14px}.chapter-subtitle{font-size:11px}.character-response .portrait{width:60px;height:80px}}
 .chapter-card-grid .chapter-stop:disabled{opacity:1}.chapter-card-grid .locked .stop-label{opacity:.85}
 .chapter-card-grid .stop-caption{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:0}
+
+/* Six fixed frames per actor: expression changes never replace the identity. */
+.actor-frame{display:block;position:relative;overflow:hidden;flex-shrink:0;aspect-ratio:2/3}
+.actor-frame>img,.actor-frame>image{position:absolute!important;width:300%!important;height:200%!important;max-width:none!important;object-fit:fill!important;display:block}
+.hero-portrait.actor-frame{position:absolute;width:auto!important;height:98%!important;aspect-ratio:2/3;right:1%;bottom:0}
+.dialogue-portrait.actor-frame{position:absolute;aspect-ratio:2/3;height:auto!important;bottom:110px;filter:none}
+.important-dialogue .dialogue-portrait.actor-frame{bottom:100px}
+.portrait.actor-frame{height:auto!important;aspect-ratio:2/3;border-radius:0}
+.node-portrait.actor-frame{height:63px;aspect-ratio:2/3}
+.guide-face{width:24px;height:36px}
+.ask-guide .actor-frame img,.ask-guide .actor-frame image{border-radius:0}
+.dialog-toolbar{display:flex;justify-content:flex-end;gap:14px;margin-top:6px}
+.dialog-toolbar .text-button{min-height:36px;font-size:14px;padding:0 4px;color:var(--blue)}
+.dialogue-copy{max-height:34vh;overflow-y:auto;min-height:120px}
+.dialogue-card .dialog-controls{display:flex;flex-wrap:wrap;margin-top:4px}
+.dialogue-card .dialog-controls button{flex:1;min-width:90px}
+.backlog-dialog{display:flex;flex-direction:column;max-height:80vh!important;min-height:260px}
+.backlog-scroll{max-height:60vh;overflow-y:auto;overscroll-behavior:contain}
+.backlog-scroll article,.backlog-entry{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);text-align:left}
+.backlog-scroll article>div,.backlog-entry>view:last-child{flex:1;min-width:0}
+.backlog-scroll p,.backlog-text{font-size:15px!important;line-height:1.8!important;min-height:0!important;margin-top:5px!important}
+.backlog-portrait{width:48px;height:72px}
+.character-response p,.response-body{font-size:15px;line-height:1.8}
+.character-response .history-line{font-size:14px;line-height:1.8}
+.result-screen{gap:10px;text-align:left;overflow-y:auto;padding:18px 6px 4px}
+.result-screen .cover-title{font-size:32px;letter-spacing:2px;margin:4px 0 8px}
+.result-screen .character-response{padding:14px 12px 14px 4px}
+.result-screen .result-stats{padding:14px 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:4px 0;font-size:14px}
+.result-screen .path,.result-screen .route-review,.result-screen .ledger p,.result-screen .ledger-row{font-size:14px;line-height:1.7}
+.result-screen .path{color:var(--muted);margin:3px 0}
+.result-screen .result-buttons{margin-top:auto;padding-top:18px;position:static}
+.ask-guide{overflow:hidden}
+.important-dialogue .dialogue-portrait.actor-frame{width:140px}
+.dialogue-portrait.actor-frame{width:112px}
+.approach-picker{flex-shrink:0;margin:0 5px;font-size:14px;color:var(--muted)}
+.approach-picker>div,.approach-picker>view{display:flex;gap:8px;margin-top:6px}
+.approach-picker button{flex:1;font-size:14px;min-height:40px;padding:6px}
+.approach-result{font-size:15px;color:var(--blue);padding:10px 12px;background:#e9eddf;border-radius:8px;line-height:1.7}
+.result-screen{gap:4px;overflow:hidden}
+.result-screen>.ledger{flex:0 1 auto;min-height:36px;max-height:130px;overflow-y:auto}
+.result-screen .result-buttons{flex-shrink:0;padding-top:10px}
+.result-screen .result-stats{flex-shrink:0;padding:9px 8px}
+.result-screen .path{max-height:48px;overflow-y:auto;flex-shrink:0}
+.result-screen .character-response{padding-top:10px;padding-bottom:10px}
+.vignette-caption{display:none}
+.important-dialogue .dialogue-card{min-height:260px}
+.important-dialogue .dialogue-copy{min-height:150px;margin-left:150px;padding-top:10px}
+.important-dialogue .dialogue-portrait.actor-frame{width:175px;left:-10px;bottom:92px}

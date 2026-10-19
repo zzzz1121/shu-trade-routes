@@ -1,0 +1,17 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+(async()=>{
+ // Exercise the actual exported build, including every runtime asset.
+ const server=http.createServer((req,res)=>{const file=path.join(__dirname,'../dist',req.url==='/'?'index.html':decodeURIComponent(req.url.split('?')[0]));fs.readFile(file,(err,data)=>{if(err){res.writeHead(404).end();return;}res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.png')?'image/png':'text/html');res.end(data);});});
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true});
+ try{const errors=[],page=await browser.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url());});
+ const a=id=>page.locator('[data-action="'+id+'"]').first().click();
+ async function visible(){await page.locator('img').evaluateAll(imgs=>Promise.all(imgs.map(i=>i.decode())));assert.deepEqual(await page.locator('.rules-dialog button').evaluateAll(bs=>bs.filter(b=>{const r=b.getBoundingClientRect();return r.top<0||r.bottom>innerHeight||r.left<0||r.right>innerWidth;}).map(b=>b.textContent)),[]);}
+ for(const [width,height] of [[375,812],[390,844],[430,932]]){
+  await page.setViewportSize({width,height});await page.goto('http://127.0.0.1:'+server.address().port);await page.evaluate(()=>localStorage.clear());await page.reload();await a('start');await a('plan:economy');await a('skip-intro');await a('x+');await a('x+');await a('exchange');await a('depart');await page.locator('[data-node=bridge]').click();await a('confirm-move');await a('menu');await a('replay');await visible();assert.equal(await page.locator('.dialogue-portrait').getAttribute('data-expression'),'neutral');while(await page.locator('[data-action=dialogue-next]').count())await a('dialogue-next');assert.equal(await page.locator('.dialogue-portrait').getAttribute('data-expression'),'firm');await a('choice:purse');await visible();assert.equal(await page.locator('.dialogue-portrait').getAttribute('data-expression'),'thinking');await a('backlog');await visible();assert.ok(await page.locator('.backlog-scroll article').count()>=3);await a('backlog-return');
+  await page.reload();assert.equal(await page.locator('.journey-home').count(),1);await a('resume');assert.equal(await page.locator('.dialogue-portrait').getAttribute('data-expression'),'thinking');await a('dialogue-skip');assert.match(await page.locator('.steps').innerText(),/1/);await a('undo');assert.match(await page.locator('.steps').innerText(),/0/);
+  // All six chapter openings and goods/map resources, with special attention to chapter two.
+  for(let i=1;i<=6;i++){await page.evaluate(i=>{localStorage.removeItem('shu-trade-run-v1');localStorage.setItem('shu-trade-progress-v2',JSON.stringify({version:2,last:'l0'+i,completed:Array.from({length:i-1},(_,n)=>'l0'+(n+1)),tutorialDone:[]}));},i);await page.reload();await a('start');await visible();await a('skip-intro');await visible();}
+ }
+ assert.deepEqual(errors,[]);console.log('PASS exported build: 3 phone sizes, all six chapters/assets, expressions, branches, backlog, reload/resume and undo; zero HTTP/JS errors');
+ }finally{await browser.close();await new Promise(r=>server.close(r));}
+})().catch(e=>{console.error(e);process.exit(1);});

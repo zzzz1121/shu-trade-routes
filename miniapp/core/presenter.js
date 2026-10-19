@@ -31,10 +31,10 @@ function view(session,ui){
   let a={type:t.type,transactionId:t.id};
   if(t.type==='buy'){
    a.iron=ui.payIron;a.notes=t.issuer?{[t.issuer]:ui.payNote}:{};
-   panel.steppers=[stepper('p','铁钱',ui.payIron,t.price)];if(t.issuer)panel.steppers.push(stepper('n',currency(t.issuer),ui.payNote,t.price));
-   panel.meta='价 '+t.price+' · 重 '+l.goods[t.cargo].weight+' · '+(t.minIron?'至少 '+t.minIron+' 铁钱':'至少 '+t.minNote+' '+currency(t.issuer));
+   panel.steppers=[stepper('p','铁钱',ui.payIron,Math.min(t.price,s.iron))];if(t.issuer)panel.steppers.push(stepper('n',currency(t.issuer),ui.payNote,Math.min(t.price,s.notesByIssuer[t.issuer]||0)));
+   panel.meta=tradeRule(t,l);
   }else if(t.type==='sell'){a.receive=ui.receive;panel.choices=[{id:'receive-iron',label:'收 '+t.price+' 铁钱',selected:ui.receive==='iron'},{id:'receive-note',label:'收 '+t.price+' 交子',selected:ui.receive===t.issuer}];}
-  else if(t.type==='redeem'){a.amount=ui.amount;panel.steppers=[Object.assign(stepper('amount','兑付数量',ui.amount,t.limit),{minDisabled:ui.amount<=1})];}
+  else if(t.type==='redeem'){a.amount=ui.amount;panel.steppers=[Object.assign(stepper('amount','兑付数量',ui.amount,Math.min(t.limit,s.notesByIssuer[t.issuer]||0)),{minDisabled:ui.amount<=1})];}
   const r=E.transition(s,a,l);panel.preview=r.ok?'交易后 '+paymentText(r.state.iron,r.state.notesByIssuer)+' · 负重 '+E.weight(r.state,l)+' / '+l.capacity:r.message;panel.buttons=[button('transact','确认'+({buy:'购买',sell:'出售',swap:'换票',redeem:'兑付'}[t.type]),false,!r.ok)];panel.action=a;
  }else if(s.nodeId===l.goal){panel.kind='delivery';panel.preview=E.ready(s,l)?'货物已备齐，可以交付。':'还没有买齐委托货物。';panel.buttons=[button('deliver','交付货物',false,!E.ready(s,l))];}
  else panel.preview=E.ready(s,l)?'前往交付商行':'选择下一站';

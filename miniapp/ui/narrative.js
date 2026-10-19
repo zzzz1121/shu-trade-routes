@@ -25,7 +25,12 @@ const historyFragments={
  l06:'天圣元年，官府设了益州交子务；次年，官交子开始发行。街市用的钱，又有了新章程。'
 };
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
-function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portrait:base+'/characters/'+c.id+'.png'};}
+const expressions=['neutral','smile','thinking','puzzled','worried','firm'];
+function actor(name,base,expression='neutral',pose='idle'){
+ const c=characters[name]||characters['阿禾'],emotion=Math.max(0,expressions.indexOf(expression));
+ const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:emotion;
+ return {name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+(c.id==='ahe'?'0.633':'1')+';',portrait:base+'/characters/v3/'+c.id+'-expressions.png',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100)+'%;'};
+}
 function decorate(v,base='/miniapp/assets'){
  const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'left:'+(-((v.level.number-1)%3)*100)+'%;top:'+(-Math.floor((v.level.number-1)/3)*100)+'%;'});
  v.completedCount=v.chapters.filter(c=>c.completed).length;v.chapterCount=v.chapters.length;
@@ -37,14 +42,15 @@ function decorate(v,base='/miniapp/assets'){
  // Connecting the chapter journey is presentation only, separate from the playable maps.
  v.chapterRoads=stops.slice(1).map((b,i)=>{const a=stops[i],dx=b[0]-a[0],dy=b[1]-a[1];return {id:i,done:v.chapters[i].completed,style:'left:'+a[0]+'%;top:'+a[1]+'%;width:'+Math.abs(dx)+'%;height:'+Math.abs(dy)+'%;',reverse:dx<0};});
  v.currentChapter=v.chapters.find(c=>c.id===v.level.id);
- v.journeyStatus=v.currentChapter.completed?'这笔委托已办妥，随时可以重走商路。':'委托已备好，等你启程。';
+ v.journeyStatus=v.resumeSummary|| (v.currentChapter.completed?'这笔委托已办妥，随时可以重走商路。':'委托已备好，等你启程。');
  v.guide=actor('阿禾',base);
- v.outroActor=actor(v.s.status==='won'?v.level.outro[0]:'阿禾',base);
+ v.backlog=v.backlog.map(line=>Object.assign({},line,{actor:actor(line.speaker,base,line.expression,line.pose)}));
+ v.outroActor=actor(v.s.status==='won'?v.level.outro[0]:'阿禾',base,v.s.status==='won'?'smile':'worried');
  v.historyLine=v.s.status==='won'?historyFragments[v.level.id]:'';
  v.outroText=v.s.status==='won'?({l01:'布料送到了，正好赶上裁衣。工钱在这里，先歇歇脚。',l02:'粮食和药材都齐了。把袋子放这儿，我来收拾。',l03:'货买回来了。这一路，哪家认哪张票，你也摸清了。',l04:'茶卖出去，布也带回来了。这趟来回，辛苦你了。',l05:'纸墨买到了。柜上兑出的数，我都记好了，你再对一对。',l06:'布和茶都到了。还记得头一回送布么？这回可熟练多了。'}[v.level.id]||v.level.outro[1]):'这笔账还可以重算。退回上一步，我们换个走法。';
  if(v.modal){const m=v.modal;
   m.dialogue=['lesson','story','hint'].includes(m.kind);m.important=m.kind==='story';
-  if(m.dialogue){m.actor=actor(m.kind==='hint'?'阿禾':m.title,base);if(m.kind!=='hint'&&!characters[m.title])m.body=m.title+'说：“'+m.body+'”';if(m.kind==='story')m.body=n.opening;m.title=m.actor.name;}
+  if(m.dialogue){m.actor=actor(m.line?m.line.speaker:m.kind==='hint'?'阿禾':m.title,base,m.line?m.line.expression:'neutral',m.line?m.line.pose:'idle');if(m.kind!=='hint'&&!characters[m.title])m.body=m.title+'说：“'+m.body+'”';m.title=m.actor.name;if(m.kind==='story'){m.atEnd=m.cursor===m.lines.length-1;m.count=m.lines.length;}}
   if(m.kind==='history'){m.title=['钱袋为什么这样沉','纸券与现钱','谁愿意认这张纸','跟着茶货走','柜上的现钱','新交子'][m.page];m.body=Object.values(historyFragments)[m.page];m.count=6;}
   if(m.kind==='move'){m.actor=actor('阿禾',base);
    const node=v.level.nodes.find(x=>x.id===m.nodeId),trade=v.level.transactions.find(t=>t.nodeId===m.nodeId);
@@ -53,5 +59,5 @@ function decorate(v,base='/miniapp/assets'){
  }
  return v;
 }
-return {decorate,characters,chapters,historyFragments};
+return {decorate,actor,characters,chapters,historyFragments};
 });

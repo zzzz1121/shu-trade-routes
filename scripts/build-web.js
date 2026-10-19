@@ -10,7 +10,7 @@ function copy(source, target = source) {
 }
 copy('web/index.html', 'index.html');
 copy('web/app.js');
-for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js']) copy('miniapp/core/' + file);
+for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js','dialogue.js']) copy('miniapp/core/' + file);
 copy('miniapp/ui/scene.js');
 copy('miniapp/ui/narrative.js');
 for (const file of ['tokens.css', 'game.css', 'narrative.css','presentation.css']) copy('miniapp/styles/' + file);
@@ -23,3 +23,5 @@ for (const file of ['buildings.png','terrain.png','goods.png']) copy('miniapp/as
 for (const file of ['ahe.png','luo.png','xu.png']) copy('miniapp/assets/characters/' + file);
 
 copy('miniapp/assets/chapters/chapter-scenes.png');
+
+for(const file of ["ahe","luo","xu"]) copy("miniapp/assets/characters/v3/"+file+"-expressions.png");
