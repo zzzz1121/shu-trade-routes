@@ -6,7 +6,7 @@ const integer=n=>Number.isSafeInteger(n)&&n>=0;
 function initial(l=Levels){const i=l.initial;return {levelId:l.id,nodeId:l.start,warehouseIron:i.warehouseIron||0,preparation:l.exchange?{iron:i.warehouseIron,notesByIssuer:notes({})}:null,iron:i.iron,notesByIssuer:notes(i.notes),cargoById:clone(i.cargo),stepsUsed:0,completedTransactions:[],routeHistory:[l.start],redeemCount:0,exchanged:false,departed:!l.exchange,tutorialFlags:{},events:[],status:'playing',failureReason:'',delivery:null};}
 function weight(s,l=Levels){return s.iron+Object.keys(s.cargoById).reduce((w,k)=>w+s.cargoById[k]*l.goods[k].weight,0);}
 function adjacent(a,b,l=Levels){return l.edges.some(e=>e[0]===a&&e[1]===b||e[1]===a&&e[0]===b);}
-function ready(s,l=Levels){return Object.keys(l.target.cargo).every(k=>(s.cargoById[k]||0)>=l.target.cargo[k])&&l.target.transactions.every(id=>s.completedTransactions.includes(id));}
+function ready(s,l=Levels){return (!l.minimumReserve||s.iron+Object.values(s.notesByIssuer).reduce((a,b)=>a+b,0)>=l.minimumReserve)&&Object.keys(l.target.cargo).every(k=>(s.cargoById[k]||0)>=l.target.cargo[k])&&l.target.transactions.every(id=>s.completedTransactions.includes(id));}
 // Raw transition is shared by player commands, previews and search. Search never calls itself.
 function transition(state,action,l=Levels){
  const s=clone(state),bad=(code,message,details={})=>({ok:false,state,code,message,details});
@@ -66,7 +66,7 @@ function transition(state,action,l=Levels){
   s.completedTransactions.push(t.id);event.transactionId=t.id;break;
  }
  case 'deliver':
-  if(s.nodeId!==l.goal||!ready(s,l))return bad('NOT_PURCHASED','还没有买齐委托货物并抵达商行。');
+  if(s.nodeId!==l.goal||!ready(s,l))return bad('NOT_PURCHASED',l.minimumReserve?'需备齐货物、抵达商行，并留下至少 '+l.minimumReserve+' 钱。':'还没有买齐委托货物并抵达商行。');
   s.delivery={cargo:clone(l.target.cargo),load:weight(s,l)};Object.keys(l.target.cargo).forEach(k=>s.cargoById[k]-=l.target.cargo[k]);s.status='won';break;
  default:return bad('INVALID_ACTION','未知操作。');
  }

@@ -6,12 +6,12 @@ function create(storage={}){
  let progress;try{progress=normalize(storage.read&&storage.read(KEY));}catch{progress=normalize(null);}
  const last=Levels.get(progress.last);if(last.number>1&&!progress.completed.includes(Levels.all[last.number-2].id))progress.last='l01';
  let session=E.createSession(Levels.get(progress.last));
- const ui={screen:'home',x:3,payIron:0,payNote:0,amount:1,receive:'iron',message:'',error:false,modal:null,hint:0,skip:false,tradeId:null};
+ const ui={screen:'home',x:3,payIron:0,payNote:0,amount:1,receive:'iron',message:'',error:false,modal:null,hint:0,skip:false,tradeId:null,advanced:false};
  const save=()=>{try{if(storage.write)storage.write(KEY,progress);}catch{ui.message='本机进度未能保存，本次仍可继续。';ui.error=true;}};
  const unlocked=l=>l.number===1||progress.completed.includes(Levels.all[l.number-2].id);
- function defaults(){const t=session.level.transactions.find(t=>t.nodeId===session.state.nodeId&&!session.state.completedTransactions.includes(t.id));ui.tradeId=t?t.id:null;ui.payIron=t&&t.type==='buy'?t.minIron:0;ui.payNote=0;ui.receive='iron';ui.amount=1;}
+ function defaults(){const t=session.level.transactions.find(t=>t.nodeId===session.state.nodeId&&!session.state.completedTransactions.includes(t.id));ui.tradeId=t?t.id:null;ui.payIron=t&&t.type==='buy'?Math.min(t.minIron,session.state.iron):0;ui.payNote=0;ui.receive='iron';ui.amount=1;}
  function lesson(id){const l=session.level;if(ui.skip||progress.tutorialDone.includes(l.id)||session.state.tutorialFlags[id]||!l.lessons[id])return;ui.modal={kind:'lesson',id,title:l.lessons[id][0],body:l.lessons[id][1]};}
- function begin(id){const l=Levels.get(id);if(!unlocked(l))return;session=E.createSession(l);Object.assign(ui,{screen:'intro',x:3,message:'',error:false,modal:null,hint:0,skip:progress.tutorialDone.includes(l.id)});defaults();progress.last=l.id;save();if(ui.skip)ui.screen='play';}
+ function begin(id){const l=Levels.get(id);if(!unlocked(l))return;session=E.createSession(ui.advanced?Object.assign({},l,{maxSteps:l.challenge.steps,minimumReserve:l.challenge.reserve}):l);Object.assign(ui,{screen:'intro',x:3,message:'',error:false,modal:null,hint:0,skip:progress.tutorialDone.includes(l.id)});defaults();progress.last=l.id;save();if(ui.skip)ui.screen='play';}
  function act(a){const lessonId=ui.modal&&ui.modal.kind==='lesson'?ui.modal.id:null;const r=session.act(a);ui.error=!r.ok;ui.message=r.ok?P.eventText(r.event,session.level):r.message;if(!r.ok)return;
   if(lessonId)session.markTutorial(lessonId);ui.modal=null;defaults();
   if(r.state.status==='won'){if(!progress.completed.includes(session.level.id))progress.completed.push(session.level.id);if(!progress.tutorialDone.includes(session.level.id))progress.tutorialDone.push(session.level.id);save();}
@@ -21,7 +21,7 @@ function create(storage={}){
   const s=session.state,r=id===s.nodeId?null:E.transition(s,{type:'move',to:id},l),trades=l.transactions.filter(t=>t.nodeId===id).map(t=>P.tradeRule(t,l));
   ui.modal={kind:'move',nodeId:id,title:n.name,body:[id===s.nodeId?'当前所在地':'移动 1 步'+(n.toll?' · 每次进入付 '+n.toll+' 铁钱':' · 无通行费'),...trades,...(r&&!r.ok?[r.message]:[])].join('\n'),canMove:!!(r&&r.ok)};
  }
- function dispatch(id){const l=session.level,s=session.state;
+ function dispatch(id){if(typeof id!=="string")return;const l=session.level,s=session.state;
   // Returning to the entry screen is also used for browser page restoration.
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
@@ -29,7 +29,8 @@ function create(storage={}){
   const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next'];
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
-  if(id==='start'){begin(progress.last);return;}
+  if(id==='advanced'){ui.advanced=true;begin(progress.last);return;}
+  if(id==='start'){ui.advanced=false;begin(progress.last);return;}
   if(id==='chapters'){ui.screen='chapters';ui.modal=null;return;}
   if(id==='play'||id==='skip-intro'){ui.screen='play';if(id==='skip-intro'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();}else lesson('money');return;}
   if(id==='close'){if(ui.modal&&ui.modal.kind==='lesson')session.markTutorial(ui.modal.id);ui.modal=null;return;}
@@ -41,12 +42,12 @@ function create(storage={}){
   if(id==='rules'){ui.modal={kind:'rules',page:0};return;}
   if(id==='rule-next'||id==='rule-prev'){const max=P.view(session,ui).rules.length-1;ui.modal.page=Math.max(0,Math.min(max,ui.modal.page+(id==='rule-next'?1:-1)));return;}
   if(id==='hint'){ui.hint=0;ui.modal={kind:'hint',title:'行商提示',body:l.hints[0]};return;}
-  if(id==='hint-next'){ui.hint=Math.min(2,ui.hint+1);ui.modal.body=l.hints[ui.hint];return;}
+  if(id==='hint-next'){ui.hint=Math.min(2,ui.hint+1);ui.modal.body=ui.advanced&&ui.hint===2?'进阶委托：'+l.challenge.steps+' 步内送达'+(l.challenge.reserve?'，余钱至少 '+l.challenge.reserve:'')+'。比较两条商路的费用，并逐笔预留下一家要求的货款。':l.hints[ui.hint];return;}
   if(id==='retry'){session.reset();Object.assign(ui,{x:3,message:'',error:false,modal:null,skip:progress.tutorialDone.includes(l.id),hint:0});defaults();return;}
-  if(id==='undo'){session.undo();ui.message='已撤销';ui.error=false;ui.modal=null;defaults();return;}
+  if(id==='undo'){if(!session.canUndo)return;session.undo();ui.screen='play';ui.message='已撤销';ui.error=false;ui.modal=null;defaults();return;}
   if(id==='next'){const next=Levels.all[l.number];if(next)begin(next.id);else ui.screen='chapters';return;}
   if(id==='receive-iron'||id==='receive-note'){ui.receive=id==='receive-iron'?'iron':l.issuer;return;}
-  const adjust=/^(x|p|n|amount)([+-])$/.exec(id);if(adjust){const key={x:'x',p:'payIron',n:'payNote',amount:'amount'}[adjust[1]],t=l.transactions.find(t=>t.id===ui.tradeId),min=key==='x'?2:key==='amount'?1:0,max=key==='x'?s.warehouseIron:key==='amount'?t.limit:t.price;ui[key]=Math.max(min,Math.min(max,ui[key]+(adjust[2]==='+'?1:-1)));ui.message='';return;}
+  const adjust=/^(x|p|n|amount)([+-])$/.exec(id);if(adjust){const control=P.view(session,ui).panel.steppers.find(c=>c.key===adjust[1]);if(!control)return;const plus=adjust[2]==='+';if(plus?control.maxDisabled:control.minDisabled)return;const key={x:'x',p:'payIron',n:'payNote',amount:'amount'}[adjust[1]];ui[key]+=plus?1:-1;ui.message='';return;}
   if(id==='transact'){const panel=P.view(session,ui).panel;if(panel.action)act(panel.action);return;}
   if(['exchange','depart','deliver'].includes(id))act(id==='exchange'?{type:id,amount:ui.x}:{type:id});
  }

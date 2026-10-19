@@ -60,5 +60,6 @@ const all=[{
  hints:['两家店都接受官交子，但最低付款条件不同。','选择商路时，也算上两次采购后的负重。','走桥：布付 3 铁钱 + 1 官交子，茶付 4 官交子。免费路：布付 2 铁钱 + 2 官交子，茶付 1 铁钱 + 3 官交子。'],
  lessons:{}
 }];
+all.forEach((l,i)=>{l.challenge={steps:[3,3,3,5,3,5][i],reserve:[0,1,3,1,2,1][i]};});
 return Object.assign({},all[0],{all,get:id=>all.find(l=>l.id===id)||all[0],issuerNames:{a:'甲号交子',b:'乙号交子',official:'官交子'}});
 });
