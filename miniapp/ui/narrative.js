@@ -25,9 +25,9 @@ const historyFragments={
  l06:'天圣元年，官府设了益州交子务；次年，官交子开始发行。街市用的钱，又有了新章程。'
 };
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
-function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portraitStyle:'background-image:url('+base+'/characters/portraits-v2.png);background-size:300% 100%;background-position:'+({ahe:0,luo:50,xu:100}[c.id])+'% center;',portrait:base+'/characters/'+c.id+'.png'};}
+function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portrait:base+'/characters/'+c.id+'.png'};}
 function decorate(v,base='/miniapp/assets'){
- const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'background-image:url('+base+'/chapters/chapter-scenes.png);background-size:300% 200%;background-position:'+((v.level.number-1)%3*50)+'% '+(Math.floor((v.level.number-1)/3)*100)+'%;'});
+ const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/approved/town-atlas.png'});
  v.completedCount=v.chapters.filter(c=>c.completed).length;v.chapterCount=v.chapters.length;
  v.chapterBackdrop=base+'/v2/terrain.png';
  v.chapters=v.chapters.map((c,i)=>Object.assign({},c,chapters[c.id],{

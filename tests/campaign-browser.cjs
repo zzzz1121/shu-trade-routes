@@ -15,7 +15,7 @@ for(const [width,height] of [[375,812],[390,844],[430,932]]){await page.setViewp
    if(step.iron!==undefined){for(const [key,target] of [['p',step.iron],['n',step.note]]){const control=page.locator(`[data-action="${key}+"]`);if(!await control.count())continue;const current=Number(await control.locator('..').locator('.stepper-value b').innerText());for(let i=0;i<Math.abs(target-current);i++)await action(key+(target>current?'+':'-'));}await check('payment');await action('transact');}
    if(step.receive)await action('receive-'+step.receive);if(step.amount)for(let i=1;i<step.amount;i++)await action('amount+');if(step.trade)await action('transact');
   }
-  await action('deliver');await check('result');assert.equal(await page.getByRole('heading',{name:'委托完成'}).count(),1,l.id);await action('retry');await check('retry');
+  await action('deliver');await check('result');assert.equal(await page.getByRole('heading',{name:'委托完成'}).count(),1,l.id);await action('undo');await check('undo');
  }
 }
 assert.deepEqual(errors,[]);assert.deepEqual(http,[]);console.log('PASS campaign: '+(Levels.all.length-1)+' levels x 2 strategies x 3 phone sizes; visible nodes/controls, payment/swap/sale/redemption, victory/undo, no asset or JS errors');await b.close();})().catch(e=>{console.error(e);process.exit(1)});

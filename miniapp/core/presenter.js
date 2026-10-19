@@ -31,23 +31,20 @@ function view(session,ui){
   let a={type:t.type,transactionId:t.id};
   if(t.type==='buy'){
    a.iron=ui.payIron;a.notes=t.issuer?{[t.issuer]:ui.payNote}:{};
-   panel.steppers=[stepper('p','铁钱',ui.payIron,Math.min(t.price,s.iron))];if(t.issuer)panel.steppers.push(stepper('n',currency(t.issuer),ui.payNote,Math.min(t.price,s.notesByIssuer[t.issuer]||0)));
+   panel.steppers=[stepper('p','铁钱',ui.payIron,t.price)];if(t.issuer)panel.steppers.push(stepper('n',currency(t.issuer),ui.payNote,t.price));
    panel.meta='价 '+t.price+' · 重 '+l.goods[t.cargo].weight+' · '+(t.minIron?'至少 '+t.minIron+' 铁钱':'至少 '+t.minNote+' '+currency(t.issuer));
   }else if(t.type==='sell'){a.receive=ui.receive;panel.choices=[{id:'receive-iron',label:'收 '+t.price+' 铁钱',selected:ui.receive==='iron'},{id:'receive-note',label:'收 '+t.price+' 交子',selected:ui.receive===t.issuer}];}
-  else if(t.type==='redeem'){a.amount=ui.amount;panel.steppers=[Object.assign(stepper('amount','兑付数量',ui.amount,Math.min(t.limit,s.notesByIssuer[t.issuer]||0)),{minDisabled:ui.amount<=1})];}
+  else if(t.type==='redeem'){a.amount=ui.amount;panel.steppers=[Object.assign(stepper('amount','兑付数量',ui.amount,t.limit),{minDisabled:ui.amount<=1})];}
   const r=E.transition(s,a,l);panel.preview=r.ok?'交易后 '+paymentText(r.state.iron,r.state.notesByIssuer)+' · 负重 '+E.weight(r.state,l)+' / '+l.capacity:r.message;panel.buttons=[button('transact','确认'+({buy:'购买',sell:'出售',swap:'换票',redeem:'兑付'}[t.type]),false,!r.ok)];panel.action=a;
- }else if(s.nodeId===l.goal){panel.kind='delivery';panel.preview=E.ready(s,l)?'货物已备齐，可以交付。':l.minimumReserve?'需备齐货物，并留下至少 '+l.minimumReserve+' 钱。':'还没有买齐委托货物。';panel.buttons=[button('deliver','交付货物',false,!E.ready(s,l))];}
+ }else if(s.nodeId===l.goal){panel.kind='delivery';panel.preview=E.ready(s,l)?'货物已备齐，可以交付。':'还没有买齐委托货物。';panel.buttons=[button('deliver','交付货物',false,!E.ready(s,l))];}
  else panel.preview=E.ready(s,l)?'前往交付商行':'选择下一站';
  const total=s.iron+Object.values(s.notesByIssuer).reduce((a,b)=>a+b,0);
- const challengeSteps=l.challenge.steps,challengeReserve=l.challenge.reserve;
- const challenges=[{label:challengeSteps+' 步内送达',done:s.stepsUsed<=challengeSteps},{label:'余钱至少 '+challengeReserve,done:total>=challengeReserve}].filter((c,i)=>i===0||challengeReserve>0);
- const mastery=s.status==='won'&&challenges.every(c=>c.done);
  const ledger=s.events.filter(e=>['exchange','buy','sell','swap','redeem'].includes(e.type)||e.type==='move'&&e.fee).map((e,i)=>({id:i,text:eventText(e,l)}));
  const fee=s.events.reduce((sum,e)=>sum+(e.fee||0),0);
  const review=l.reviews&&l.reviews.find(r=>s.routeHistory.includes(r.node));
  const purchases=s.events.filter(e=>e.type==='buy').map(e=>l.goods[e.cargo].name);
  const routeReview=review?review.text:l.nodes.some(n=>n.toll)?(s.events.some(e=>e.type==='move'&&e.fee)?'这一趟走得快，开销也多些。':'多走几步，留下了一份钱。'):'采购顺序：'+purchases.join(' → ');
- return {challenges,mastery,s,level:l,resources,cargo,weight:load,canUndo:session.canUndo,slots:Array.from({length:l.capacity},(_,i)=>({id:i,kind:i<load?(i<s.iron?'iron':'cloth'):'empty'})),panel,
+ return {s,level:l,resources,cargo,weight:load,canUndo:session.canUndo,slots:Array.from({length:l.capacity},(_,i)=>({id:i,kind:i<load?(i<s.iron?'iron':'cloth'):'empty'})),panel,
  nodes:l.nodes.map(n=>Object.assign({},n,{current:n.id===s.nodeId,reachable:s.departed&&s.status==='playing'&&E.adjacent(s.nodeId,n.id,l),style:'left:'+n.x+'%;top:'+n.y+'%;'})),edges:l.edges,
  pathText:s.routeHistory.map(id=>l.nodes.find(n=>n.id===id).name).join(' → '),total,ledger,fee,remainingText:paymentText(s.iron,s.notesByIssuer),
  resultText:s.status==='won'?l.outro[1]:s.failureReason,ending:s.status==='won'?(l.ending||''):'',
