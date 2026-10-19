@@ -47,3 +47,14 @@
 .portrait-art{display:block;background-repeat:no-repeat;flex-shrink:0}.hero-portrait.portrait-art{width:auto;aspect-ratio:634/827;height:98%;max-width:80%}.dialogue-portrait.portrait-art{width:125px;height:163px}.portrait.portrait-art{width:88px;height:115px}.character-response .portrait-art{object-fit:unset}
 .result-screen .ledger{max-height:124px;overflow-y:auto;flex-shrink:1;min-height:50px}.result-screen .result-stats,.result-screen .character-response,.result-screen .challenge-card,.result-screen .result-buttons{flex-shrink:0}.result-screen{gap:10px}.result-screen .character-response{min-height:100px}.result-screen .portrait-art{height:100px;width:77px}.result-buttons{padding-top:10px}.result-screen .ledger p{font-size:13px}.result-screen .path{font-size:12px}
 .vignette-scene{background-repeat:no-repeat;transform:none;filter:saturate(.85)}.guide-avatar{width:32px;height:42px;border-radius:10px}.home-actions .action-buttons{gap:10px}.home-actions .action-buttons button{font-size:14px}
+/* Character contact: one deliberate tap, a direct reply, and a quiet idle gesture. */
+.character-touch{border:0;padding:0;margin:0;background-color:transparent;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transform-origin:bottom center}
+.character-touch::after{border:0}.character-touch:hover{filter:brightness(1.035)}.character-touch:active{transform:scale(.98)}.character-touch:focus-visible{outline:2px solid var(--gold);outline-offset:-4px;border-radius:18px}
+.hero-portrait.character-touch{animation:character-breathe 5s ease-in-out infinite}.dialogue-portrait{animation:character-hello .35s ease-out both}.dialogue-copy p,.dialogue-body{animation:character-copy .25s ease-out both}
+@keyframes character-breathe{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-3px) rotate(.4deg)}}
+@keyframes character-hello{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes character-copy{from{opacity:.3}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.hero-portrait.character-touch,.dialogue-portrait,.dialogue-copy p,.dialogue-body{animation:none}}
+.hero-portrait.character-touch{aspect-ratio:1;max-width:94%;animation:character-presence 5s ease-in-out infinite}.dialogue-portrait.portrait-art{height:125px}.important-dialogue .dialogue-portrait.portrait-art{width:150px;height:150px;bottom:90px;filter:none}.portrait.portrait-art{width:100px;height:100px}
+@keyframes character-presence{0%,100%{filter:brightness(1)}50%{filter:brightness(1.025)}}
+@media(prefers-reduced-motion:reduce){.hero-portrait.character-touch{animation:none}}
