@@ -26,7 +26,7 @@ function create(storage={}){
   // Returning to the entry screen is also used for browser page restoration.
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
-  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home'].includes(id))ui.modal=null;
+  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home','sounds'].includes(id))ui.modal=null;
   const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next','dialogue-next','dialogue-skip','backlog','backlog-return'];
   if(id.startsWith('choice:')&&ui.modal&&ui.modal.kind==='story')modalActions.push(id);
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
@@ -47,6 +47,7 @@ function create(storage={}){
   if(id==='backlog'){if(ui.modal&&ui.modal.kind==='backlog')return;returnModal=copy(ui.modal);ui.modal={kind:'backlog',title:'对话回看'};return;}
   if(id==='backlog-return'){if(ui.modal&&ui.modal.kind==='backlog'){ui.modal=returnModal;returnModal=null;}return;}
   if(id==='menu'){ui.modal={kind:'menu',title:'行商手记'};return;}
+  if(id==='sounds'){ui.modal={kind:'sound',title:'声音设置'};return;}
   if(id==='history'){ui.modal={kind:'history',page:0};return;}
   if(id==='history-prev'||id==='history-next'){if(ui.modal&&ui.modal.kind==='history')ui.modal.page=Math.max(0,Math.min(5,ui.modal.page+(id==='history-next'?1:-1)));return;}
   if(id==='rules'){ui.modal={kind:'rules',page:0};return;}
@@ -74,7 +75,7 @@ function create(storage={}){
  function dispatch(id){dispatchInner(id);persist();}
  function persist(){if(ui.screen==='home'||ui.screen==='chapters')return;
   const snapshot={version:1,session:session.snapshot(),ui:copy(ui),history:copy(uiHistory)};
-  if(snapshot.ui.modal&&['menu','move','backlog'].includes(snapshot.ui.modal.kind))snapshot.ui.modal=snapshot.ui.modal.kind==='backlog'?copy(returnModal):null;
+  if(snapshot.ui.modal&&['menu','move','backlog','sound'].includes(snapshot.ui.modal.kind))snapshot.ui.modal=snapshot.ui.modal.kind==='backlog'?copy(returnModal):null;
   resume=session.state.status==='playing'?snapshot:null;resumeState=resume?session.state:null;
   try{if(storage.write)storage.write(RUN_KEY,resume);}catch{ui.message='本次进度未能保存，仍可继续游玩。';ui.error=true;}
  }

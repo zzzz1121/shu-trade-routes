@@ -37,5 +37,13 @@ function modular(v){
  v.level.edges.forEach(e=>{const a=v.nodes.find(n=>n.id===e[0]),b=v.nodes.find(n=>n.id===e[1]),dx=b.x-a.x,dy=(b.y-a.y)/ratio;v.routeSegments.push({id:e.join('-'),edge:e.join('-'),style:'left:'+a.x+'%;top:'+a.y+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});});
  return v;
 }
-return {decorate:decorate,frames:frames,terrainTiles:terrainTiles};
+function routePoints(level,from,to){
+ if(!level.edges.some(e=>e[0]===from&&e[1]===to||e[1]===from&&e[0]===to))return null;
+ if(level.id==='l01'){const key=from+'-'+to,reverse=to+'-'+from;return (paths[key]||paths[reverse].slice().reverse()).map(p=>p.slice());}
+ return [from,to].map(id=>{const n=level.nodes.find(n=>n.id===id);return [n.x,n.y];});
+}
+function routeSample(points,t){const lengths=points.slice(1).map((b,i)=>Math.hypot(b[0]-points[i][0],(b[1]-points[i][1])/ratio)),total=lengths.reduce((a,b)=>a+b,0);let distance=Math.max(0,Math.min(1,t))*total;
+ for(let i=0;i<lengths.length;i++){if(distance<=lengths[i]||i===lengths.length-1){const f=lengths[i]?distance/lengths[i]:0,a=points[i],b=points[i+1];return [a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f];}distance-=lengths[i];}return points[0].slice();
+}
+return {decorate:decorate,frames:frames,terrainTiles:terrainTiles,routePoints,routeSample};
 });
