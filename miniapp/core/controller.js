@@ -1,11 +1,6 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine'),require('./level'),require('./presenter'));else root.ShuController=factory(root.ShuEngine,root.ShuLevel,root.ShuPresenter);})(this,function(E,Levels,P){
 'use strict';
 const KEY='shu-trade-progress-v2';
-const greetings={
- '阿禾':['你来啦！钱袋带好了？这趟商路，我们一起走。','别急着出发，先看看下一家收什么钱。我陪你算。','有拿不准的地方，就来问我。咱们一笔一笔做。'],
- '罗掌柜':['来了？这笔委托，就拜托你了。我在商行等你回来。','货物重要，你也要平安回来。出发前，再看看钱袋。','这一程你自己拿主意，我信得过你。'],
- '许掌柜':['你来得正好。把票拿近些，我帮你看看。','你想兑多少？先留好下一笔买卖要用的钱。','纸上的商号，你可看清了？下一家认不认，也得问问。']
-};
 function normalize(data){if(!data||data.version!==2)return {version:2,completed:[],tutorialDone:[],last:'l01'};const valid=id=>Levels.all.some(l=>l.id===id);return {version:2,completed:Array.isArray(data.completed)?data.completed.filter(valid):[],tutorialDone:Array.isArray(data.tutorialDone)?data.tutorialDone.filter(valid):[],last:valid(data.last)?data.last:'l01'};}
 function create(storage={}){
  let progress;try{progress=normalize(storage.read&&storage.read(KEY));}catch{progress=normalize(null);}
@@ -31,11 +26,8 @@ function create(storage={}){
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
   if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry'].includes(id))ui.modal=null;
-  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','talk-next','talk-accept'];
+  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next'];
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
-  if(id.startsWith('talk:')){const name=id.slice(5);if(!greetings[name])return;ui.modal={kind:'encounter',title:name,body:s.status==='won'?'你这趟生意做得漂亮！歇一歇，再一起走下一程。':s.status==='failed'?'别灰心，我在这儿。我们退回去，一起重新算。':greetings[name][0],turn:0,reply:ui.screen==='home'?'start':ui.screen==='intro'?'play':s.status==='won'?'next':'close',replyLabel:ui.screen==='home'?'一起出发':ui.screen==='intro'?'交给我吧':s.status==='won'?'再走一程':'我再想想'};return;}
-  if(id==='talk-next'){if(ui.modal&&ui.modal.kind==='encounter'){ui.modal.turn=(ui.modal.turn+1)%greetings[ui.modal.title].length;ui.modal.body=greetings[ui.modal.title][ui.modal.turn];}return;}
-  if(id==='talk-accept'){if(ui.modal&&ui.modal.kind==='encounter'){const reply=ui.modal.reply;ui.modal=null;dispatch(reply);}return;}
   if(id.startsWith('level:')){begin(id.slice(6));return;}
   if(id==='advanced'){ui.advanced=true;begin(progress.last);return;}
   if(id==='start'){ui.advanced=false;begin(progress.last);return;}

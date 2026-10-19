@@ -25,7 +25,7 @@ const historyFragments={
  l06:'天圣元年，官府设了益州交子务；次年，官交子开始发行。街市用的钱，又有了新章程。'
 };
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
-function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portraitStyle:'background-image:url('+base+'/characters/portraits-front.png);background-size:300% auto;background-position:'+({ahe:0,luo:50,xu:100}[c.id])+'% bottom;',portrait:base+'/characters/'+c.id+'.png'};}
+function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portraitStyle:'background-image:url('+base+'/characters/portraits-v2.png);background-size:300% 100%;background-position:'+({ahe:0,luo:50,xu:100}[c.id])+'% center;',portrait:base+'/characters/'+c.id+'.png'};}
 function decorate(v,base='/miniapp/assets'){
  const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'background-image:url('+base+'/chapters/chapter-scenes.png);background-size:300% 200%;background-position:'+((v.level.number-1)%3*50)+'% '+(Math.floor((v.level.number-1)/3)*100)+'%;'});
  v.completedCount=v.chapters.filter(c=>c.completed).length;v.chapterCount=v.chapters.length;
@@ -43,7 +43,7 @@ function decorate(v,base='/miniapp/assets'){
  v.historyLine=v.s.status==='won'?historyFragments[v.level.id]:'';
  v.outroText=v.s.status==='won'?v.level.outro[1]:'这笔账还可以重算。退回上一步，我们换个走法。';
  if(v.modal){const m=v.modal;
-  m.dialogue=['lesson','story','encounter'].includes(m.kind);m.important=m.kind==='story'||m.kind==='encounter';
+  m.dialogue=['lesson','story'].includes(m.kind);m.important=m.kind==='story';
   if(m.dialogue){m.actor=actor(m.title,base);if(!characters[m.title])m.body=m.title+'说：“'+m.body+'”';if(m.kind==='story')m.body=n.opening;m.title=m.actor.name;}
   if(m.kind==='move'){
    const node=v.level.nodes.find(x=>x.id===m.nodeId),trade=v.level.transactions.find(t=>t.nodeId===m.nodeId);
