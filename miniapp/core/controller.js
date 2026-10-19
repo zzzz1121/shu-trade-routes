@@ -26,7 +26,7 @@ function create(storage={}){
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
   if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry'].includes(id))ui.modal=null;
-  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next'];
+  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next'];
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
   if(id==='start'){begin(progress.last);return;}
@@ -38,6 +38,8 @@ function create(storage={}){
   if(id==='skip-tutorial'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();ui.modal=null;return;}
   if(id==='replay'){ui.modal={kind:'story',title:l.intro[0],body:l.intro[1]};return;}
   if(id==='menu'){ui.modal={kind:'menu',title:'行商手记'};return;}
+  if(id==='history'){ui.modal={kind:'history',page:0};return;}
+  if(id==='history-prev'||id==='history-next'){if(ui.modal&&ui.modal.kind==='history')ui.modal.page=Math.max(0,Math.min(5,ui.modal.page+(id==='history-next'?1:-1)));return;}
   if(id==='rules'){ui.modal={kind:'rules',page:0};return;}
   if(id==='rule-next'||id==='rule-prev'){const max=P.view(session,ui).rules.length-1;ui.modal.page=Math.max(0,Math.min(max,ui.modal.page+(id==='rule-next'?1:-1)));return;}
   if(id==='hint'){ui.hint=0;ui.modal={kind:'hint',title:'行商提示',body:l.hints[0]};return;}

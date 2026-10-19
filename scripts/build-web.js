@@ -13,7 +13,7 @@ copy('web/app.js');
 for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js']) copy('miniapp/core/' + file);
 copy('miniapp/ui/scene.js');
 copy('miniapp/ui/narrative.js');
-for (const file of ['tokens.css', 'game.css', 'narrative.css']) copy('miniapp/styles/' + file);
+for (const file of ['tokens.css', 'game.css', 'narrative.css','presentation.css']) copy('miniapp/styles/' + file);
 for (const file of ['town-atlas.png', 'town-extended.png']) copy('miniapp/assets/approved/' + file);
 for (const file of ['iron.png', 'note.png', 'cloth.png', 'warehouse.png', 'delivery.png']) copy('miniapp/assets/generated/' + file);
 console.log('Static game ready: ' + out);

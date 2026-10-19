@@ -24,3 +24,10 @@ test('六关史话融入成功回应；失败和未交付不出现，不改变�
 test('章节有六个独立插画单元且不改游戏拓扑',()=>{
  const c=game('l06'),before=JSON.stringify(c.session.level);const v=N.decorate(c.view());assert.equal(new Set(v.chapters.map(x=>x.artStyle)).size,6);assert.equal(new Set(v.chapters.map(x=>x.positionStyle)).size,6);assert.ok(v.chapters.every(x=>x.scene.endsWith('/chapters/chapter-scenes.png')));assert.equal(v.chapterRoads.length,5);assert.equal(JSON.stringify(c.session.level),before);
 });
+
+test('史话翻页只改变展示，不改关卡、资金或解锁进度',()=>{
+ const c=game('l01'),before=c.session.state,progress=c.progress;c.dispatch('history');for(let i=0;i<6;i++){const v=N.decorate(c.view());assert.equal(v.modal.page,i);assert.equal(v.modal.count,6);assert.ok(v.modal.title&&v.modal.body);c.dispatch('history-next');}assert.equal(c.view().modal.page,5);c.dispatch('history-prev');assert.equal(c.view().modal.page,4);c.dispatch('close');assert.deepEqual(c.session.state,before);assert.deepEqual(c.progress,progress);
+});
+test('提示沿用三层规则内容并由阿禾呈现；每章开幕引用独立图格',()=>{
+ const styles=new Set();for(const l of L.all){const c=game(l.id);c.dispatch('start');c.dispatch('skip-intro');c.dispatch('hint');let v=N.decorate(c.view());assert.equal(v.modal.dialogue,true);assert.equal(v.modal.actor.name,'阿禾');assert.equal(v.modal.body,l.hints[0]);c.dispatch('hint-next');v=N.decorate(c.view());assert.equal(v.modal.body,l.hints[1]);styles.add(v.narrative.sceneStyle);}assert.equal(styles.size,6);
+});

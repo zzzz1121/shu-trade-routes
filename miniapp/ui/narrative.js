@@ -27,7 +27,7 @@ const historyFragments={
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
 function actor(name,base){const c=characters[name]||characters['阿禾'];return {name:characters[name]?name:'阿禾',role:c.role,portrait:base+'/characters/'+c.id+'.png'};}
 function decorate(v,base='/miniapp/assets'){
- const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/approved/town-atlas.png'});
+ const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'left:'+(-((v.level.number-1)%3)*100)+'%;top:'+(-Math.floor((v.level.number-1)/3)*100)+'%;'});
  v.completedCount=v.chapters.filter(c=>c.completed).length;v.chapterCount=v.chapters.length;
  v.chapterBackdrop=base+'/v2/terrain.png';
  v.chapters=v.chapters.map((c,i)=>Object.assign({},c,chapters[c.id],{
@@ -41,13 +41,14 @@ function decorate(v,base='/miniapp/assets'){
  v.guide=actor('阿禾',base);
  v.outroActor=actor(v.s.status==='won'?v.level.outro[0]:'阿禾',base);
  v.historyLine=v.s.status==='won'?historyFragments[v.level.id]:'';
- v.outroText=v.s.status==='won'?v.level.outro[1]:'这笔账还可以重算。退回上一步，我们换个走法。';
+ v.outroText=v.s.status==='won'?({l01:'布料送到了，正好赶上裁衣。工钱在这里，先歇歇脚。',l02:'粮食和药材都齐了。把袋子放这儿，我来收拾。',l03:'货买回来了。这一路，哪家认哪张票，你也摸清了。',l04:'茶卖出去，布也带回来了。这趟来回，辛苦你了。',l05:'纸墨买到了。柜上兑出的数，我都记好了，你再对一对。',l06:'布和茶都到了。还记得头一回送布么？这回可熟练多了。'}[v.level.id]||v.level.outro[1]):'这笔账还可以重算。退回上一步，我们换个走法。';
  if(v.modal){const m=v.modal;
-  m.dialogue=['lesson','story'].includes(m.kind);m.important=m.kind==='story';
-  if(m.dialogue){m.actor=actor(m.title,base);if(!characters[m.title])m.body=m.title+'说：“'+m.body+'”';if(m.kind==='story')m.body=n.opening;m.title=m.actor.name;}
-  if(m.kind==='move'){
+  m.dialogue=['lesson','story','hint'].includes(m.kind);m.important=m.kind==='story';
+  if(m.dialogue){m.actor=actor(m.kind==='hint'?'阿禾':m.title,base);if(m.kind!=='hint'&&!characters[m.title])m.body=m.title+'说：“'+m.body+'”';if(m.kind==='story')m.body=n.opening;m.title=m.actor.name;}
+  if(m.kind==='history'){m.title=['钱袋为什么这样沉','纸券与现钱','谁愿意认这张纸','跟着茶货走','柜上的现钱','新交子'][m.page];m.body=Object.values(historyFragments)[m.page];m.count=6;}
+  if(m.kind==='move'){m.actor=actor('阿禾',base);
    const node=v.level.nodes.find(x=>x.id===m.nodeId),trade=v.level.transactions.find(t=>t.nodeId===m.nodeId);
-   m.flavor=node.toll?'路近些，过路钱可要先备好。':node.id==='warehouse'?'阿禾：先把钱袋理好，出门心里才有数。':node.id===v.level.goal?'掌柜正在商行等着这批货。':trade&&trade.type==='redeem'?'许掌柜：柜上现钱有限，兑多少，先想好。':trade&&trade.type==='swap'?'许掌柜：换张票，也要看看下一家认不认。':/grain/.test(node.id)?'新粮刚入仓，粮商正候着买主。':/medicine/.test(node.id)?'药香飘出门帘，药铺今日照常开张。':trade?'先问清收钱的规矩，再落定这笔买卖。':'街巷相通，走远些，也有走远些的好处。';
+   m.flavor=node.toll?'过桥需 '+node.toll+' 铁钱，走这条路前先留好。':node.id==='warehouse'?'阿禾：先把钱袋理好，出门心里才有数。':node.id===v.level.goal?'掌柜正在商行等着这批货。':trade&&trade.type==='redeem'?'许掌柜：柜上现钱有限，兑多少，先想好。':trade&&trade.type==='swap'?'许掌柜：换张票，也要看看下一家认不认。':/grain/.test(node.id)?'新粮刚入仓，粮商正候着买主。':/medicine/.test(node.id)?'药香飘出门帘，药铺今日照常开张。':trade?'先问清收钱的规矩，再落定这笔买卖。':'街巷相通，走远些，也有走远些的好处。';
   }
  }
  return v;
