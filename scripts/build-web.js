@@ -9,6 +9,7 @@ function copy(source, target = source) {
   fs.copyFileSync(path.join(root, source), dest);
 }
 copy('web/index.html', 'index.html');
+copy('web/portrait-review.html');
 copy('web/app.js');
 for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js','dialogue.js','chapter-one.js','chapter-flow.js']) copy('miniapp/core/' + file);
 copy('miniapp/ui/scene.js');
@@ -47,3 +48,5 @@ copy('miniapp/assets/characters/v34/luo-expressions.png');
 copy('miniapp/assets/characters/v34/ahe-expressions.png');
 
 copy('miniapp/assets/characters/v34/shen-expressions.png');
+
+for(const actor of ['ahe','luo','shen','xu'])for(const emotion of ['neutral','smile','thinking','puzzled','worried','firm'])copy('miniapp/assets/characters/v35/'+actor+'/'+emotion+'.png');

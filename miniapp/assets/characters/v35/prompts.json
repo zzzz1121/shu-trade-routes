@@ -1,0 +1,222 @@
+{
+  "version": "0.4.15",
+  "purpose": "Independent transparent character expressions, replacing the legacy contact sheet portraits.",
+  "assets": [
+    {
+      "id": "ahe",
+      "expression": "neutral",
+      "file": "ahe/neutral.png",
+      "generator": "built-in image_gen",
+      "reference": "../v34/ahe-expressions.png",
+      "source_file": "exec-2625f132-6194-4a35-83f4-6e140021cafd.png",
+      "prompt": "Use case: identity-preserve. Production character cutout for the existing hand-painted ancient Sichuan merchant visual novel. Reference is a sprite sheet only for identity, costume and watercolor/gouache fine-pencil style. Create ONE single character, not a sheet, not a collage, no other people or stray body parts. Portrait 2:3 canvas, framed from whole hair/topknot to mid-thigh, entire shoulders elbows and both hands inside canvas, 8% clear transparent padding left/right, 5% above hair. Camera at eye-level, character looks directly at the player. Muted natural cloth, restrained warm daylight, fine hand drawn edges. Genuine alpha transparent background; no shadow backdrop, no props behind character, no lettering. Neutral relaxed attentive expression. Preserve existing facial identity, hair, clothing palette and accessories. Ahe, young adult female traveling merchant, sage ribbon in high ponytail, sage robe, cream collar and cuffs, navy sash, brown shoulder satchel. Natural two arms, right hand lightly holds strap, left relaxed at waist."
+    },
+    {
+      "id": "ahe",
+      "expression": "smile",
+      "file": "ahe/smile.png",
+      "generator": "built-in image_gen",
+      "reference": "ahe/neutral.png",
+      "source_file": "exec-f1fe8736-b859-4493-9a81-9ff1e79b7596.png",
+      "prompt": "Use case: identity-preserve. Edit this ONE transparent character illustration into the smile expression: a small warm genuine smile, relaxed brows, welcoming eye contact. Keep the EXACT SAME young woman, face structure, hair, costume, body, two arms, hands, pose, satchel, painting style, scale, head position and 1024x1536 canvas framing as the reference. Change ONLY facial expression, do not zoom, shift, crop or add people. Maintain true alpha transparency; no background, no letters, no montage. Preserve complete silhouette with transparent left/right margins. Production visual novel expression asset."
+    },
+    {
+      "id": "ahe",
+      "expression": "thinking",
+      "file": "ahe/thinking.png",
+      "generator": "built-in image_gen",
+      "reference": "ahe/neutral.png",
+      "source_file": "exec-e9602afe-0773-4051-a2cf-7e1bbc9b5a8a.png",
+      "prompt": "Use case: identity-preserve. Edit this ONE transparent character illustration into the thinking expression: quietly thinking, slightly narrowed thoughtful eyes, closed lips and gently lowered eyebrows. Keep the EXACT SAME young woman, face structure, hair, costume, body, two arms, hands, pose, satchel, painting style, scale, head position and 1024x1536 canvas framing as the reference. Change ONLY facial expression, do not zoom, shift, crop or add people. Maintain true alpha transparency; no background, no letters, no montage. Preserve complete silhouette with transparent left/right margins. Production visual novel expression asset."
+    },
+    {
+      "id": "ahe",
+      "expression": "puzzled",
+      "file": "ahe/puzzled.png",
+      "generator": "built-in image_gen",
+      "reference": "ahe/neutral.png",
+      "source_file": "exec-c651670d-e882-4e42-bc02-b3f073ef97bf.png",
+      "prompt": "Use case: identity-preserve. Edit this ONE transparent character illustration into the puzzled expression: mildly puzzled, one eyebrow subtly raised, questioning eyes, lips slightly parted; not worried or smiling. Keep the EXACT SAME young woman, face structure, hair, costume, body, two arms, hands, pose, satchel, painting style, scale, head position and 1024x1536 canvas framing as the reference. Change ONLY facial expression, do not zoom, shift, crop or add people. Maintain true alpha transparency; no background, no letters, no montage. Preserve complete silhouette with transparent left/right margins. Production visual novel expression asset."
+    },
+    {
+      "id": "ahe",
+      "expression": "worried",
+      "file": "ahe/worried.png",
+      "generator": "built-in image_gen",
+      "reference": "ahe/neutral.png",
+      "source_file": "exec-d0b67ec1-fe2c-4931-ab23-022adafeb369.png",
+      "prompt": "Use case: identity-preserve. Edit this ONE transparent character illustration into the worried expression: restrained concern, inner eyebrows lifted and drawn together, slightly downturned mouth; no tears or melodrama. Keep the EXACT SAME young woman, face structure, hair, costume, body, two arms, hands, pose, satchel, painting style, scale, head position and 1024x1536 canvas framing as the reference. Change ONLY facial expression, do not zoom, shift, crop or add people. Maintain true alpha transparency; no background, no letters, no montage. Preserve complete silhouette with transparent left/right margins. Production visual novel expression asset."
+    },
+    {
+      "id": "ahe",
+      "expression": "firm",
+      "file": "ahe/firm.png",
+      "generator": "built-in image_gen",
+      "reference": "ahe/neutral.png",
+      "source_file": "exec-7bcb2ae4-ef44-4a4a-abea-2977286a545a.png",
+      "prompt": "Use case: identity-preserve. Edit this ONE transparent character illustration into the firm expression: calm resolve, level focused eyes, lightly set lips, composed serious expression; not anger. Keep the EXACT SAME young woman, face structure, hair, costume, body, two arms, hands, pose, satchel, painting style, scale, head position and 1024x1536 canvas framing as the reference. Change ONLY facial expression, do not zoom, shift, crop or add people. Maintain true alpha transparency; no background, no letters, no montage. Preserve complete silhouette with transparent left/right margins. Production visual novel expression asset."
+    },
+    {
+      "id": "luo",
+      "expression": "neutral",
+      "file": "luo/neutral.png",
+      "generator": "built-in image_gen",
+      "reference": "../v34/luo-expressions.png",
+      "source_file": "exec-dad8e752-0482-4dc0-889e-72a5d26bea34.png",
+      "prompt": "Use case: identity-preserve. Production character cutout for the existing hand-painted ancient Sichuan merchant visual novel. Reference is a sprite sheet only for identity, costume and watercolor/gouache fine-pencil style. Create ONE single character, not a sheet, not a collage, no other people or stray body parts. Portrait 2:3 canvas, framed from whole hair/topknot to mid-thigh, entire shoulders elbows and both hands inside canvas, 8% clear transparent padding left/right, 5% above hair. Camera at eye-level, character looks directly at the player. Muted natural cloth, restrained warm daylight, fine hand drawn edges. Genuine alpha transparent background; no shadow backdrop, no props behind character, no lettering. Neutral relaxed attentive expression. Preserve existing facial identity, hair, clothing palette and accessories. Luo, friendly stocky middle-aged male merchant, round face, small moustache and pointed goatee, topknot with wooden pin, warm brown robe charcoal lapels cream inner collar. Both hands relaxed together at waist."
+    },
+    {
+      "id": "luo",
+      "expression": "smile",
+      "file": "luo/smile.png",
+      "generator": "built-in image_gen",
+      "reference": "luo/neutral.png",
+      "source_file": "exec-0b70ae71-a7a6-42cf-9011-a47f5297f8d3.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into smile: warm gentle smile, relaxed eyebrows and eyes. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "luo",
+      "expression": "thinking",
+      "file": "luo/thinking.png",
+      "generator": "built-in image_gen",
+      "reference": "luo/neutral.png",
+      "source_file": "exec-3cdca7cc-9454-45ce-9996-67a8f823dcb1.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into thinking: quietly thoughtful, lightly narrowed eyes and composed closed lips. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "luo",
+      "expression": "puzzled",
+      "file": "luo/puzzled.png",
+      "generator": "built-in image_gen",
+      "reference": "luo/neutral.png",
+      "source_file": "exec-c9a8cefd-4ed7-4649-91ab-04b3b32cf678.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into puzzled: subtly raised one eyebrow, inquisitive eyes and slightly parted lips, not smiling. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "luo",
+      "expression": "worried",
+      "file": "luo/worried.png",
+      "generator": "built-in image_gen",
+      "reference": "luo/neutral.png",
+      "source_file": "exec-79494a4c-dda9-4d50-a8b0-fc089494eafe.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into worried: restrained concern, inner eyebrows drawn together and lifted, mouth faintly downturned. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "luo",
+      "expression": "firm",
+      "file": "luo/firm.png",
+      "generator": "built-in image_gen",
+      "reference": "luo/neutral.png",
+      "source_file": "exec-a02e6659-8e63-41bb-9ba1-27bfb649fa3b.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into firm: calm resolve, focused level eyes, lightly set lips, serious but not angry. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "shen",
+      "expression": "neutral",
+      "file": "shen/neutral.png",
+      "generator": "built-in image_gen",
+      "reference": "../v34/shen-expressions.png",
+      "source_file": "exec-3eee7bbf-5485-4ce9-bdba-254e20550c27.png",
+      "prompt": "Use case: identity-preserve. Production character cutout for the existing hand-painted ancient Sichuan merchant visual novel. Reference is a sprite sheet only for identity, costume and watercolor/gouache fine-pencil style. Create ONE single character, not a sheet, not a collage, no other people or stray body parts. Portrait 2:3 canvas, framed from whole hair/topknot to mid-thigh, entire shoulders elbows and both hands inside canvas, 8% clear transparent padding left/right, 5% above hair. Camera at eye-level, character looks directly at the player. Muted natural cloth, restrained warm daylight, fine hand drawn edges. Genuine alpha transparent background; no shadow backdrop, no props behind character, no lettering. Neutral relaxed attentive expression. Preserve existing facial identity, hair, clothing palette and accessories. Shen, adult female cloth shopkeeper, swept pinned-up dark hair with simple pale hairpin, muted teal robe, beige apron, folded indigo cloth held at waist."
+    },
+    {
+      "id": "shen",
+      "expression": "smile",
+      "file": "shen/smile.png",
+      "generator": "built-in image_gen",
+      "reference": "shen/neutral.png",
+      "source_file": "exec-4409e0fb-8bc9-418f-84f9-c4c3442662bc.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into smile: warm gentle smile, relaxed eyebrows and eyes. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "shen",
+      "expression": "thinking",
+      "file": "shen/thinking.png",
+      "generator": "built-in image_gen",
+      "reference": "shen/neutral.png",
+      "source_file": "exec-8551a5f3-0421-4da5-915e-497085a8df90.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into thinking: quietly thoughtful, lightly narrowed eyes and composed closed lips. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "shen",
+      "expression": "puzzled",
+      "file": "shen/puzzled.png",
+      "generator": "built-in image_gen",
+      "reference": "shen/neutral.png",
+      "source_file": "exec-273ae3de-152c-4847-8c0a-2b4952782f54.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into puzzled: subtly raised one eyebrow, inquisitive eyes and slightly parted lips, not smiling. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "shen",
+      "expression": "worried",
+      "file": "shen/worried.png",
+      "generator": "built-in image_gen",
+      "reference": "shen/neutral.png",
+      "source_file": "exec-76f409c0-a6f0-4d92-8fca-e063d98011b1.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into worried: restrained concern, inner eyebrows drawn together and lifted, mouth faintly downturned. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "shen",
+      "expression": "firm",
+      "file": "shen/firm.png",
+      "generator": "built-in image_gen",
+      "reference": "shen/neutral.png",
+      "source_file": "exec-86aea359-c46b-4674-b276-64ed38796ea6.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into firm: calm resolve, focused level eyes, lightly set lips, serious but not angry. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "xu",
+      "expression": "neutral",
+      "file": "xu/neutral.png",
+      "generator": "built-in image_gen",
+      "reference": "../v3/xu-expressions.png",
+      "source_file": "exec-9dd88ed5-ad0c-49e8-a4b5-bd0a9dd737e5.png",
+      "prompt": "Use case: identity-preserve. Production character cutout for the existing hand-painted ancient Sichuan merchant visual novel. Reference is a sprite sheet only for identity, costume and watercolor/gouache fine-pencil style. Create ONE single character, not a sheet, not a collage, no other people or stray body parts. Portrait 2:3 canvas, framed from whole hair/topknot to mid-thigh, entire shoulders elbows and both hands inside canvas, 8% clear transparent padding left/right, 5% above hair. Camera at eye-level, character looks directly at the player. Muted natural cloth, restrained warm daylight, fine hand drawn edges. Genuine alpha transparent background; no shadow backdrop, no props behind character, no lettering. Neutral relaxed attentive expression. Preserve existing facial identity, hair, clothing palette and accessories. Xu, young adult male paper money shopkeeper, blue cloth headwrap, blue-grey robe cream collar, navy inner robe, holding two blank cream paper slips at waist."
+    },
+    {
+      "id": "xu",
+      "expression": "smile",
+      "file": "xu/smile.png",
+      "generator": "built-in image_gen",
+      "reference": "xu/neutral.png",
+      "source_file": "exec-a599d4a6-afce-4494-ac3d-01bf572f4dfc.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into smile: warm gentle smile, relaxed eyebrows and eyes. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "xu",
+      "expression": "thinking",
+      "file": "xu/thinking.png",
+      "generator": "built-in image_gen",
+      "reference": "xu/neutral.png",
+      "source_file": "exec-00961f2d-2948-4919-b19d-32f67f1b60b4.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into thinking: quietly thoughtful, lightly narrowed eyes and composed closed lips. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "xu",
+      "expression": "puzzled",
+      "file": "xu/puzzled.png",
+      "generator": "built-in image_gen",
+      "reference": "xu/neutral.png",
+      "source_file": "exec-5abc3b8a-20b5-4987-9a2d-587d51f6b765.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into puzzled: subtly raised one eyebrow, inquisitive eyes and slightly parted lips, not smiling. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "xu",
+      "expression": "worried",
+      "file": "xu/worried.png",
+      "generator": "built-in image_gen",
+      "reference": "xu/neutral.png",
+      "source_file": "exec-a1a7dd61-ca51-4dfd-bc32-5cd53a404a23.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into worried: restrained concern, inner eyebrows drawn together and lifted, mouth faintly downturned. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    },
+    {
+      "id": "xu",
+      "expression": "firm",
+      "file": "xu/firm.png",
+      "generator": "built-in image_gen",
+      "reference": "xu/neutral.png",
+      "source_file": "exec-c21d1c5e-30ba-40b5-8687-97d110e86107.png",
+      "prompt": "Use case: identity-preserve. Production visual novel facial expression variant. Edit this ONE transparent character into firm: calm resolve, focused level eyes, lightly set lips, serious but not angry. Keep EXACT facial identity, age, hairstyle, clothes, props, body, two arms and hands, pose, scale and head position of reference, preserve its complete 1024x1536 portrait canvas and hand-painted watercolor/pencil style. Only change face expression. No new person, no duplicate body parts, no sheet or grid. Genuine alpha transparency around the character; no environment, backdrop, text, outline glow or watermark. Do not zoom or recrop."
+    }
+  ]
+}
