@@ -17,7 +17,7 @@ function create(host,storage={}){
  function begin(id){host.begin(id);delete host.ui.feedbackMemory;if(host.session.level.id!=='l01'){host.ui.screen='intro';return;}history=[];host.ui.story=S.initial();host.ui.screen='play';host.ui.modal=null;host.ui.payIron=0;host.ui.payNote=0;host.ui.x=2;}
  function commit(action){const ui=host.ui,before={session:host.session.snapshot(),ui:clone(ui)},r=host.session.act(action);if(!r.ok){ui.message=r.message;ui.error=true;return false;}history.push(before);ui.error=false;ui.message=host.eventText(r.event);host.defaults();ui.payIron=0;ui.payNote=0;
   if(r.state.status==='failed'){state().phase='failed';state().active=null;ui.modal=null;return true;}
-  if(action.type==='move'){state().phase=r.state.nodeId==='shop'?(state().flags.clothSelected?'payment':'cloth'):r.state.nodeId==='delivery'?'delivery':state().phase==='return'?'return':'road';if(!state().routeVisited.includes(r.state.nodeId))state().routeVisited.push(r.state.nodeId);const event={bridge:'bridge',shop:'shop'}[r.state.nodeId];if(event&&!state().seenEvents[event])open(event);else{ui.modal=null;if(r.state.nodeId==='street')notice('这头多走一段，不过有檐，雨天好走。');else if(r.state.nodeId==='alley')notice('前头左转就是布铺。');else if(r.state.nodeId==='delivery')notice('回来了。把布放到货台上，再核一遍。');}}
+  if(action.type==='move'){state().tradeMap=false;state().phase=r.state.nodeId==='shop'?(state().flags.clothSelected?'payment':'cloth'):r.state.nodeId==='delivery'?'delivery':state().phase==='return'?'return':'road';if(!state().routeVisited.includes(r.state.nodeId))state().routeVisited.push(r.state.nodeId);const event={bridge:'bridge',shop:'shop'}[r.state.nodeId];if(event&&!state().seenEvents[event])open(event);else{ui.modal=null;if(r.state.nodeId==='street')notice('这头多走一段，不过有檐，雨天好走。');else if(r.state.nodeId==='alley')notice('前头左转就是布铺。');else if(r.state.nodeId==='delivery')notice('回来了。把布放到货台上，再核一遍。');}}
   if(action.type==='buy')open('paid');
   if(action.type==='deliver'){state().phase='record';open('record');}
   return true;
@@ -36,7 +36,7 @@ function create(host,storage={}){
   else if(['blue','grey','white'].includes(id)&&['cloth','payment'].includes(st.phase)){const item={blue:['青布 · 罗记','青色布样，标签写着「罗记」。'],grey:['灰布 · 陈记','灰色布样，标签写着「陈记」。'],white:['素布 · 吴记','素色布样，标签写着「吴记」。']}[id];prop(id,item[0],item[1],[{id:'object:select-'+id,label:'就是这包'}],'cloth-'+id);}
   else if(id.startsWith('select-')&&st.phase==='cloth'){const color=id.slice(7);if(color==='blue')open('cloth-blue');else{ui.feedbackMemory=ui.feedbackMemory||{};if(ui.feedbackMemory[color]){ui.message='标签与货单不符。罗记订的是青布。';ui.error=true;ui.modal=null;}else{ui.feedbackMemory[color]=true;open('wrong-'+color);}}}
   else if(id==='order')prop('order','罗记货单','青布一批 · 罗记\n货款 6 · 货重 2 格\n至少付 2 铁钱，其余可付交子。',[],'order');
-  else if(id==='pay'){ui.modal=null;st.paymentOpen=true;if(!st.seenEvents.payment)open('payment');}
+  else if(id==='pay'){ui.modal=null;st.tradeMap=false;st.paymentOpen=true;if(!st.seenEvents.payment)open('payment');}
   else if(id==='why-iron')open('why-iron');
   else if(id==='repack'&&s.stepsUsed===0){checkpoint();host.session=E.createSession(host.session.level);st.phase='prepare';ui.modal=null;notice('货款重新放回柜台。只在备好出发时结算一次。');}
   else if(id==='delivery'){if(s.cargoById.cloth){if(st.flags.deliveryReady)notice('布已核好，可以确认交付。');else open('delivery');}else notice('还没有可交付的布。');}
@@ -44,12 +44,14 @@ function create(host,storage={}){
   else if(id==='account')host.openLedger();
  }
  function handle(id){const ui=host.ui;
+  if(id==='opening-start'&&ui.screen==='opening'){ui.screen='play';return true;}
+  if(id.startsWith('chapter-open:')){const target=id.slice(13);if(!host.unlocked(target))return true;const saved=host.resume;handle('enter:'+target);if(target==='l01'&&!(saved&&saved.session.levelId===target)&&state())ui.screen='opening';return true;}
   if(id.startsWith('enter:')){const target=id.slice(6);if(!host.unlocked(target))return true;const saved=host.resume;if(saved&&saved.version===2&&saved.session.levelId===target){restore(saved);}else if(saved&&saved.version===1&&saved.session.levelId===target&&target==='l01'){ui.modal={kind:'legacy',title:'第一关已更新',body:'旧版中途记录无法接入新版剧情。已通关章节会保留；重新开始本关后进入新版剧情。'};}else begin(target);return true;}
   if(id==='legacy-restart'&&ui.modal&&ui.modal.kind==='legacy'){begin('l01');return true;}
   if(id==='resume'&&host.resume&&host.resume.version===2){restore(host.resume);return true;}
   if(!state()||ui.screen!=='play')return false;
   const m=ui.modal,st=state();
-  if(id==='undo'){if(st.flags.endingSeen||ui.screen!=='play')return true;const previous=history.pop();if(previous){host.session=E.restoreSession(previous.session);Object.assign(ui,clone(previous.ui));ui.screen='play';ui.error=false;ui.message='已撤回上一项行动。';}return true;}
+  if(id==='undo'){if(st.flags.endingSeen||ui.screen!=='play')return true;const current=JSON.stringify(host.session.snapshot());let index=history.length-1;while(index>=0&&JSON.stringify(history[index].session)===current)index--;if(index<0)index=history.length-1;const previous=index>=0?history[index]:null;if(previous){history.length=index;host.session=E.restoreSession(previous.session);Object.assign(ui,clone(previous.ui));ui.screen='play';ui.error=false;ui.message='已撤回上一项行动。';}return true;}
   if(id==='retry'||id==='story-retry'){begin('l01');return true;}
   if(m&&m.source==='v4'){
    if(id==='dialogue-next'||id==='close'){advance();return true;}
@@ -66,6 +68,8 @@ function create(host,storage={}){
   if(id==='inspect-confirm'&&st.flags.needsInspection){open('delivery-check');return true;}
   if(id==='wallet'){ui.modal={kind:'wallet',title:'随身钱袋'};return true;}
   if(id==='bubble-close'){st.bubble=null;return true;}
+  if(id==='shop-enter'&&host.session.state.nodeId==='shop'){st.tradeMap=false;ui.modal=null;return true;}
+  if(id==='trade-map'){st.tradeMap=true;ui.modal=null;return true;}
   if(id==='trade-close'){st.paymentOpen=false;ui.modal=null;return true;}
   if(id==='draft-enable'){st.draftEnabled=!st.draftEnabled;return true;}
   if(id==='exchange-info'){open('exchange-info');return true;}
@@ -87,7 +91,7 @@ function create(host,storage={}){
  }
  function snapshot(){return {version:2,session:host.session.snapshot(),ui:clone(host.ui),history:clone(history)};}
  function validate(data){try{const validUI=u=>u&&S.valid(u.story)&&['x','payIron','payNote','hint'].every(k=>Number.isInteger(u[k])&&u[k]>=0&&u[k]<=100)&&u.x>=2&&u.x<=8&&u.payIron+u.payNote<=6&&u.hint<=2&&Array.isArray(u.backlog)&&u.backlog.length<=200&&u.backlog.every(l=>l&&typeof l.text==='string'&&typeof l.speaker==='string')&&(!u.story.active||(typeof u.story.active.id==='string'&&Number.isInteger(u.story.active.cursor)&&u.story.active.cursor>=0&&S.event(u.story.active.id,u.story)&&u.story.active.cursor<S.event(u.story.active.id,u.story).lines.length));if(!data||data.version!==2||data.session.levelId!=='l01'||!data.ui||!validUI(data.ui)||!Array.isArray(data.history)||data.history.length>100)return false;E.restoreSession(data.session);for(const h of data.history){if(!h.session||h.session.levelId!=='l01'||!h.ui||!validUI(h.ui))return false;E.restoreSession(h.session);}return true;}catch{return false;}}
- function restore(data){if(!validate(data))return;host.session=E.restoreSession(data.session);Object.assign(host.ui,clone(data.ui));history=clone(data.history);host.ui.screen='play';if(state().active)open(state().active.id,state().active.cursor);else host.ui.modal=null;}
+ function restore(data){if(!validate(data))return;host.session=E.restoreSession(data.session);Object.assign(host.ui,clone(data.ui));history=clone(data.history);host.ui.screen=data.ui.screen==='opening'?'opening':'play';if(state().active)open(state().active.id,state().active.cursor);else host.ui.modal=null;}
  return {handle,decorate,snapshot,validate,restore,reset(){history=[];delete host.ui.story;},resetRead(){read={};},get active(){return !!state();},get canResume(){return !!state()&&(host.session.state.status==='playing'||!state().flags.endingSeen||state().phase==='stay');}};
 }
 return {create,READ_KEY};

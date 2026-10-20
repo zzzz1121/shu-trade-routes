@@ -1,5 +1,5 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('../core/engine'));else root.ShuStoryView=factory(root.ShuEngine);})(this,function(E){
-function decorate(v){if(!v.story)return v;const s=v.s,st=v.story;
+function decorate(v){v.menuItems=[{label:'本次委托',action:'commission',icon:'◇'},{label:'账簿',action:'ledger',icon:'▤'},{label:'查看规则',action:'rules',icon:'≡'},{label:'向阿禾求助',action:'hint',icon:'?'},{label:'声音设置',action:'sounds',icon:'♪'},{label:'重新挑战',action:'retry',icon:'↶'},{label:'返回章节选择',action:'chapters',icon:'⌂'}];if(!v.story)return v;const s=v.s,st=v.story;
 v.storyRoom=s.nodeId==='warehouse'&&['counter','coin','box'].includes(st.phase);
 v.roomObjects=[{id:'money',label:'钱袋'},{id:'ledger',label:'账簿'},{id:'hook',label:'挂钩'},{id:'water',label:'水碗'},...(st.phase==='coin'?[{id:'coin',label:'柜底铁钱'}]:[]),...(st.phase==='box'?[{id:'box',label:'旧木匣'}]:[])].map(o=>Object.assign(o,{active:v.storyObjects.some(a=>a.id===o.id),action:'object:'+o.id,primary:o.id===({counter:'money',coin:'coin',box:'box'}[st.phase]),hint:({money:'钱袋 · 备货款',coin:'拾起铁钱',box:'托住旧匣'})[o.id]||o.label}));
 v.storyEnded=st.phase==='settled';v.storyMap=s.status==='playing'||s.status==='won'&&!v.storyEnded;

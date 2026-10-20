@@ -26,8 +26,8 @@ function create(storage={}){
   // Returning to the entry screen is also used for browser page restoration.
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
-  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home','sounds','commission','ledger','hint'].includes(id))ui.modal=null;
-  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next','dialogue-next','dialogue-skip','backlog','backlog-return','confirm-clear'];
+  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home','sounds','commission','ledger','hint','undo'].includes(id))ui.modal=null;
+  const modalActions=['history','close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next','dialogue-next','dialogue-skip','backlog','backlog-return','confirm-clear'];
   if(id.startsWith('choice:')&&ui.modal&&ui.modal.kind==='story')modalActions.push(id);
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
@@ -36,7 +36,7 @@ function create(storage={}){
   if(id==='plan:speed'||id==='plan:economy'){ui.plan=ui.plan===id.slice(5)?null:id.slice(5);return;}
   if(id==='clear-cache'&&ui.screen==='home'){ui.modal={kind:'clear-cache',title:'删除本机记录？',body:'将删除本游戏的关卡进度、临时存档、已读剧情和声音偏好。其他网站或应用的数据不会受影响。'};return;}
   if(id==='confirm-clear'&&ui.modal&&ui.modal.kind==='clear-cache'){clearManaged();return;}
-  if(id==='commission'){ui.modal={kind:'commission',title:'罗记委托'};return;}
+  if(id==='commission'){ui.modal={kind:'commission',title:l.title+' · 委托',body:l.mission+'。'+l.maxSteps+' 步内送达，钱袋上限 '+l.capacity+' 格。'};return;}
   if(id==='ledger'){ui.modal={kind:'ledger',title:'本趟账簿'};return;}
   if(id==='embark'||id==='chapters'){ui.screen='chapters';ui.modal=null;return;}
   if(id==='play'||id==='skip-intro'){ui.screen='play';if(id==='skip-intro'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();}else lesson('money');return;}

@@ -36,3 +36,5 @@ copy('miniapp/assets/characters/v3/shen-expressions.png');
 copy('web/story-ui.js');copy('miniapp/styles/story.css');copy('miniapp/ui/story-view.js');
 
 copy('miniapp/assets/chapters/warehouse-interior.png');
+
+copy('miniapp/styles/ui-v33.css');
