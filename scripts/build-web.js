@@ -52,3 +52,5 @@ copy('miniapp/assets/characters/v34/shen-expressions.png');
 for(const actor of ['ahe','luo','shen','xu'])for(const emotion of ['neutral','smile','thinking','puzzled','worried','firm'])copy('miniapp/assets/characters/v35/'+actor+'/'+emotion+'.png');
 
 copy('miniapp/styles/map-refinement.css');
+
+copy('miniapp/styles/title-v36.css');copy('miniapp/assets/title-v36/embark-calligraphy.png');
