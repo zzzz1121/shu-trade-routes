@@ -20,3 +20,5 @@
 page{--map-terrain-image:url('/assets/v2/terrain.png')}
 
 @import './styles/title-v36.css';
+
+@import './styles/chapters-v36.css';

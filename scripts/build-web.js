@@ -54,3 +54,5 @@ for(const actor of ['ahe','luo','shen','xu'])for(const emotion of ['neutral','sm
 copy('miniapp/styles/map-refinement.css');
 
 copy('miniapp/styles/title-v36.css');copy('miniapp/assets/title-v36/embark-calligraphy.png');
+
+copy('miniapp/styles/chapters-v36.css');copy('miniapp/assets/title-v36/chapter-calligraphy.png');copy('miniapp/assets/title-v36/chapter-road.svg');
