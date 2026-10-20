@@ -1,6 +1,6 @@
 {
   "name": "shu-di-qian-lu",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "private": true,
   "scripts": {
     "start": "node scripts/serve.js",
@@ -14,7 +14,8 @@
     "test:experience": "npm run build:web && node tests/experience-browser.cjs",
     "test:journey": "node tests/v4-layout.cjs",
     "test:v4": "node tests/v4-browser.cjs",
-    "music:build": "node scripts/generate-music.js"
+    "music:build": "node scripts/generate-music.js",
+    "test:warehouse": "node tests/warehouse-browser.cjs"
   },
   "engines": {
     "node": ">=18"

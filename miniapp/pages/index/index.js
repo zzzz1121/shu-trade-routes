@@ -7,7 +7,7 @@ const Experience=require('../../ui/experience');
 const Actors=require('../../ui/map-actors');
 const StoryView=require('../../ui/story-view');
 Page({
- data:{ready:false},
+ data:{ready:false,roomArtReady:false},
  onLoad:function(){
   this.game=Controller.create({read:key=>{const r=typeof xhs!=='undefined'?xhs.getStorageSync(key):null;return r&&r.version?r:r&&r.data;},write:(key,data)=>{if(typeof xhs==='undefined')throw new Error('Storage unavailable');xhs.setStorageSync(key,data);},remove:key=>{if(typeof xhs!=='undefined'&&xhs.removeStorageSync)xhs.removeStorageSync(key);else throw Error('Storage unavailable');}});
   this.sound=Sound.create({base:'/assets/audio',backend:Backends.native(typeof xhs!=='undefined'?xhs:null),read:key=>{const r=typeof xhs!=='undefined'?xhs.getStorageSync(key):null;return r&&r.version?r:r&&r.data;},write:(key,data)=>{if(typeof xhs!=='undefined')xhs.setStorageSync(key,data);}});
@@ -34,6 +34,8 @@ Page({
  },
  onAction:function(e){if(this.experience.busy||this.experience.suspended)return;const id=e.currentTarget.dataset.action;if(typeof id!=='string')return;this.sound.activate();if(id.indexOf('sound:')===0){const c=this.sound.getSettings();if(id==='sound:retry')this.sound.activate();else if(id==='sound:music')this.sound.configure({musicEnabled:!c.musicEnabled});else if(id==='sound:music-up'||id==='sound:music-down')this.sound.setVolume(c.musicVolume+(id==='sound:music-up'?.1:-.1),'music');else if(id==='sound:effects')this.sound.configure({effectsEnabled:!c.effectsEnabled});else if(id==='sound:ambience')this.sound.configure({ambienceEnabled:!c.ambienceEnabled});else if(id==='sound:up'||id==='sound:down')this.sound.setVolume(Math.round((c.volume+(id==='sound:up' ? .1 : -.1))*100)/100);this.sound.play('ui.click');this.refresh();}else this.experience.dispatch(id);},
  onMove:function(e){this.experience.selectNode(e.currentTarget.dataset.node||e.currentTarget.dataset.building);},
+ onRoomArtLoad:function(){this.setData({roomArtReady:true});},
+ onRoomArtError:function(){this.setData({roomArtReady:false});},
  onHide:function(){if(this.experience)this.experience.suspend();},
  onShow:function(){if(this.experience)this.experience.resume();},
  onUnload:function(){if(this.experience)this.experience.destroy();}

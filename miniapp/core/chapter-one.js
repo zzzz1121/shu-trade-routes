@@ -83,7 +83,7 @@ function objects(st,s){const f=st.flags,p=st.phase,node=s.nodeId;const obj=(id,l
  if(p==='entry')return [obj('greeting','阿禾'),obj('enter','走进后仓','place',!f.metAhe)];
  if(p==='counter')return [obj('money','钱袋','object'),obj('ledger','账簿','object'),obj('hook','挂钩','object'),obj('water','水碗','object')];
  if(p==='coin')return [obj('coin','拾起柜底铁钱','object')];
- if(p==='box')return [obj('box','托住匣底','object'),obj('note','看看押记','object')];
+ if(p==='box')return [obj('box','托住匣底','object')];
  if(p==='prepare')return [obj('prepare','柜台配货款','object'),obj('note','旧交子','object'),obj('old-question','问阿禾')];
  if(p==='cloth')return [obj('blue','青布 · 罗记','cloth'),obj('grey','灰布 · 陈记','cloth'),obj('white','素布 · 吴记','cloth'),obj('order','货单','object')];
  if(p==='payment')return [obj('pay','付布钱','object'),obj('order','货单','object'),obj('why-iron','问铁钱的规矩')];
@@ -95,6 +95,6 @@ function objects(st,s){const f=st.flags,p=st.phase,node=s.nodeId;const obj=(id,l
  if(p==='stay')return [obj('stay-ahe','阿禾'),obj('stay-luo','罗掌柜'),obj('account','账簿','object')];
  return [];
 }
-function goal(st,s){if(st.phase==='entry')return '拜访罗掌柜';if(['counter','coin','box'].includes(st.phase))return '到柜台准备货款';if(st.phase==='prepare')return '配好货款，再出发';if(st.phase==='cloth')return '对照货单，找出罗记的布';if(st.phase==='payment')return '付清六份布钱';if(s.cargoById.cloth)return '把布送到罗记前堂';if(s.status==='won')return st.flags.endingSeen?'这一笔，记好了':'留在货台边，把话说完';return '前往布铺取货';}
+function goal(st,s){if(st.phase==='entry')return '拜访罗掌柜';if(st.phase==='counter')return '看看柜台上的钱袋';if(st.phase==='coin')return '拾起柜底的铁钱';if(st.phase==='box')return '托住露出的旧匣';if(st.phase==='prepare')return '配好货款，再出发';if(st.phase==='cloth')return '对照货单，找出罗记的布';if(st.phase==='payment')return '付清六份布钱';if(s.cargoById.cloth)return '把布送到罗记前堂';if(s.status==='won')return st.flags.endingSeen?'这一笔，记好了':'留在货台边，把话说完';return '前往布铺取货';}
 return {VERSION,initial,valid,event,stats,objects,goal,emotions};
 });

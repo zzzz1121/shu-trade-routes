@@ -25,12 +25,12 @@ function create(game,options={}){
   if(after.s.status==='failed'&&before.s.status!=='failed')sound.play('system.error');
   if(before.screen!==after.screen){sound.play('ui.page');return;}
   if(id==='object:box'||id==='object:open-box'){sound.play('prop.box');return;}
-  if(['object:note','object:order','object:account','ledger'].includes(id)||id==='close'&&before.modal&&['old-note','order'].includes(before.modal.asset)){sound.play('prop.paper');return;}
+  if(['object:note','object:order','object:account','object:ledger','ledger'].includes(id)||id==='close'&&before.modal&&['old-note','order'].includes(before.modal.asset)){sound.play('prop.paper');return;}
   if(id==='inspect-confirm'||id==='object:inspect-delivery'){sound.play('prop.cloth');return;}
   const old=before.modal,m=after.modal;
   if(m&&(!old||old.kind!==m.kind)){sound.play(['story','lesson','hint'].includes(m.kind)?'ui.dialogue':'ui.page');}
   else if(m&&['dialogue-next','lesson-next','hint-next'].includes(id)||id.startsWith('choice:')){if(!after.story)sound.play('ui.continue');}
-  else if(id==='object:box'||id==='object:open-box')sound.play('prop.box');else if(['object:note','object:order','object:account','ledger'].includes(id))sound.play('prop.paper');else if(id==='inspect-confirm'||id==='object:inspect-delivery')sound.play('prop.cloth');else if(!event&&!['dialogue-next','story-skip-read','close'].includes(id))sound.play('ui.click');
+  else if(id==='object:box'||id==='object:open-box')sound.play('prop.box');else if(['object:note','object:order','object:account','object:ledger','ledger'].includes(id))sound.play('prop.paper');else if(id==='inspect-confirm'||id==='object:inspect-delivery')sound.play('prop.cloth');else if(!event&&!['dialogue-next','story-skip-read','close'].includes(id))sound.play('ui.click');
  }
  function cancel(){generation++;if(handle!==null)clear(handle);handle=null;moving=null;if(sound.cancel)sound.cancel();}
  function finish(token,before){if(token!==generation||destroyed)return;moving=null;handle=null;game.dispatch('confirm-move');const after=game.view();react(before,after,'confirm-move');sync();changed();}
