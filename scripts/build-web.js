@@ -38,3 +38,12 @@ copy('web/story-ui.js');copy('miniapp/styles/story.css');copy('miniapp/ui/story-
 copy('miniapp/assets/chapters/warehouse-interior.png');
 
 copy('miniapp/styles/ui-v33.css');
+
+copy('miniapp/styles/art-direction.css');
+for(const file of ['home-town.png','merchant-room.png','cloth-shop.png','market-lane.png','paper-frame.png','ending-town.png','warehouse-counter.png'])copy('miniapp/assets/art-v34/'+file);
+
+copy('miniapp/assets/characters/v34/luo-expressions.png');
+
+copy('miniapp/assets/characters/v34/ahe-expressions.png');
+
+copy('miniapp/assets/characters/v34/shen-expressions.png');

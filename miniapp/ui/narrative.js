@@ -26,12 +26,15 @@ const historyFragments={
  l06:'天圣元年，官府设了益州交子务；次年，官交子开始发行。街市用的钱，又有了新章程。'
 };
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
+// Generated sheets have measured frame bounds; align emotion changes to one hairline.
+const artSprites={ahe:{version:'v34',aspect:'0.444444',cellHeight:768,tops:[74,74,73,24,23,22]},luo:{version:'v34',aspect:'1',cellHeight:512,tops:[7,12,14,1,2,0]},shen:{version:'v34',aspect:'1',cellHeight:512,tops:[8,8,9,5,6,6]}};
 const expressions=['neutral','smile','thinking','puzzled','worried','firm'];
 function actor(name,base,expression='neutral',pose='idle'){
  if(['你','玩家','旁白','守桥人'].includes(name))return {name,visible:false,expression,pose,role:'',portrait:'',frameStyle:'',aspectStyle:''};
  const c=characters[name]||characters['阿禾'],emotion=Math.max(0,expressions.indexOf(expression));
- const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:c.id==='shen'?[0,1,3,5,4,2][emotion]:emotion;
- return {name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+(c.id==='ahe'?'0.633':'1')+';',portrait:base+'/characters/v3/'+c.id+'-expressions.png',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100)+'%;'};
+ const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:c.id==='shen'?[0,1,3,3,4,2][emotion]:emotion;
+ const sprite=artSprites[c.id]||{version:'v3',aspect:'1'},align=sprite.tops?(sprite.tops[0]-sprite.tops[index])/sprite.cellHeight*100:0;
+ return {id:c.id,name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+sprite.aspect+';',portrait:base+'/characters/'+sprite.version+'/'+c.id+'-expressions.png',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100+align)+'%;'};
 }
 function decorate(v,base='/miniapp/assets'){
  const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'left:'+(-((v.level.number-1)%3)*100)+'%;top:'+(-Math.floor((v.level.number-1)/3)*100)+'%;'});

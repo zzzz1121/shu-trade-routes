@@ -1,6 +1,6 @@
 {
   "name": "shu-di-qian-lu",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "private": true,
   "scripts": {
     "start": "node scripts/serve.js",
@@ -15,6 +15,7 @@
     "test:journey": "node tests/v4-layout.cjs",
     "test:v4": "node tests/v4-browser.cjs",
     "music:build": "node scripts/generate-music.js",
+    "test:art": "node tests/v34-browser.cjs",
     "test:v33": "node tests/v33-browser.cjs",
     "test:warehouse": "node tests/warehouse-browser.cjs"
   },
