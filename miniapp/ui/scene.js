@@ -20,7 +20,7 @@ function decorate(v){
  if(v.level.id!=='l01')return modular(v);
  v.terrainTiles=terrainTiles;
  v.artRegions=v.nodes.map(n=>Object.assign(tile(n.id,frames[n.id]),{name:n.name}));
- v.nodes=v.nodes.map(n=>{const pos=positions[n.id];return Object.assign({},n,{name:n.id==='delivery'?'交付商行':n.name,style:'left:'+pos[0]+'%;top:'+pos[1]+'%;',asset:'/assets/approved/town-atlas.png',goal:n.id===v.level.goal,tag:n.current?'所在':n.reachable?'可达':''});});
+ v.nodes=v.nodes.map(n=>{const pos=positions[n.id];return Object.assign({},n,{name:n.id==='delivery'?(v.story?'罗记前堂':'交付商行'):n.name,style:'left:'+pos[0]+'%;top:'+pos[1]+'%;',asset:'/assets/approved/town-atlas.png',goal:n.id===v.level.goal,tag:n.current?'所在':n.reachable?'可达':''});});
  v.edges=v.level.edges.map(e=>({key:e.join('-')}));
  v.routeSegments=[];
  v.edges.forEach(e=>{const points=paths[e.key];if(!points)return;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b[0]-a[0],dy=(b[1]-a[1])/ratio;v.routeSegments.push({id:e.key+'-'+i,edge:e.key,style:'left:'+a[0]+'%;top:'+a[1]+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});}});

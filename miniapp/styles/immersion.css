@@ -1,15 +1,11 @@
 /* Small, replaceable merchant marker. All coordinates remain map-relative. */
-.traveler{position:absolute;z-index:12;width:22px;height:34px;transform:translate(10px,-100%);pointer-events:none;transition:left 30ms linear,top 30ms linear;filter:none}
-.traveler-figure{position:absolute;inset:0;display:block}
-.traveler-figure>i,.traveler-figure>view{position:absolute;display:block}
-.traveler-head{width:10px;height:10px;left:6px;top:4px;border-radius:45%;background:#d8b88c;border:1px solid #79654d}
-.traveler-hat{left:2px;top:1px;width:18px;height:7px;border-radius:65% 65% 25% 25%;background:#b99a62;border-bottom:2px solid #79654d;transform:rotate(-6deg)}
-.traveler-coat{left:4px;top:13px;width:14px;height:15px;background:#71856a;border:1px solid #52634e;border-radius:4px 4px 3px 3px}
-.traveler-coat:after{content:'';position:absolute;left:0;right:0;top:9px;border-top:2px solid #505e5e}
-.traveler-pack{left:15px;top:13px;width:8px;height:12px;border-radius:3px;background:#987147;border:1px solid #6c533d;transform:rotate(-10deg)}
-.traveler-leg{top:26px;width:5px;height:7px;background:#4e5652;border-radius:0 0 2px 2px;transform-origin:top}
-.leg-left{left:5px}.leg-right{left:12px}
-.traveler-shadow{position:absolute;bottom:-1px;left:3px;width:18px;height:5px;border-radius:50%;background:#4c514633;display:block}
+.traveler{position:absolute;z-index:12;width:0;height:0;pointer-events:none;transition:left 30ms linear,top 30ms linear}
+.traveler-offset{position:absolute;display:block;left:2px;top:-44px;width:67.08px;height:48px}
+.traveler-figure{display:block;position:absolute;inset:0}
+.traveler-cell{position:absolute;inset:0;display:block;overflow:hidden}
+.traveler-cell img,.traveler-cell image{position:absolute;display:block;width:300%;height:400%;max-width:none}
+.traveler-shadow{position:absolute;top:0;left:25px;width:18px;height:4px;border-radius:50%;background:#4c514633;display:block}
+.traveler-ahe{z-index:11}.traveler-ahe .traveler-offset{left:-27px;top:-36px;width:42px;height:42px}.traveler-ahe .traveler-shadow{left:-14px;top:3px;width:16px}
 .walking .traveler-figure{animation:merchant-bob 180ms ease-in-out infinite}
 .walking .leg-left{animation:merchant-stride 180ms ease-in-out infinite alternate}
 .walking .leg-right{animation:merchant-stride 180ms ease-in-out infinite alternate-reverse}

@@ -4,7 +4,8 @@
 const characters={
  '阿禾':{id:'ahe',role:'年轻行商'},
  '罗掌柜':{id:'luo',role:'商行掌柜'},
- '许掌柜':{id:'xu',role:'许记掌柜'}
+ '许掌柜':{id:'xu',role:'许记掌柜'},
+ '沈娘子':{id:'shen',role:'布铺掌柜'}
 };
 const chapters={
  l01:{tag:'初入商路',subtitle:'一袋铁钱，一份托付',line:'晨光落在布幌上，第一笔委托等你启程。',crop:'78% 42%',opening:'布铺替我留了一匹好布。阿禾，劳你买回来，送到商行。'},
@@ -27,8 +28,9 @@ const historyFragments={
 const stops=[[26,16],[74,28],[26,44],[74,56],[26,72],[74,84]];
 const expressions=['neutral','smile','thinking','puzzled','worried','firm'];
 function actor(name,base,expression='neutral',pose='idle'){
+ if(['你','玩家','旁白','守桥人'].includes(name))return {name,visible:false,expression,pose,role:'',portrait:'',frameStyle:'',aspectStyle:''};
  const c=characters[name]||characters['阿禾'],emotion=Math.max(0,expressions.indexOf(expression));
- const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:emotion;
+ const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:c.id==='shen'?[0,1,3,5,4,2][emotion]:emotion;
  return {name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+(c.id==='ahe'?'0.633':'1')+';',portrait:base+'/characters/v3/'+c.id+'-expressions.png',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100)+'%;'};
 }
 function decorate(v,base='/miniapp/assets'){
@@ -50,7 +52,8 @@ function decorate(v,base='/miniapp/assets'){
  v.outroText=v.s.status==='won'?({l01:'布料送到了，正好赶上裁衣。工钱在这里，先歇歇脚。',l02:'粮食和药材都齐了。把袋子放这儿，我来收拾。',l03:'货买回来了。这一路，哪家认哪张票，你也摸清了。',l04:'茶卖出去，布也带回来了。这趟来回，辛苦你了。',l05:'纸墨买到了。柜上兑出的数，我都记好了，你再对一对。',l06:'布和茶都到了。还记得头一回送布么？这回可熟练多了。'}[v.level.id]||v.level.outro[1]):'这笔账还可以重算。退回上一步，我们换个走法。';
  if(v.modal){const m=v.modal;
   m.dialogue=['lesson','story','hint'].includes(m.kind);m.important=m.kind==='story';
-  if(m.dialogue){m.actor=actor(m.line?m.line.speaker:m.kind==='hint'?'阿禾':m.title,base,m.line?m.line.expression:'neutral',m.line?m.line.pose:'idle');if(m.kind!=='hint'&&!characters[m.title])m.body=m.title+'说：“'+m.body+'”';m.title=m.actor.name;if(m.kind==='story'){m.atEnd=m.cursor===m.lines.length-1;m.count=m.lines.length;}}
+  if(m.dialogue){m.actor=actor(m.line?m.line.speaker:m.kind==='hint'?'阿禾':m.title,base,m.line?m.line.expression:'neutral',m.line?m.line.pose:'idle');if(m.source!=='v4'&&m.kind!=='hint'&&!characters[m.title])m.body=m.title+'说：“'+m.body+'”';m.title=m.actor.name;if(m.kind==='story'){m.atEnd=m.cursor===m.lines.length-1;m.count=m.lines.length;}}
+  if(m.source==='v4'){const previous=v.backlog.slice().reverse().find(line=>characters[line.speaker]);m.stageActor=m.actor.visible!==false?m.actor:previous?actor(previous.speaker,base,previous.expression,'idle'):null;m.stageSilent=m.actor.visible===false;}
   if(m.kind==='history'){m.title=['钱袋为什么这样沉','纸券与现钱','谁愿意认这张纸','跟着茶货走','柜上的现钱','新交子'][m.page];m.body=Object.values(historyFragments)[m.page];m.count=6;}
   if(m.kind==='move'){m.actor=actor('阿禾',base);
    const node=v.level.nodes.find(x=>x.id===m.nodeId),trade=v.level.transactions.find(t=>t.nodeId===m.nodeId);

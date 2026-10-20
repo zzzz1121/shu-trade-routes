@@ -25,7 +25,7 @@ test('桥边水声与铺边纸声增强、对白压低环境；离开地图清�
  const backend=audio(),s=Sound.create({backend});s.activate();s.scene({map:true});const normal=backend.loops.at(-1);s.scene({map:true,bridge:true});assert.ok(backend.loops.at(-1)['ambience.water'].gain>normal['ambience.water'].gain);s.scene({map:true,paper:true});assert.ok(backend.loops.at(-1)['ambience.paper'].gain>0);s.scene({map:true,dialogue:true});assert.ok(backend.loops.at(-1)['ambience.market'].gain<normal['ambience.market'].gain);s.scene({map:false});assert.deepEqual(backend.loops.at(-1),{});
 });
 test('清单全部映射本地有效 PCM 音频，无第三方资源或空占位文件',()=>{
- assert.equal(Object.keys(Catalog.entries).length,18);for(const cue of Object.values(Catalog.entries)){const b=fs.readFileSync(path.join(__dirname,'../miniapp/assets/audio',cue.file));assert.equal(b.toString('ascii',0,4),'RIFF');assert.equal(b.toString('ascii',8,12),'WAVE');assert.equal(b.readUInt16LE(20),1);assert.equal(b.readUInt16LE(22),1);assert.equal(b.readUInt32LE(24),22050);assert.equal(b.readUInt32LE(40),b.length-44);let peak=0;for(let i=44;i<b.length;i+=2)peak=Math.max(peak,Math.abs(b.readInt16LE(i)));assert.ok(peak>0&&peak<30000);}
+ assert.equal(Object.keys(Catalog.entries).length,24);for(const cue of Object.values(Catalog.entries)){const b=fs.readFileSync(path.join(__dirname,'../miniapp/assets/audio',cue.file));assert.equal(b.toString('ascii',0,4),'RIFF');assert.equal(b.toString('ascii',8,12),'WAVE');assert.equal(b.readUInt16LE(20),1);assert.equal(b.readUInt16LE(22),1);assert.equal(b.readUInt32LE(24),22050);assert.equal(b.readUInt32LE(40),b.length-44);let peak=0;for(let i=44;i<b.length;i+=2)peak=Math.max(peak,Math.abs(b.readInt16LE(i)));assert.ok(peak>0&&peak<30000);}
 });
 test('真实支付触发铁钱/交子/购买声；通关首次解锁，重玩不重复解锁声',()=>{
  const g=C.create(),t=clock(),backend=audio(),sound=Sound.create(Object.assign({backend},t)),x=Experience.create(g,Object.assign({sound,duration:0,landing:0},t));
@@ -40,11 +40,11 @@ test('出售、换票、兑付走同一声音总线；非法超重交易只提�
   const expected=id==='l04'?'trade.note':id==='l02'?'system.error':'trade.exchange';assert.ok(backend.calls.some(c=>c[0]===expected),id+' '+expected);if(id==='l02'){assert.deepEqual(g.session.state,before);assert.ok(!backend.calls.some(c=>c[0]==='trade.purchase'));}
  }
 });
-test('原生音频适配器限制声部并释放结束/错误/后台资源；无 API 时静默降级',()=>{
+test('原生音频适配器限制声部并释放结束/错误/后台资源；无 API 时静默降级',async()=>{
  const B=require('../miniapp/ui/sound-backends'),all=[];
  const backend=B.native({createInnerAudioContext(){const a={play(){this.played=true;},stop(){},destroy(){this.disposed=true;},onEnded(f){this.ended=f;},onError(f){this.failed=f;}};all.push(a);return a;}});
  for(let i=0;i<20;i++)backend.play('ui.click','/assets/audio/ui-click.wav',.3);assert.equal(all.filter(a=>!a.disposed).length,4);assert.ok(all.every(a=>a.obeyMuteSwitch));all.at(-1).ended();assert.equal(all.filter(a=>!a.disposed).length,3);
- backend.environment({water:{url:'/assets/audio/ambience-water.wav',gain:.2}});const water=all.at(-1);assert.equal(water.loop,true);water.failed();assert.equal(water.disposed,true);backend.environment({water:{url:'/assets/audio/ambience-water.wav',gain:.1}});assert.equal(all.at(-1).volume,.1);backend.suspend();assert.ok(all.every(a=>a.disposed));backend.destroy();assert.doesNotThrow(()=>B.native(null).play('a','b',1));
+ backend.environment({water:{url:'/assets/audio/ambience-water.wav',gain:.2}});const water=all.at(-1);assert.equal(water.loop,true);water.failed();assert.equal(water.disposed,true);backend.environment({water:{url:'/assets/audio/ambience-water.wav',gain:.1}});assert.equal(all.at(-1).volume,0);await new Promise(r=>setTimeout(r,380));assert.equal(all.at(-1).volume,.1);backend.suspend();assert.ok(all.every(a=>a.disposed));backend.destroy();assert.doesNotThrow(()=>B.native(null).play('a','b',1));
 });
 test('本轮只开放第一关演出，其他关保留即时移动且不启动环境音',()=>{
  const g=C.create({read:key=>key===C.KEY?{version:2,last:'l02',completed:['l01'],tutorialDone:['l02']}:null}),t=clock(),backend=audio(),sound=Sound.create(Object.assign({backend},t)),x=Experience.create(g,Object.assign({sound,levels:['l01']},t));x.dispatch('start');x.selectNode('grain_shop');x.dispatch('confirm-move');assert.equal(x.busy,false);assert.equal(g.session.state.nodeId,'grain_shop');assert.equal(g.session.state.stepsUsed,1);assert.deepEqual(backend.loops.at(-1),{});assert.ok(!backend.calls.some(c=>String(c[0]).startsWith('move.')));assert.equal(t.pending,0);

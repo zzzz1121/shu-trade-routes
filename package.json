@@ -1,18 +1,20 @@
 {
   "name": "shu-di-qian-lu",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "private": true,
   "scripts": {
     "start": "node scripts/serve.js",
     "test": "node --test tests/*.test.js",
     "build:web": "node scripts/build-web.js",
-    "test:browser": "node tests/fixed-screen.cjs && node tests/campaign-browser.cjs",
-    "test:layout": "node tests/terrain-extension.cjs",
-    "test:narrative": "node tests/narrative-browser.cjs",
-    "test:immersion": "node tests/immersion-browser.cjs",
+    "test:browser": "node tests/v4-browser.cjs && node tests/campaign-browser.cjs",
+    "test:layout": "node tests/v4-layout.cjs",
+    "test:narrative": "node tests/v4-browser.cjs",
+    "test:immersion": "node tests/v4-audio-browser.cjs",
     "sounds:build": "node scripts/generate-sounds.js",
     "test:experience": "npm run build:web && node tests/experience-browser.cjs",
-    "test:journey": "node tests/journey-browser.cjs"
+    "test:journey": "node tests/v4-layout.cjs",
+    "test:v4": "node tests/v4-browser.cjs",
+    "music:build": "node scripts/generate-music.js"
   },
   "engines": {
     "node": ">=18"

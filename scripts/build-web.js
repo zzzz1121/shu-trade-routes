@@ -10,10 +10,10 @@ function copy(source, target = source) {
 }
 copy('web/index.html', 'index.html');
 copy('web/app.js');
-for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js','dialogue.js']) copy('miniapp/core/' + file);
+for (const file of ['engine.js', 'level.js', 'presenter.js', 'controller.js','dialogue.js','chapter-one.js','chapter-flow.js']) copy('miniapp/core/' + file);
 copy('miniapp/ui/scene.js');
 copy('miniapp/ui/narrative.js');
-for(const file of ['sound-catalog.js','sound.js','sound-backends.js','experience.js'])copy('miniapp/ui/'+file);
+for(const file of ['sound-catalog.js','sound.js','sound-backends.js','experience.js','map-actors.js'])copy('miniapp/ui/'+file);
 for (const file of ['tokens.css', 'game.css', 'narrative.css','presentation.css','immersion.css']) copy('miniapp/styles/' + file);
 for (const file of ['town-atlas.png', 'town-extended.png']) copy('miniapp/assets/approved/' + file);
 for (const file of ['iron.png', 'note.png', 'cloth.png', 'warehouse.png', 'delivery.png']) copy('miniapp/assets/generated/' + file);
@@ -29,3 +29,8 @@ for(const file of ["ahe","luo","xu"]) copy("miniapp/assets/characters/v3/"+file+
 for(const cue of Object.values(require('../miniapp/ui/sound-catalog').entries))copy('miniapp/assets/audio/'+cue.file);
 
 console.log('Static game ready: ' + out);
+
+for(const file of ['player.png','ahe.png'])copy('miniapp/assets/characters/map-v4/'+file);
+copy('miniapp/assets/characters/v3/shen-expressions.png');
+
+copy('web/story-ui.js');copy('miniapp/styles/story.css');copy('miniapp/ui/story-view.js');

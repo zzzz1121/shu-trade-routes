@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "id": "player",
+      "prompt": "Use case: stylized-concept. Production transparent map-character WALK CYCLE SPRITE SHEET for the attached miniature Chinese picture-book town. Exactly THREE COLUMNS by FOUR ROWS, 12 equal SQUARE cells. Full body, feet aligned identically near bottom of each cell, same head/body scale and padding in all cells. Row1 facing DOWN toward viewer; row2 facing UP away; row3 facing RIGHT; row4 facing LEFT. Each row columns: standing idle, left foot forward, right foot forward. No text, no labels, no borders, no ground, no scenery, NO HAZE, true transparent background. Elevated 3/4 map-camera viewpoint (see tops of head/shoulders), believable tiny adult merchant proportions around 3.8 heads tall, NOT giant baby head, not anime doll, not pixel art, not vector icon, not photographic. Hand-painted broad matte planes and softened blocky contours matching reference town, desaturated sage/ivory/blue-grey/brown palette. Strong readable silhouette and leg separation that remains clear at 36px. Clothing and face must remain IDENTICAL between views and walking frames. All 12 bodies isolated and contained within each square cell with generous clear space. No floating extra body parts. No cast shadow baked into sheet. Reference1 is ART STYLE only; do not reproduce buildings. Subject ONLY ONE androgynous young adult traveling shop assistant, no defined gender or personal identity. Black hair tied in small neat bun, no hat. Muted blue-grey short cross-collar travel jacket with ivory inner collar, sage waist sash, dark grey trousers, cloth shoes, worn brown satchel at hip. Plain capable friendly demeanor. Simple natural small eyes, no exaggerated rosy cheeks. Same person repeated 12 times."
+    },
+    {
+      "id": "ahe",
+      "prompt": "Use case: stylized-concept. Production transparent map-character WALK CYCLE SPRITE SHEET for the attached miniature Chinese picture-book town. Exactly THREE COLUMNS by FOUR ROWS, 12 equal SQUARE cells. Full body, feet aligned identically near bottom of each cell, same head/body scale and padding in all cells. Row1 facing DOWN toward viewer; row2 facing UP away; row3 facing RIGHT; row4 facing LEFT. Each row columns: standing idle, left foot forward, right foot forward. No text, no labels, no borders, no ground, no scenery, NO HAZE, true transparent background. Elevated 3/4 map-camera viewpoint (see tops of head/shoulders), believable tiny adult merchant proportions around 3.8 heads tall, NOT giant baby head, not anime doll, not pixel art, not vector icon, not photographic. Hand-painted broad matte planes and softened blocky contours matching reference town, desaturated sage/ivory/blue-grey/brown palette. Strong readable silhouette and leg separation that remains clear at 36px. Clothing and face must remain IDENTICAL between views and walking frames. All 12 bodies isolated and contained within each square cell with generous clear space. No floating extra body parts. No cast shadow baked into sheet. Reference1 is the APPROVED AHE identity/costume; reference2 is MAP PAINTING STYLE and camera. Subject ONLY Ahe, the same young adult woman: black ponytail and muted sage ribbon, sage-green cross-collar jacket with ivory cuffs, dark navy waist sash, brown satchel, dark trousers and cloth shoes. Simplify her approved face for tiny map reading without changing her recognizable hairstyle/clothes. NO hat, no new costume, no other person. Same woman repeated 12 times."
+    }
+  ],
+  "rows": [
+    "down",
+    "up",
+    "right",
+    "left"
+  ],
+  "columns": [
+    "idle",
+    "left-step",
+    "right-step"
+  ]
+}

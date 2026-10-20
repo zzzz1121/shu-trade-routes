@@ -1,18 +1,18 @@
-(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine'),require('./level'),require('./presenter'),require('./dialogue'));else root.ShuController=factory(root.ShuEngine,root.ShuLevel,root.ShuPresenter,root.ShuDialogue);})(this,function(E,Levels,P,D){
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./engine'),require('./level'),require('./presenter'),require('./dialogue'),require('./chapter-flow'));else root.ShuController=factory(root.ShuEngine,root.ShuLevel,root.ShuPresenter,root.ShuDialogue,root.ShuChapterFlow);})(this,function(E,Levels,P,D,F){
 'use strict';
-const KEY='shu-trade-progress-v2',RUN_KEY='shu-trade-run-v1',copy=o=>JSON.parse(JSON.stringify(o));
+const KEY='shu-trade-progress-v2',RUN_KEY='shu-trade-run-v1',MANAGED_KEYS=['shu-trade-progress-v2','shu-trade-run-v1','shu-audio-settings-v1','shu-story-read-v1'],copy=o=>JSON.parse(JSON.stringify(o));
 function normalize(data){if(!data||data.version!==2)return {version:2,completed:[],tutorialDone:[],last:'l01'};const valid=id=>Levels.all.some(l=>l.id===id);return {version:2,completed:Array.isArray(data.completed)?data.completed.filter(valid):[],tutorialDone:Array.isArray(data.tutorialDone)?data.tutorialDone.filter(valid):[],last:valid(data.last)?data.last:'l01'};}
 function create(storage={}){
  let progress;try{progress=normalize(storage.read&&storage.read(KEY));}catch{progress=normalize(null);}
  const last=Levels.get(progress.last);if(last.number>1&&!progress.completed.includes(Levels.all[last.number-2].id))progress.last='l01';
- let session=E.createSession(Levels.get(progress.last)),uiHistory=[],resume=null,resumeState=null,returnModal=null;
+ let session=E.createSession(Levels.get(progress.last)),uiHistory=[],resume=null,resumeState=null,returnModal=null,flow=null;
  try{const data=storage.read&&storage.read(RUN_KEY);if(data&&data.version===1&&data.session&&data.session.levelId===progress.last){const restored=E.restoreSession(data.session);if((restored.level.number===1||progress.completed.includes(Levels.all[restored.level.number-2].id))&&restored.state.status==='playing'&&Array.isArray(data.history)&&data.history.length===data.session.records.filter(r=>r.action).length&&data.history.every(u=>validUI(u,restored.level))&&validUI(data.ui,restored.level)){resume=data;resumeState=restored.state;}}}catch{}
  const ui={screen:'home',x:3,payIron:0,payNote:0,amount:1,receive:'iron',message:'',error:false,modal:null,hint:0,skip:false,tradeId:null,plan:null,backlog:[],choices:{}};
  const save=()=>{try{if(storage.write)storage.write(KEY,progress);}catch{ui.message='本机进度未能保存，本次仍可继续。';ui.error=true;}};
  const unlocked=l=>l.number===1||progress.completed.includes(Levels.all[l.number-2].id);
  function defaults(){const t=session.level.transactions.find(t=>t.nodeId===session.state.nodeId&&!session.state.completedTransactions.includes(t.id));ui.tradeId=t?t.id:null;ui.payIron=t&&t.type==='buy'?Math.min(t.minIron,session.state.iron):0;ui.payNote=0;ui.receive='iron';ui.amount=1;}
  function lesson(id){const l=session.level;if(ui.skip||progress.tutorialDone.includes(l.id)||session.state.tutorialFlags[id]||!l.lessons[id])return;const line=D.teaching(l,id);ui.modal={kind:'lesson',id,title:line.speaker,body:line.text,line};remember(line);}
- function begin(id){const l=Levels.get(id);if(!unlocked(l))return;session=E.createSession(l);uiHistory=[];returnModal=null;Object.assign(ui,{screen:'intro',plan:null,backlog:[],choices:{},x:3,message:'',error:false,modal:null,hint:0,skip:progress.tutorialDone.includes(l.id)});defaults();progress.last=l.id;save();if(ui.skip)ui.screen='play';}
+ function begin(id){if(flow)flow.reset();const l=Levels.get(id);if(!unlocked(l))return;session=E.createSession(l);uiHistory=[];returnModal=null;Object.assign(ui,{screen:'intro',plan:null,backlog:[],choices:{},x:3,message:'',error:false,modal:null,hint:0,skip:progress.tutorialDone.includes(l.id)});defaults();progress.last=l.id;save();if(ui.skip)ui.screen='play';}
  function act(a){const before=copy(ui);if(before.modal&&before.modal.kind==='move')before.modal=null;const lessonId=ui.modal&&ui.modal.kind==='lesson'?ui.modal.id:null;const r=session.act(a);ui.error=!r.ok;ui.message=r.ok?P.eventText(r.event,session.level):r.message;if(!r.ok)return;uiHistory.push(before);
   if(lessonId)session.markTutorial(lessonId);ui.modal=null;defaults();
   if(r.state.status==='won'){if(!progress.completed.includes(session.level.id))progress.completed.push(session.level.id);if(!progress.tutorialDone.includes(session.level.id))progress.tutorialDone.push(session.level.id);save();}
@@ -22,19 +22,23 @@ function create(storage={}){
   const s=session.state,r=id===s.nodeId?null:E.transition(s,{type:'move',to:id},l),trades=l.transactions.filter(t=>t.nodeId===id).map(t=>P.tradeRule(t,l));
   ui.modal={kind:'move',nodeId:id,title:n.name,body:[id===s.nodeId?'当前所在地':'移动 1 步'+(n.toll?' · 每次进入付 '+n.toll+' 铁钱':' · 无通行费'),...trades,...(r&&!r.ok?[r.message]:[])].join('\n'),canMove:!!(r&&r.ok)};
  }
- function dispatchInner(id){if(typeof id!=='string')return;const l=session.level,s=session.state;
+ function dispatchInner(id){if(typeof id!=='string')return;if(flow&&flow.handle(id))return;const l=session.level,s=session.state;
   // Returning to the entry screen is also used for browser page restoration.
   if(id==='home'){ui.screen='home';ui.modal=null;return;}
   // Confirmation dialogs own input; teaching cards leave gameplay available.
-  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home','sounds'].includes(id))ui.modal=null;
-  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next','dialogue-next','dialogue-skip','backlog','backlog-return'];
+  if(ui.modal&&ui.modal.kind==='menu'&&['rules','chapters','replay','retry','backlog','history','home','sounds','commission','ledger','hint'].includes(id))ui.modal=null;
+  const modalActions=['close','confirm-move','lesson-next','skip-tutorial','hint-next','rule-prev','rule-next','history-prev','history-next','dialogue-next','dialogue-skip','backlog','backlog-return','confirm-clear'];
   if(id.startsWith('choice:')&&ui.modal&&ui.modal.kind==='story')modalActions.push(id);
   if(ui.modal&&ui.modal.kind!=='lesson'&&!modalActions.includes(id))return;
   if(id.startsWith('level:')){begin(id.slice(6));return;}
   if(id==='resume'){if(resume){session=E.restoreSession(resume.session);Object.assign(ui,copy(resume.ui));uiHistory=copy(resume.history);clampControls();returnModal=null;}else begin(progress.last);return;}
   if(id==='start'){begin(progress.last);return;}
   if(id==='plan:speed'||id==='plan:economy'){ui.plan=ui.plan===id.slice(5)?null:id.slice(5);return;}
-  if(id==='chapters'){ui.screen='chapters';ui.modal=null;return;}
+  if(id==='clear-cache'&&ui.screen==='home'){ui.modal={kind:'clear-cache',title:'删除本机记录？',body:'将删除本游戏的关卡进度、临时存档、已读剧情和声音偏好。其他网站或应用的数据不会受影响。'};return;}
+  if(id==='confirm-clear'&&ui.modal&&ui.modal.kind==='clear-cache'){clearManaged();return;}
+  if(id==='commission'){ui.modal={kind:'commission',title:'罗记委托'};return;}
+  if(id==='ledger'){ui.modal={kind:'ledger',title:'本趟账簿'};return;}
+  if(id==='embark'||id==='chapters'){ui.screen='chapters';ui.modal=null;return;}
   if(id==='play'||id==='skip-intro'){ui.screen='play';if(id==='skip-intro'){ui.skip=true;if(!progress.tutorialDone.includes(l.id))progress.tutorialDone.push(l.id);save();}else lesson('money');return;}
   if(id==='close'){if(ui.modal&&ui.modal.kind==='lesson')session.markTutorial(ui.modal.id);ui.modal=null;return;}
   if(id==='confirm-move'){const m=ui.modal;if(m&&m.kind==='move'&&m.canMove)act({type:'move',to:m.nodeId});return;}
@@ -74,16 +78,21 @@ function create(storage={}){
  function hint(){const line=D.line(session.level.id+':hint:'+ui.hint,'阿禾',session.level.hints[ui.hint],['thinking','firm','smile'][ui.hint],'explain');ui.modal={kind:'hint',title:'行商提示',body:line.text,line};remember(line);}
  function dispatch(id){dispatchInner(id);persist();}
  function persist(){if(ui.screen==='home'||ui.screen==='chapters')return;
-  const snapshot={version:1,session:session.snapshot(),ui:copy(ui),history:copy(uiHistory)};
+  const snapshot=flow&&flow.active?flow.snapshot():{version:1,session:session.snapshot(),ui:copy(ui),history:copy(uiHistory)};
   if(snapshot.ui.modal&&['menu','move','backlog','sound'].includes(snapshot.ui.modal.kind))snapshot.ui.modal=snapshot.ui.modal.kind==='backlog'?copy(returnModal):null;
-  resume=session.state.status==='playing'?snapshot:null;resumeState=resume?session.state:null;
+  resume=(flow&&flow.active?flow.canResume:session.state.status==='playing')?snapshot:null;resumeState=resume?session.state:null;
   try{if(storage.write)storage.write(RUN_KEY,resume);}catch{ui.message='本次进度未能保存，仍可继续游玩。';ui.error=true;}
  }
  function view(){const v=P.view(session,ui),m=ui.modal?copy(ui.modal):null;
   if(m&&m.kind==='rules'){const rule=v.rules[m.page];m.title=rule[0];m.body=rule[1];m.count=v.rules.length;}
-  return Object.assign(v,{screen:ui.screen,canResume:!!resume,resumeSummary:resumeState&&resumeState.departed?'行至'+session.level.nodes.find(n=>n.id===resumeState.nodeId).name+' · 已走 '+resumeState.stepsUsed+' / '+session.level.maxSteps+' 步':'',plan:ui.plan,approach:D.approach(session.level,session.state,ui.plan),backlog:copy(ui.backlog),storyChoices:copy(ui.choices),message:ui.message,error:ui.error,modal:m,hintLevel:ui.hint,chapters:Levels.all.map(l=>({id:l.id,title:l.title,number:l.number,mission:l.mission,locked:!unlocked(l),completed:progress.completed.includes(l.id)})),lastTitle:Levels.get(progress.last).title,hasProgress:progress.completed.length>0,nextLabel:lNext(v.level)});
+  const result=Object.assign(v,{cacheEpoch:ui.cacheEpoch||0,screen:ui.screen,canResume:!!resume,resumeSummary:resumeState&&resumeState.departed?'行至'+session.level.nodes.find(n=>n.id===resumeState.nodeId).name+' · 已走 '+resumeState.stepsUsed+' / '+session.level.maxSteps+' 步':'',plan:ui.plan,approach:D.approach(session.level,session.state,ui.plan),backlog:copy(ui.backlog),storyChoices:copy(ui.choices),message:ui.message,error:ui.error,modal:m,hintLevel:ui.hint,chapters:Levels.all.map(l=>({id:l.id,title:l.title,number:l.number,mission:l.mission,locked:!unlocked(l),completed:progress.completed.includes(l.id),resumable:!!(resume&&resume.session.levelId===l.id)})),lastTitle:Levels.get(progress.last).title,hasProgress:progress.completed.length>0,nextLabel:lNext(v.level)});return flow?flow.decorate(result):result;
  }
  function lNext(l){return l.number<Levels.all.length?'下一关':'查看全部章节';}
+ function clearManaged(){const backup={};try{for(const key of MANAGED_KEYS)backup[key]=storage.read&&storage.read(key);for(const key of MANAGED_KEYS){if(storage.remove)storage.remove(key);else if(storage.write)storage.write(key,null);else throw Error('Storage unavailable');}}catch{try{for(const key of Object.keys(backup))if(storage.write)storage.write(key,backup[key]);}catch{}ui.message='记录未能完整清除，请重试。';ui.error=true;return;}
+  flow.reset();flow.resetRead();progress=normalize(null);session=E.createSession(Levels.get('l01'));resume=null;resumeState=null;uiHistory=[];returnModal=null;const epoch=(ui.cacheEpoch||0)+1;Object.assign(ui,{screen:'home',x:3,payIron:0,payNote:0,amount:1,receive:'iron',message:'本机游戏记录已清除。',error:false,modal:null,hint:0,skip:false,tradeId:null,plan:null,backlog:[],choices:{},cacheEpoch:epoch});
+ }
+ flow=F.create({get session(){return session;},set session(value){session=value;},ui,get resume(){return resume;},begin,defaults,eventText:e=>P.eventText(e,session.level),unlocked:id=>{const l=Levels.all.find(l=>l.id===id);return !!l&&unlocked(l);},completeLevel(){if(!progress.completed.includes(session.level.id))progress.completed.push(session.level.id);if(!progress.tutorialDone.includes(session.level.id))progress.tutorialDone.push(session.level.id);save();},openLedger(){ui.modal={kind:'ledger',title:'本趟账簿'};}},storage);
+ try{const data=storage.read&&storage.read(RUN_KEY);if(data&&data.version===2&&flow.validate(data)&&data.session.levelId===progress.last){resume=data;resumeState=E.restoreSession(data.session).state;}}catch{}
  return {view,dispatch,selectNode,get session(){return session;},get progress(){return JSON.parse(JSON.stringify(progress));}};
 }
 function validUI(u,l){
@@ -94,5 +103,5 @@ function validUI(u,l){
  if(m.kind==='rules'||m.kind==='history')return Number.isInteger(m.page)&&m.page>=0&&m.page<(m.kind==='history'?6:(l.exchange?1:0)+2+l.transactions.length);
  return ['hint','lesson'].includes(m.kind)&&text(m.title)&&text(m.body)&&line(m.line);
 }
-return {create,normalize,KEY,RUN_KEY};
+return {create,normalize,KEY,RUN_KEY,MANAGED_KEYS};
 });

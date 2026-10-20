@@ -2,6 +2,12 @@
 'use strict';
 // Original procedural stand-ins, not field recordings. Replace file paths here.
 const entries={
+ 'music.market':{file:'music-market.wav',loop:true,gain:.44},
+ 'music.old-note':{file:'music-old-note.wav',loop:true,gain:.4},
+ 'music.homecoming':{file:'music-homecoming.wav',loop:true,gain:.44},
+ 'prop.box':{file:'prop-box.wav',gain:.35,cooldown:450},
+ 'prop.paper':{file:'prop-paper.wav',gain:.25,cooldown:300},
+ 'prop.cloth':{file:'prop-cloth.wav',gain:.3,cooldown:350},
  'ambience.market':{file:'ambience-market.wav',loop:true,gain:.38},
  'ambience.water':{file:'ambience-water.wav',loop:true,gain:.3},
  'ambience.paper':{file:'ambience-paper.wav',loop:true,gain:.22},
