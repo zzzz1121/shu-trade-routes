@@ -3,7 +3,7 @@
 // Only presentation is deferred. The existing controller owns the final atomic move.
 function create(game,options={}){
  const sound=options.sound||{activate(){},play(){},sequence(){},scene(){},suspend(){},resume(){}},timer=options.setTimeout||setTimeout,clear=options.clearTimeout||clearTimeout;
- const duration=options.duration===undefined?480:options.duration,landing=options.landing===undefined?80:options.landing;
+ const duration=options.duration,landing=options.landing===undefined?80:options.landing;
  const enabled=level=>!options.levels||options.levels.includes(level.id);
  let autoEnabled=false,autoHandle=null,autoKey='';
  function stopAuto(){if(autoHandle!==null)clear(autoHandle);autoHandle=null;autoKey='';}
@@ -38,17 +38,17 @@ function create(game,options={}){
  function cancel(){generation++;if(handle!==null)clear(handle);handle=null;moving=null;if(sound.cancel)sound.cancel();}
  function finish(token,before){if(token!==generation||destroyed)return;moving=null;handle=null;game.dispatch('confirm-move');const after=game.view();react(before,after,'confirm-move');sync();changed();}
  function travel(){const before=game.view(),m=before.modal;if(!enabled(before.level)||!m||m.kind!=='move'||!m.canMove)return false;
-  const points=Scene.routePoints(before.level,before.s.nodeId,m.nodeId);if(!points)return false;
+  const points=Scene.routePoints(before.level,before.s.nodeId,m.nodeId);if(!points)return false;const travelDuration=duration===undefined?Math.max(1100,Math.min(2600,Scene.routeLength(points)*45)):duration;
   const destination=before.level.nodes.find(n=>n.id===m.nodeId),origin=before.level.nodes.find(n=>n.id===before.s.nodeId),bridge=!!(destination.toll||origin.toll),token=++generation;
-  moving={from:before.s.nodeId,to:m.nodeId,edge:before.s.nodeId+'-'+m.nodeId,points,point:points[0].slice(),progress:0,phase:'walking',duration,heading};sync();changed();
-  if(duration===0){finish(token,before);return true;}
-  if(sound.cancel)sound.cancel();sound.play(bridge?'move.bridge':'move.step');let elapsed=0,nextStep=180,near=false;
-  function tick(){if(token!==generation||destroyed)return;elapsed=Math.min(duration,elapsed+30);const progress=elapsed/duration,eased=(1-Math.cos(Math.PI*progress))/2,previous=moving.point;moving.progress=progress;moving.point=Scene.routeSample(points,eased);const dx=moving.point[0]-previous[0],dy=(moving.point[1]-previous[1])/(634/522);if(Math.abs(dx)+Math.abs(dy)>.001)heading=Math.abs(dx)>Math.abs(dy)?dx>0?'right':'left':dy>0?'down':'up';moving.heading=heading;moving.frame=progress===1?0:1+(Math.floor(elapsed/110)%2);moving.companion=Scene.routeSample(points,Math.max(0,eased-.07));
-   if(elapsed>=nextStep&&elapsed<duration){sound.play(bridge?'move.bridge':'move.step');nextStep+=180;}
+  moving={from:before.s.nodeId,to:m.nodeId,edge:before.s.nodeId+'-'+m.nodeId,points,point:points[0].slice(),progress:0,phase:'walking',duration:travelDuration,heading};sync();changed();
+  if(travelDuration===0){finish(token,before);return true;}
+  if(sound.cancel)sound.cancel();sound.play(bridge?'move.bridge':'move.step');let elapsed=0,nextStep=300,near=false;
+  function tick(){if(token!==generation||destroyed)return;elapsed=Math.min(travelDuration,elapsed+16);const progress=elapsed/travelDuration,eased=(1-Math.cos(Math.PI*progress))/2,previous=moving.point;moving.progress=progress;moving.point=Scene.routeSample(points,eased);const dx=moving.point[0]-previous[0],dy=(moving.point[1]-previous[1])/(634/522);if(Math.abs(dx)+Math.abs(dy)>.001)heading=Math.abs(dx)>Math.abs(dy)?dx>0?'right':'left':dy>0?'down':'up';moving.heading=heading;moving.frame=progress===1?0:1+(Math.floor(elapsed/180)%2);moving.companion=Scene.routeSample(points,Math.max(0,eased-.07));
+   if(elapsed>=nextStep&&elapsed<travelDuration){sound.play(bridge?'move.bridge':'move.step');nextStep+=300;}
    if(progress===1){moving.phase='arriving';sound.play('move.arrive');}
    if(options.frame)options.frame(moving.point.slice(),moving.phase,{heading,frame:moving.frame,companion:moving.companion});if(progress>.7&&!near){near=true;sync();}
-   if(progress<1)handle=timer(tick,Math.min(30,duration-elapsed));else handle=timer(()=>finish(token,before),landing);
-  }handle=timer(tick,Math.min(30,duration));return true;
+   if(progress<1)handle=timer(tick,Math.min(16,travelDuration-elapsed));else handle=timer(()=>finish(token,before),landing);
+  }handle=timer(tick,Math.min(16,travelDuration));return true;
  }
  function dispatch(id){if(destroyed||suspended||typeof id!=='string')return false;sound.activate();
   if(id==='dialogue-auto'){autoEnabled=!autoEnabled;stopAuto();sync();changed();return true;}

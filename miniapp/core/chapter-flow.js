@@ -14,6 +14,7 @@ function create(host,storage={}){
  function advance(){const m=host.ui.modal;if(!m||m.source!=='v4')return;markRead(m.line);if(m.cursor<m.lines.length-1){m.cursor++;showLine();}else complete();}
  function prop(id,title,body,actions=[],asset=''){host.ui.error=false;host.ui.message='';host.ui.modal={kind:'prop',id,title,body,actions,asset};}
  function notice(text){state().bubble={id:'notice:'+text,text};host.ui.error=false;host.ui.message='';}
+ function packing(){const x=state().draftEnabled?host.ui.x:0,iron=8-x,note=x?x-1:0,problem=iron>5?'超过钱袋容量，请再兑换一些铁钱。':iron<2?'布铺至少收 2 铁钱，请少兑换一些。':'';return {x,iron,note,fee:x?1:0,load:iron,canDepart:!problem,problem};}
  function begin(id){host.begin(id);delete host.ui.feedbackMemory;if(host.session.level.id!=='l01'){host.ui.screen='intro';return;}history=[];host.ui.story=S.initial();host.ui.screen='play';host.ui.modal=null;host.ui.payIron=0;host.ui.payNote=0;host.ui.x=2;}
  function commit(action){const ui=host.ui,before={session:host.session.snapshot(),ui:clone(ui)},r=host.session.act(action);if(!r.ok){ui.message=r.message;ui.error=true;return false;}history.push(before);ui.error=false;ui.message=host.eventText(r.event);host.defaults();ui.payIron=0;ui.payNote=0;
   if(r.state.status==='failed'){state().phase='failed';state().active=null;ui.modal=null;return true;}
@@ -62,8 +63,12 @@ function create(host,storage={}){
   }
   if(m&&m.kind==='sound'&&id==='close'&&m.returnStory){open(m.returnStory.id,m.returnStory.cursor);return true;}
   if(m&&m.kind==='prop'&&id==='close'){ui.modal=null;return true;}
+  if(m&&m.kind==='wallet'&&st.phase==='prepare'){
+   if(id==='close'){ui.modal=null;return true;}
+   if(!['x+','x-','draft-enable','draft-mode:exchange','draft-mode:iron','prepare-depart','wallet','object:order','object:note','object:old-question'].includes(id))return true;
+  }
   if(m&&m.kind==='prop'&&!id.startsWith('object:')&&id!=='inspect-confirm')return true;
-  if(m&&!['lesson','prop','move'].includes(m.kind))return false;
+  if(m&&!['lesson','prop','move'].includes(m.kind)&&!(m.kind==='wallet'&&st.phase==='prepare'))return false;
   if(id.startsWith('object:')){object(id.slice(7));return true;}
   if(id==='inspect-confirm'&&st.flags.needsInspection){open('delivery-check');return true;}
   if(id==='wallet'){ui.modal={kind:'wallet',title:'随身钱袋'};return true;}
@@ -72,8 +77,10 @@ function create(host,storage={}){
   if(id==='trade-map'){st.tradeMap=true;ui.modal=null;return true;}
   if(id==='trade-close'){st.paymentOpen=false;ui.modal=null;return true;}
   if(id==='draft-enable'){st.draftEnabled=!st.draftEnabled;return true;}
+  if(id==='draft-mode:exchange'||id==='draft-mode:iron'){if(st.phase==='prepare'){st.draftEnabled=id==='draft-mode:exchange';ui.message='';ui.error=false;}return true;}
   if(id==='exchange-info'){open('exchange-info');return true;}
   if(id==='prepare-depart'&&st.phase==='prepare'){
+   const draft=packing();if(!draft.canDepart){ui.message=draft.problem;ui.error=true;return true;}
    let candidate=E.createSession(host.session.level),r={ok:true};if(st.draftEnabled)r=candidate.act({type:'exchange',amount:ui.x});if(r.ok)r=candidate.act({type:'depart'});if(!r.ok){ui.message=r.message;ui.error=true;return true;}checkpoint();host.session=candidate;ui.modal=null;st.phase=r.state.status==='failed'?'failed':'road';ui.message=r.state.status==='failed'?r.state.failureReason:'货款已备好。';ui.error=r.state.status==='failed';if(!ui.error)open('depart');return true;
   }
   if(id==='confirm-move'){const before=ui.modal;if(before&&before.kind==='move'&&before.canMove&&['road','return','delivery','payment'].includes(st.phase)){commit({type:'move',to:before.nodeId});}return true;}
@@ -86,7 +93,7 @@ function create(host,storage={}){
   return false;
  }
  function decorate(v){if(!state())return v;v.story=clone(state());v.storyObjects=S.objects(state(),host.session.state).map(o=>Object.assign(o,{action:'object:'+o.id}));v.storyGoal=S.goal(state(),host.session.state);v.storyStats=stats();v.canUndo=history.length>0&&!state().flags.endingSeen;v.storyPayIron=host.ui.payIron;v.storyPayNote=host.ui.payNote;v.storyDraftX=host.ui.x;v.level=Object.assign({},v.level,{nodes:v.level.nodes.map(n=>Object.assign({},n,{name:n.id==='warehouse'?'罗记后仓':n.id==='delivery'?'罗记前堂':n.name}))});v.nodes=v.nodes.map(n=>Object.assign({},n,{name:n.id==='warehouse'?'罗记后仓':n.id==='delivery'?'罗记前堂':n.name}));if(v.modal&&v.modal.kind==='move')v.modal.title=v.level.nodes.find(n=>n.id===v.modal.nodeId).name;v.pathText=host.session.state.routeHistory.map(id=>v.level.nodes.find(n=>n.id===id).name).join(' → ');
-  if(state().phase==='prepare'){const x=state().draftEnabled?host.ui.x:0,iron=8-x,note=x?x-1:0;v.draft={x,iron,note,fee:x?1:0,load:iron,canDepart:iron<=5};}
+  if(state().phase==='prepare')v.draft=packing();
   return v;
  }
  function snapshot(){return {version:2,session:host.session.snapshot(),ui:clone(host.ui),history:clone(history)};}

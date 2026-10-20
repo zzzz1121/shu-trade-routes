@@ -7,6 +7,8 @@ v.storyMoney={iron:s.departed?s.iron:s.warehouseIron,note:s.notesByIssuer.a||0,c
 v.paymentVisible=st.phase==='payment'&&st.paymentOpen;
 v.storyPayment=E.transition(s,{type:'buy',transactionId:'buy-cloth',iron:v.storyPayIron,notes:{a:v.storyPayNote}},v.level);
 v.storySteppers=[{key:'p',label:'铁钱',value:v.storyPayIron,max:Math.min(s.iron,6-v.storyPayNote)},{key:'n',label:'交子',value:v.storyPayNote,max:Math.min(s.notesByIssuer.a||0,6-v.storyPayIron)}].map(x=>Object.assign(x,{minus:x.key+'-',plus:x.key+'+',minDisabled:x.value===0,maxDisabled:x.value>=x.max}));
+const stage=st.flags.endingSeen?5:['record','ending','settled','stay'].includes(st.phase)?4:s.cargoById.cloth||st.phase==='delivery'?3:['road','cloth','payment','return'].includes(st.phase)?2:st.phase==='entry'?0:1;
+v.questSteps=['拜访掌柜','整理货款','布铺取货','送到前堂','交付记账'].map((label,i)=>({id:i,label,current:i===stage,done:i<stage,text:i===stage?v.storyGoal:label}));
 v.storyBubble=st.bubble&&st.bubble.text;v.storyPhase=st.phase;return v;}
 return {decorate};
 });

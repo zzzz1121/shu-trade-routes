@@ -12,3 +12,9 @@
 @import './styles/ui-v33.css';
 
 @import './styles/art-direction.css';
+
+@import './styles/map-refinement.css';
+
+
+
+page{--map-terrain-image:url('/assets/v2/terrain.png')}

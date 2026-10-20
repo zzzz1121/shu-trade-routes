@@ -9,8 +9,8 @@ const paths={
  'bridge-shop':[[43,24],[54,26],[62,35],[77,50]],
  'warehouse-street':[[22,47],[19,55],[22,63],[27,75]],
  'street-alley':[[27,75],[33,75],[42,81],[49,82]],
- 'alley-shop':[[49,82],[58,81],[65,70],[72,59],[77,50]],
- 'shop-delivery':[[77,50],[85,58],[88,70],[80,86]]
+ 'alley-shop':[[49,82],[55,80],[60,73],[64,65],[67,59],[70,55],[73,51],[77,50]],
+ 'shop-delivery':[[77,50],[73,51],[70,55],[67,59],[64,65],[60,73],[58,79],[64,84],[72,88],[80,86]]
 };
 function tile(id,r){const [x,y,w,h]=r;return {id,style:'left:'+x+'%;top:'+y+'%;width:'+w+'%;height:'+h+'%;',imageStyle:'width:'+(10000/w)+'%;height:'+(10000/h)+'%;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%;'};}
 function subtract(a,b){const [x,y,w,h]=a,[bx,by,bw,bh]=b,l=Math.max(x,bx),t=Math.max(y,by),r=Math.min(x+w,bx+bw),d=Math.min(y+h,by+bh);if(l>=r||t>=d)return [a];return [[x,y,w,t-y],[x,d,w,y+h-d],[x,t,l-x,d-t],[r,t,x+w-r,d-t]].filter(r=>r[2]>0&&r[3]>0);}
@@ -23,7 +23,7 @@ function decorate(v){
  v.nodes=v.nodes.map(n=>{const pos=positions[n.id];return Object.assign({},n,{name:n.id==='delivery'?(v.story?'罗记前堂':'交付商行'):n.name,style:'left:'+pos[0]+'%;top:'+pos[1]+'%;',asset:'/assets/approved/town-atlas.png',goal:n.id===v.level.goal,tag:n.current?'所在':n.reachable?'可达':''});});
  v.edges=v.level.edges.map(e=>({key:e.join('-')}));
  v.routeSegments=[];
- v.edges.forEach(e=>{const points=paths[e.key];if(!points)return;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b[0]-a[0],dy=(b[1]-a[1])/ratio;v.routeSegments.push({id:e.key+'-'+i,edge:e.key,style:'left:'+a[0]+'%;top:'+a[1]+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});}});
+ v.edges.forEach(e=>{const endpoints=e.key.split('-'),points=routePoints(v.level,endpoints[0],endpoints[1]);if(!points)return;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b[0]-a[0],dy=(b[1]-a[1])/ratio;v.routeSegments.push({id:e.key+'-'+i,edge:e.key,style:'left:'+a[0]+'%;top:'+a[1]+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});}});
  v.bagWeight=v.s.departed?v.weight:0;
  v.slots=Array.from({length:v.level.capacity},(_,i)=>({id:i,kind:i<v.bagWeight?(i<v.s.iron?'iron':'cloth'):'empty'}));
  v.locationName=v.nodes.find(n=>n.current).name;
@@ -37,13 +37,16 @@ function modular(v){
  v.level.edges.forEach(e=>{const a=v.nodes.find(n=>n.id===e[0]),b=v.nodes.find(n=>n.id===e[1]),dx=b.x-a.x,dy=(b.y-a.y)/ratio;v.routeSegments.push({id:e.join('-'),edge:e.join('-'),style:'left:'+a.x+'%;top:'+a.y+'%;width:'+Math.sqrt(dx*dx+dy*dy)+'%;transform:rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg);'});});
  return v;
 }
+// Round presentation corners without adding gameplay junctions or changing edge costs.
+function smoothPath(points){const out=[points[0].slice()];for(let i=1;i<points.length-1;i++){const a=points[i-1],b=points[i],c=points[i+1],p=b.map((v,k)=>v+(a[k]-v)*.16),q=b.map((v,k)=>v+(c[k]-v)*.16);out.push(p);for(let j=1;j<=5;j++){const t=j/5;out.push(b.map((v,k)=>(1-t)*(1-t)*p[k]+2*(1-t)*t*v+t*t*q[k]));}}out.push(points[points.length-1].slice());return out;}
+function routeLength(points){return points.slice(1).reduce((n,b,i)=>n+Math.hypot(b[0]-points[i][0],(b[1]-points[i][1])/ratio),0);}
 function routePoints(level,from,to){
  if(!level.edges.some(e=>e[0]===from&&e[1]===to||e[1]===from&&e[0]===to))return null;
- if(level.id==='l01'){const key=from+'-'+to,reverse=to+'-'+from;return (paths[key]||paths[reverse].slice().reverse()).map(p=>p.slice());}
+ if(level.id==='l01'){const key=from+'-'+to,reverse=to+'-'+from;return paths[key]?smoothPath(paths[key]):smoothPath(paths[reverse]).reverse();}
  return [from,to].map(id=>{const n=level.nodes.find(n=>n.id===id);return [n.x,n.y];});
 }
 function routeSample(points,t){const lengths=points.slice(1).map((b,i)=>Math.hypot(b[0]-points[i][0],(b[1]-points[i][1])/ratio)),total=lengths.reduce((a,b)=>a+b,0);let distance=Math.max(0,Math.min(1,t))*total;
  for(let i=0;i<lengths.length;i++){if(distance<=lengths[i]||i===lengths.length-1){const f=lengths[i]?distance/lengths[i]:0,a=points[i],b=points[i+1];return [a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f];}distance-=lengths[i];}return points[0].slice();
 }
-return {decorate:decorate,frames:frames,terrainTiles:terrainTiles,routePoints,routeSample};
+return {decorate:decorate,frames:frames,terrainTiles:terrainTiles,routePoints,routeSample,routeLength};
 });
