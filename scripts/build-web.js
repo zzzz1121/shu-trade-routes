@@ -56,3 +56,5 @@ copy('miniapp/styles/map-refinement.css');
 copy('miniapp/styles/title-v36.css');copy('miniapp/assets/title-v36/embark-calligraphy.png');
 
 copy('miniapp/styles/chapters-v36.css');copy('miniapp/assets/title-v36/chapter-calligraphy.png');copy('miniapp/assets/title-v36/chapter-road.svg');
+
+copy('miniapp/styles/opening-v36.css');copy('miniapp/assets/title-v36/opening-calligraphy.png');
