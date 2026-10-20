@@ -32,9 +32,10 @@ const expressions=['neutral','smile','thinking','puzzled','worried','firm'];
 function actor(name,base,expression='neutral',pose='idle'){
  if(['你','玩家','旁白','守桥人'].includes(name))return {name,visible:false,expression,pose,role:'',portrait:'',frameStyle:'',aspectStyle:''};
  const c=characters[name]||characters['阿禾'],emotion=Math.max(0,expressions.indexOf(expression));
+ // Shen's puzzled/thinking cues share the contemplative frame; avoid the unrelated broad smile.
  const index=c.id==='luo'?[0,4,2,1,3,5][emotion]:c.id==='shen'?[0,1,3,3,4,2][emotion]:emotion;
  const sprite=artSprites[c.id]||{version:'v3',aspect:'1'},align=sprite.tops?(sprite.tops[0]-sprite.tops[index])/sprite.cellHeight*100:0;
- return {id:c.id,name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+sprite.aspect+';',portrait:base+'/characters/'+sprite.version+'/'+c.id+'-expressions.png',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100+align)+'%;'};
+ return {id:c.id,name:characters[name]?name:'阿禾',role:c.role,expression:expressions[emotion],pose,aspectStyle:'aspect-ratio:'+sprite.aspect+';',portrait:base+'/characters/'+sprite.version+'/'+c.id+'-expressions.png',cellStyle:'top:'+align+'%;',frameStyle:'left:'+(-(index%3)*100)+'%;top:'+(-Math.floor(index/3)*100)+'%;'};
 }
 function decorate(v,base='/miniapp/assets'){
  const n=chapters[v.level.id];v.narrative=Object.assign({},n,{speaker:actor(v.level.intro[0],base),scene:base+'/chapters/chapter-scenes.png',sceneStyle:'left:'+(-((v.level.number-1)%3)*100)+'%;top:'+(-Math.floor((v.level.number-1)/3)*100)+'%;'});

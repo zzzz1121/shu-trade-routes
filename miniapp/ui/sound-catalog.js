@@ -14,7 +14,7 @@ const entries={
  'move.step':{file:'step-earth.wav',gain:.46,cooldown:130},
  'move.bridge':{file:'step-wood.wav',gain:.4,cooldown:130},
  'move.arrive':{file:'arrive.wav',gain:.28,cooldown:180},
- 'ui.click':{file:'ui-click.wav',gain:.3,cooldown:85},
+ 'ui.click':{file:'ui-click-paper.wav',gain:.18,cooldown:160},
  'ui.page':{file:'ui-page.wav',gain:.35,cooldown:180},
  'ui.dialogue':{file:'ui-dialogue.wav',gain:.32,cooldown:180},
  'ui.continue':{file:'ui-continue.wav',gain:.27,cooldown:100},

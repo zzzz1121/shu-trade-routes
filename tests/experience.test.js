@@ -31,7 +31,7 @@ test('空撤销与无效分页、失效按钮不会伪造反馈或抛错',()=>{
  const c=C.create();c.dispatch('start');c.dispatch('skip-intro');const before=c.session.state;for(const id of ['undo','rule-next','hint-next','amount+','p+','n+',null])assert.doesNotThrow(()=>c.dispatch(id));assert.deepEqual(c.session.state,before);assert.equal(c.view().message,'');
 });
 test('三角色六表情均为固定图集帧，姿态与逐条对白数据可被替换',()=>{
- for(const name of Object.keys(N.characters)){const frames=D.expressions.map(e=>N.actor(name,'/assets',e,'explain'));assert.equal(new Set(frames.map(a=>a.portrait)).size,1);assert.equal(new Set(frames.map(a=>a.frameStyle)).size,6);assert.ok(frames.every(a=>a.pose==='explain'));}
+ for(const name of Object.keys(N.characters)){const frames=D.expressions.map(e=>N.actor(name,'/assets',e,'explain'));assert.equal(new Set(frames.map(a=>a.portrait)).size,1);assert.equal(new Set(frames.map(a=>a.frameStyle)).size,name==='沈娘子'?5:6);assert.ok(frames.every(a=>a.pose==='explain'));}
  for(const l of L.all){const c=C.create({read:k=>k===C.KEY?{version:2,last:l.id,completed:L.all.map(x=>x.id),tutorialDone:[]}:null});const scenes=D.scenes(l,c.view().rules);for(const scene of Object.values(scenes))for(const line of scene.lines)assert.ok(line.id&&line.speaker&&line.expression&&line.pose&&line.text);}
 });
 test('存档重放包含教学标记，恢复后逐步撤销与原会话一致',()=>{
