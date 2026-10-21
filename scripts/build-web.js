@@ -58,3 +58,8 @@ copy('miniapp/styles/title-v36.css');copy('miniapp/assets/title-v36/embark-calli
 copy('miniapp/styles/chapters-v36.css');copy('miniapp/assets/title-v36/chapter-calligraphy.png');copy('miniapp/assets/title-v36/chapter-road.svg');
 
 copy('miniapp/styles/opening-v36.css');copy('miniapp/assets/title-v36/opening-calligraphy.png');
+
+for(const dir of ['items','props'])for(const file of fs.readdirSync(path.join(root,'miniapp/assets/art-final',dir)))if(file.endsWith('.png'))copy('miniapp/assets/art-final/'+dir+'/'+file);
+copy('miniapp/assets/story-v36/luo-dusk.png');copy('miniapp/ui/story-scenes.js');
+
+copy('miniapp/styles/arrival-ui.css');

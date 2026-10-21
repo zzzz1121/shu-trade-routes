@@ -1,0 +1,2 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),Scenes=require('../miniapp/ui/story-scenes'),N=require('../miniapp/ui/narrative');
+test('V3.6 场景注册复用既有美术，暮色使用新场景，表情稳定映射',()=>{assert.equal(Object.keys(Scenes.files).length,16);for(const id of Object.keys(Scenes.files))assert.ok(fs.existsSync('.'+Scenes.background(id)));assert.ok(Scenes.background('P01_10_AFTER_MARKET','/assets').endsWith('/story-v36/luo-dusk.png'));assert.equal(Scenes.expression('think'),'thinking');assert.equal(Scenes.expression('serious'),'firm');});
