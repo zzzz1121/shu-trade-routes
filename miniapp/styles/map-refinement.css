@@ -1,0 +1,42 @@
+/* Chapter-one map overlay. Gameplay roads/costs remain in the level data. */
+:root,page{--map-terrain-image:url('../assets/v2/terrain.webp')}
+.story-game .story-hud{background:transparent;border:0;box-shadow:none;backdrop-filter:none;padding:6px 2px;min-height:58px}
+.story-hud .chapter-button,.story-hud .hud-counts,.story-hud>.text-button{color:#33483e;text-shadow:0 0 4px #fff8e9,1px 1px 1px #fff8e9,-1px -1px 1px #fff8e9}
+.story-game .map-stage{position:absolute;top:0;right:-12px;bottom:0;left:-12px;inset:0 -12px;flex:none;padding:0 12px 96px;z-index:0}
+.story-game .scene-continuation{opacity:1;z-index:-1;mask-image:none;-webkit-mask-image:none}
+.story-game .scene-continuation:before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:var(--map-terrain-image) center/cover no-repeat}
+.story-game .continuation-frame{width:114%;min-height:0;max-height:none;height:auto;aspect-ratio:2/3;left:50%;top:calc(50% - 48px);transform:translate(-50%,-50%);z-index:1;-webkit-mask-image:linear-gradient(transparent,#000 55px,#000 calc(100% - 55px),transparent);mask-image:linear-gradient(transparent,#000 55px,#000 calc(100% - 55px),transparent)}
+.story-game .story-dock{margin-top:auto;padding:7px 10px 9px;padding:7px 10px max(9px,env(safe-area-inset-bottom));border-radius:12px;border:1px solid #e3dbca;background:#fffaf0ed;box-shadow:0 2px 12px #554d3310}
+.story-game .story-dock .purse-button{min-height:43px}
+.prepare-entry{padding-top:5px}.prepare-entry>.primary{min-height:44px;width:100%;font-size:15px;border-radius:7px;background:#81775d}
+.quest-track{position:absolute;top:65px;left:0;max-width:136px;z-index:4;padding:6px 10px 4px 7px;color:#3e4e43;text-shadow:0 1px 2px #fff8e9;pointer-events:none;border-radius:5px;background:linear-gradient(90deg,#f8f3e8ed,#f8f3e8aa 84%,transparent)}
+.quest-track>.text-button{padding:0 0 6px;min-height:30px;font-size:12px;color:#796c51;pointer-events:auto}
+.quest-track ol,.quest-list{list-style:none;padding:0;margin:0}
+.quest-track li,.quest-step{position:relative;display:flex;align-items:flex-start;--mini-gap:8px;grid-gap:8px;gap:8px;padding:0 0 12px;min-height:26px;font:12px/1.5 var(--type-ui);color:#7a806c}
+.quest-track li:not(:last-child):before,.quest-step:not(:last-child):before{content:'';position:absolute;top:12px;bottom:1px;left:4px;border-left:1px solid #9ca18b8c}
+.quest-track i,.quest-dot{position:relative;display:block;flex:0 0 9px;width:9px;height:9px;margin-top:4px;border-radius:50%;border:1px solid #9da38d;background:#e9ebda;font:10px/9px sans-serif;font-style:normal;text-align:center}
+.quest-track .active{color:#344f46;font-weight:600}.quest-track .active i,.quest-track .active .quest-dot{background:#6b8172;border-color:#6b8172;box-shadow:0 0 0 3px #f4efdfb3}.quest-track .done i,.quest-track .done .quest-dot{background:#839782;color:#fff;border-color:#839782}.quest-track .done{color:#7e8c77}
+.dialogue-active .quest-track{visibility:hidden;pointer-events:none}
+.story-game .map-bubble{top:auto;bottom:120px;left:12px;right:12px;max-width:none}.story-game .story-toast{top:auto;bottom:126px}
+/* Money stays a draft until the single departure submission. */
+.purse-backdrop{background:#283b325c;align-items:flex-end;padding:12px 12px 12px;padding:12px max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom))}
+.purse-sheet.rules-dialog{width:100%;max-width:440px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow-y:auto;background:#f9f3e5;border-radius:13px;padding:18px;box-shadow:0 -4px 20px #2b38251c}
+.purse-sheet h2,.purse-title{font:600 23px var(--type-body);margin:0}
+.purse-sheet .prepare-panel{padding:10px 0 0}.purse-sheet .prepare-panel p{min-height:0;margin:0}
+.purse-sheet .purse-instruction,.purse-sheet .purse-terms{font-size:13px;line-height:1.7;color:#6d715e}
+.draft-modes{display:flex;--mini-gap:9px;grid-gap:9px;gap:9px;margin:13px 0}.draft-modes>button{flex:1;min-height:44px;border-radius:7px;font-size:15px;background:#f3ebd9;border:1px solid #d6c8ad}.draft-modes>button.selected{border-color:#7d9279;background:#e7eddf;color:#3d5c48;box-shadow:inset 0 0 0 1px #7d9279}
+.purse-sheet .draft-stepper{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#fffbf2;border:1px solid #e0d5bf;border-radius:8px}.draft-stepper>span{text-align:center;font-size:14px}.draft-stepper b{font-weight:500;color:#596e5a}.draft-stepper .small{width:44px;height:44px}
+.draft-summary{margin:12px 0}.draft-summary>div,.draft-summary>view{display:flex;justify-content:space-between;--mini-gap:10px;grid-gap:10px;gap:10px;padding:7px 0;font-size:14px}.draft-summary dt,.draft-label{color:#77755f}.draft-summary dd{margin:0;font-variant-numeric:tabular-nums}.draft-summary .over-capacity,.draft-summary .over-capacity dt{color:#a35a40}
+.purse-sheet .draft-warning{color:#886b44;font-size:13px;line-height:1.7}.purse-sheet .prepare-panel>.primary{width:100%;min-height:47px;margin-top:12px;border-radius:8px}
+.purse-tools{display:flex;justify-content:space-around;border-top:1px solid #e0d4bd;margin-top:13px;padding-top:5px}.purse-tools .text-button{font-size:13px;min-height:44px}
+.traveler{transition:left 16ms linear,top 16ms linear}.walking .traveler-figure{animation-duration:360ms}.arriving .traveler-figure{animation-duration:120ms}
+@media(max-height:740px){.quest-track{top:62px;max-width:123px}.quest-track li,.quest-step{padding-bottom:8px;font-size:11px}.purse-sheet.rules-dialog{padding:12px}.purse-sheet .prepare-panel{padding-top:4px}.purse-sheet .prepare-panel p{font-size:12px;line-height:1.5;padding:3px 0}.draft-modes{margin:9px 0}.purse-sheet .draft-stepper{padding:6px}.draft-summary{margin:7px 0}.draft-summary>div,.draft-summary>view{padding:4px 0}.purse-tools{margin-top:8px;padding-top:0}.purse-sheet .prepare-panel>.primary{margin-top:7px}}
+@media(prefers-reduced-motion:reduce){.traveler{transition:none}.walking .traveler-figure,.arriving .traveler-figure{animation:none}}
+/* Anchor the merchant's feet to the actual route instead of 45px beside it. */
+.story-game .traveler-player .traveler-offset{left:-33.54px}
+.story-game .traveler-player .traveler-shadow{left:-9px}
+
+.story-game .scene-node.current .scene-placard{bottom:64px}
+/* The extended town is the single continuous ground painting. Atlas crops are
+   redundant here and expose the source river gutter at their lower edge. */
+.story-game .map.reference-map:not(.modular-map) .scene-art{visibility:hidden}

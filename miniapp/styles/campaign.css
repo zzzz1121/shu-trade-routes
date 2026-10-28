@@ -1,0 +1,62 @@
+.campaign-title{font:500 16px/1.3 var(--type-body);font:500 clamp(16px,4.6vw,22px)/1.3 var(--type-body);white-space:nowrap;color:#34483d}
+.campaign-game .story-hud .chapter-button strong{height:auto;max-width:42vw}.campaign-game .story-hud{--mini-gap:5px;grid-gap:5px;gap:5px}.campaign-game .hud-counts{--mini-gap:7px;grid-gap:7px;gap:7px}.campaign-game .quest-track{max-width:144px}
+.campaign-dock .purse-button{flex-wrap:wrap;--mini-gap:7px;grid-gap:7px;gap:7px;font-size:11px}.campaign-dock .resource-icon{width:20px;height:20px}.campaign-dock .purse-button b{font-size:17px}.campaign-dock .v36-investigations{flex-wrap:wrap}
+.campaign-trade-backdrop{z-index:18;align-items:flex-end;padding:12px;background:#273e3559}.campaign-trade{max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px);overflow-y:auto;width:100%;max-width:440px;padding:16px;background:#faf5e9;border:1px solid #b9aa8b;border-radius:12px}
+.campaign-trade h2{font-size:20px;margin:0}.campaign-trade .trade-npc{display:flex;align-items:center;--mini-gap:14px;grid-gap:14px;gap:14px;margin:12px 0}.campaign-trade .trade-portrait{position:relative;flex:0 0 74px;height:100px;overflow:hidden}.campaign-trade .trade-npc p{min-height:0;font-size:14px;line-height:1.65}.campaign-trade .trade-balance{min-height:0;font-size:12px;color:#747c66;padding-bottom:8px;border-bottom:1px solid #d8cdb7}.campaign-trade .action-panel{height:auto;--mini-gap:10px;grid-gap:10px;gap:10px}.campaign-trade .panel-heading,.campaign-trade .ask-guide{display:none}.campaign-trade .preview{height:auto;min-height:32px;font-size:13px}.campaign-trade .payment-controls{display:flex;--mini-gap:10px;grid-gap:10px;gap:10px}.campaign-trade .stepper{flex:1;min-width:0;--mini-gap:5px;grid-gap:5px;gap:5px}.campaign-trade .stepper-value{font-size:13px}.campaign-trade .choice-buttons{display:flex;--mini-gap:10px;grid-gap:10px;gap:10px}.campaign-trade .action-buttons{margin-top:8px}.campaign-trade .small{width:38px;min-width:38px}.campaign-result h1{font-size:30px}
+.campaign-game .map.modular-map .scene-art{mask-image:none;-webkit-mask-image:none}.campaign-game .map-stage{padding-bottom:130px}
+.campaign-game .map.modular-map{aspect-ratio:634/580}.campaign-game .scene-node .scene-placard{max-height:100px;font-size:11px}.campaign-game .v36-location{z-index:-1}
+.dialogue-active .campaign-game .story-dock,.dialogue-active .campaign-game .story-hud{visibility:hidden}
+.campaign-game .map.reference-map{width:100%;max-width:100%}
+
+.story-game.campaign-game .story-hud .chapter-button strong.campaign-title{font:500 15px/1.4 var(--type-body);font:500 clamp(15px,4vw,20px)/1.4 var(--type-body);height:auto;width:auto;max-width:120px;white-space:normal}.story-game.campaign-game .story-hud>.chapter-button{min-width:96px;max-width:136px;padding:7px 10px}.campaign-game .scene-buildings{filter:saturate(.6) contrast(.92)}
+
+.campaign-trade-scenery{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(.76) saturate(.8)}.campaign-trade-backdrop{isolation:isolate}.campaign-trade{box-shadow:0 -5px 24px #2d271c38}
+
+.vn-actor-stage .vn-cast.cast-chen,.vn-actor-stage .vn-cast.cast-min{height:76vh;height:min(76dvh,125vw);max-width:88%}
+
+/* Use the phone's vertical space for the route rather than empty continuation ground. */
+.campaign-game .map-stage{padding:0 12px 96px}
+.campaign-game .map.modular-map{aspect-ratio:634/1000;margin-top:112px}
+.campaign-game .scene-node .scene-placard{font-size:12px;padding:4px 7px;background:#fff8e9f5}
+.campaign-game .scene-buildings{filter:saturate(.7) contrast(.95)}
+.campaign-game .scene-continuation{filter:saturate(.78) brightness(.99)}
+.campaign-game .modular-map .route{border-top-width:2px;opacity:.65}
+.campaign-dock .purse-button{font-size:13px}
+
+/* The actor and text occupy separate grid rows, so text length never cuts off a head. */
+.vn-overlay{display:grid;grid-template-rows:minmax(0,1fr) auto;align-items:stretch;padding:64px 16px 22px;padding:64px 16px max(22px,env(safe-area-inset-bottom))}
+.vn-overlay .vn-actor-stage{position:relative;top:auto;right:auto;bottom:auto;left:auto;inset:auto;grid-row:1;min-height:0;overflow:hidden;margin-bottom:-12px}
+.vn-overlay .vn-actor-stage .vn-cast.actor-frame{height:auto;max-height:94%;max-width:86%;left:50%;bottom:0;transform:translateX(-50%);width:86%;aspect-ratio:2/3}
+.vn-overlay .vn-dialog.rules-dialog{grid-row:2;align-self:end;max-height:46vh;max-height:46dvh;padding:22px 18px 12px}
+.vn-overlay .vn-text{font-size:17px;line-height:1.85;min-height:64px}
+.vn-overlay .vn-choices .secondary{min-height:44px;background:#eee5d1;border-color:#c2b496}
+.vn-overlay .vn-toolbar .text-button{background:#665c4bd9;box-shadow:none;border-color:#d4c7a8}
+
+/* First-chapter payment retains the shop view without putting the HUD over the shopkeeper. */
+.v36-game.is-trading .quest-track,.v36-game.is-trading .hud-counts,.v36-game.is-trading .shop-sign{display:none}
+.v36-game.is-trading .shop-cast.actor-frame{height:auto;width:62%;max-width:280px;top:90px;right:3%;bottom:auto}
+.v36-game.is-trading .shop-map-link{top:76px;bottom:auto;left:8px;right:auto;background:#fbf5e8e8;border:1px solid #cbbd9e;border-radius:4px}
+.v36-game.is-trading .v36-dock{box-shadow:0 -8px 26px #2b30251c}
+.v36-game.is-trading .trade-npc{--mini-gap:12px;grid-gap:12px;gap:12px}
+@media(max-height:740px){.campaign-game .map.modular-map{margin-top:80px}.vn-overlay{padding-top:56px}.vn-overlay .vn-text{min-height:50px;font-size:16px}.vn-overlay .vn-dialog.rules-dialog{padding-top:18px}.v36-game.is-trading .shop-cast.actor-frame{top:76px;width:57%}}
+
+/* A quiet advance cue with a full-size touch target. */
+.vn-overlay .vn-choices>.vn-continue{display:flex;align-items:center;justify-content:center;align-self:flex-end;width:44px;min-width:44px;min-height:44px;padding:0;font:28px/1 sans-serif;color:#8a7858}
+.vn-continue:active{transform:translateY(2px)}
+
+/* Backgrounds bleed to the viewport; safe areas belong to controls, not the canvas. */
+:root,page{--game-safe-top:0px;--game-safe-bottom:0px;--game-safe-top:var(--safe-area-inset-top,var(--safe-area-inset-top,0px));--game-safe-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px));--game-safe-bottom:var(--safe-area-inset-bottom,var(--safe-area-inset-bottom,0px));--game-safe-bottom:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px))}
+.shell,.shell.story-shell{padding:0}
+.shell>.title-home{position:absolute;top:0;right:0;bottom:0;left:0;margin:0}
+.story-game .map-stage{left:0;right:0;padding-left:0;padding-right:0}
+.story-game .v36-location,.story-game .warehouse-scene,.story-game .shop-stage,.story-game .arrival-scene{top:0;right:0;bottom:0;left:0;margin:0}
+.story-game>.story-hud{margin:0;padding:8px 12px 0;padding-top:var(--host-toolbar-top,calc(8px + var(--game-safe-top)))}
+.story-game .quest-track{left:12px;top:calc(74px + var(--game-safe-top));top:calc(66px + var(--host-toolbar-top,calc(8px + var(--game-safe-top))))}
+.story-game .story-dock{width:calc(100% - 24px);margin-left:0;margin-right:0;margin-bottom:calc(10px + var(--game-safe-bottom));padding-bottom:9px}
+.title-home .title-actions>.row{bottom:calc(10px + var(--game-safe-bottom))}
+.title-home .title-actions>.embark-round{bottom:calc(65px + var(--game-safe-bottom))}
+.title-home .title-actions>.creation-disclosure{position:absolute;left:18px;bottom:calc(57px + var(--game-safe-bottom));max-width:calc(100% - 170px);min-height:44px;height:auto;margin:0;padding:6px 0;border:0;border-radius:0;background:transparent;color:#fff8e9d9;font-size:11px;font-weight:400;line-height:1.5;text-align:left;text-shadow:0 1px 3px #17291f;pointer-events:auto;box-shadow:none}
+.about-backdrop .rules-dialog{max-height:calc(100vh - 64px);overflow-y:auto}
+.about-backdrop .rules-dialog p{font-size:14px;line-height:1.85;text-align:left}
+.shell>.chapter-scroll{padding-top:calc(20px + var(--game-safe-top));padding-bottom:calc(32px + var(--game-safe-bottom))}
+.shell>.story-result{padding-top:calc(32px + var(--game-safe-top));padding-bottom:calc(18px + var(--game-safe-bottom))}

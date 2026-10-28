@@ -1,0 +1,92 @@
+function titleHome(v) {
+  return `<section class="title-home"><img class="title-landscape" src="./miniapp/assets/art-v34/home-town.webp" alt="行商站在石栏前，远望蜀地商镇与山川"><div class="title-mast"><span>行商札记</span><h1>蜀地钱路<span class="title-seal" aria-hidden="true">蜀记</span></h1><p>钱有轻重，路有远近。</p></div><div class="title-actions"><button class="creation-disclosure" data-action="about" aria-label="AI辅助创作，虚构故事，查看作品说明">AI 辅助创作 · 虚构故事 <span aria-hidden="true">ⓘ</span></button><button class="primary embark-round" data-action="embark" aria-label="启程"><img src="./miniapp/assets/title-v36/embark-calligraphy.webp" alt="启程" draggable="false"></button><div class="row">${btn('声音', 'sounds', 'text-button')}${btn('删除缓存', 'clear-cache', 'text-button')}</div>${v.message ? `<p role="status">${esc(v.message)}</p>` : ''}</div></section>`;
+}
+function chapterJourney(v) {
+  return `<section class="chapter-scroll"><header class="row"><div><span class="eyebrow">蜀地钱路</span><h1 class="chapter-calligraphy"><img src="./miniapp/assets/title-v36/chapter-calligraphy.webp" alt="行商六记"></h1></div>${btn('首页', 'home', 'text-button')}</header><p class="journey-count">已完成 ${v.completedCount} / 6 程</p><div class="journey-road">${v.chapters.map(c => `<button class="journey-stop ${!c.locked && !c.completed ? 'featured' : ''} ${c.locked ? 'locked' : ''}" data-action="chapter-open:${c.id}" ${c.locked ? 'disabled' : ''} aria-label="第${c.number}关 ${esc(c.title)}"><span class="journey-number">${String(c.number).padStart(2, '0')}</span><span class="journey-scene"><img src="${c.scene}" style="${c.artStyle}" alt=""></span><span class="journey-label"><strong>${esc(c.title)}</strong><span>${esc(c.subtitle)}</span><b>${c.locked ? '未解锁' : c.resumable ? '继续行程' : c.completed ? '已完成 · 重走' : '启程'}</b></span></button>`).join('')}</div></section>`;
+}
+function storyWallet(v) {
+  return `<button class="purse-button" data-action="wallet" aria-label="${v.storyRoom ? '查看货款明细' : '查看钱袋'}"><span><img class="resource-icon" src="./miniapp/assets/generated/iron.webp" alt=""><b>${v.storyMoney.iron}</b> 铁钱</span><span><img class="resource-icon" src="./miniapp/assets/generated/note.webp" alt=""><b>${v.storyMoney.note}</b> 交子</span>${v.storyMoney.cloth ? '<span>青布 × 1</span>' : ''}<span class="purse-open">${v.storyRoom ? '货款明细' : '钱袋'}</span></button>`;
+}
+function storyPlay(v) {
+  if (v.storyEnded || v.s.status === 'failed') return storyResult(v);
+  if (v.story.version === 37) return campaignPlay(v);
+  const st = v.story;
+  if (st.version === 36) return v36Play(v);
+  return `<section class="story-game ${st.phase === 'entry' ? 'arrival-mode' : ''} ${v.s.nodeId === 'shop' ? 'at-shop' : ''} ${['road', 'return'].includes(st.phase) || st.tradeMap ? 'road-mode' : ''}"><header class="story-hud"><button data-action="commission" class="chapter-button"><span>第一程</span><strong><img src="./miniapp/assets/title-v36/opening-calligraphy.webp" alt="布匹之约"></strong></button><div class="hud-counts" aria-label="行程与负重"><span><small>行程</small><b>${v.s.stepsUsed}<i>/4 步</i></b></span><span><small>负重</small><b>${v.weight}<i>/5 格</i></b></span></div><button class="text-button notebook-toggle" data-action="menu" aria-label="行商手记" title="行商手记"></button></header>${st.phase === 'entry' ? '' : questTrack(v)}${st.phase === 'entry' ? arrivalScene(v) : v.storyRoom ? warehouseScene(v) : v.s.nodeId === 'shop' && ['cloth', 'payment'].includes(st.phase) && !st.tradeMap ? shopScene(v) : mapView(v)}${st.phase !== 'entry' && v.storyBubble && !v.modal ? `<div class="map-bubble" role="status">${esc(v.storyBubble)}</div>` : ''}<section class="story-dock" ${st.phase === 'entry' ? 'hidden' : ''}>${storyWallet(v)}${st.phase === 'prepare' ? `<div class="prepare-entry">${btn('整理钱袋，准备出发', 'wallet')}</div>` : v.paymentVisible ? storyPay(v) : v.storyRoom || st.phase === 'entry' ? '' : `<div class="object-actions">${v.storyObjects.map(o => btn(o.label, o.action, o.id === 'blue' ? 'cloth-pick blue' : o.id === 'grey' ? 'cloth-pick grey' : o.id === 'white' ? 'cloth-pick white' : 'secondary', o.disabled)).join('')}${st.flags.deliveryReady && v.s.status === 'playing' && v.s.nodeId === 'delivery' ? btn('确认交付', 'deliver') : ''}</div>`}</section>${v.error && v.message ? `<div class="story-toast" role="alert">${esc(v.message)}</div>` : ''}</section>`;
+}
+function questTrack(v) {
+  return `<aside class="quest-track" aria-label="委托进度">${btn('本次委托', 'commission', 'text-button')}<ol>${v.questSteps.map(q => `<li class="${q.done ? 'done' : q.current ? 'active' : 'pending'}" ${q.current ? 'aria-current="step"' : ''}><i aria-hidden="true">${q.done ? '✓' : ''}</i><span>${esc(q.text)}</span></li>`).join('')}</ol></aside>`;
+}
+function storyPrepare(v) {
+  if (v.story.version === 36) return v36Prepare(v);
+  const d = v.draft,
+    exchange = v.story.draftEnabled;
+  return `<div class="prepare-panel"><p class="purse-instruction">货款 8 铁钱，先选一种携带方式。</p><div class="draft-modes" role="group" aria-label="携钱方式"><button class="secondary ${exchange ? 'selected' : ''}" data-action="draft-mode:exchange" aria-pressed="${exchange}">兑换交子</button><button class="secondary ${!exchange ? 'selected' : ''}" data-action="draft-mode:iron" aria-pressed="${!exchange}">全带铁钱</button></div>${exchange ? `<div class="stepper draft-stepper">${btn('−', 'x-', 'small', v.storyDraftX <= 2)}<span>拿 ${v.storyDraftX} 铁钱兑换<br><b>得到 ${v.storyDraftX - 1} 交子</b></span>${btn('+', 'x+', 'small', v.storyDraftX >= 8)}</div>` : ''}<dl class="draft-summary"><div><dt>随身携带</dt><dd>${d.iron} 铁钱 · ${d.note} 交子</dd></div><div class="${d.canDepart ? '' : 'over-capacity'}"><dt>钱袋负重</dt><dd>${d.load} / 5 格</dd></div><div><dt>兑换手续费</dt><dd>${d.fee} 铁钱</dd></div></dl><p class="draft-warning" role="status">${d.canDepart ? '货款仍在柜台，确认出发时才会入账。' : esc(d.problem)}</p><p class="purse-terms">布钱 6，至少付 2 铁钱；过桥另付 1 铁钱。交子不占负重。</p>${btn('确认装好，出发', 'prepare-depart', 'primary', !d.canDepart)}<div class="purse-tools">${btn('货单', 'object:order', 'text-button')}${btn('旧交子', 'object:note', 'text-button')}${btn('问旧票', 'object:old-question', 'text-button')}</div></div>`;
+}
+function storyPay(v) {
+  return `<div class="payment-panel"><div class="trade-npc">${portrait(ShuNarrative.actor('沈娘子', './miniapp/assets', 'neutral'), 'trade-portrait')}<div><strong>沈娘子 · 布铺</strong><p>整批六份，至少两份铁钱。</p></div></div><div class="row"><strong>布钱 ${v.storyPayIron + v.storyPayNote} / 6</strong>${btn('先收起', 'trade-close', 'text-button')}</div><p>至少付 2 铁钱 · 青布重 2 格</p><div class="payment-controls">${v.storySteppers.map(x => `<div class="stepper">${btn('−', x.minus, 'small', x.minDisabled)}<span>${x.label} <b>${x.value}</b></span>${btn('+', x.plus, 'small', x.maxDisabled)}</div>`).join('')}</div><p>${v.storyPayment.ok ? `付款后：${v.storyPayment.state.iron} 铁钱、${v.storyPayment.state.notesByIssuer.a} 交子 · 负重 ${v.storyPayment.state.load || ShuEngine.weight(v.storyPayment.state, v.level)}/5` : esc(v.storyPayment.message)}</p>${btn('付清，收好布', 'transact', 'primary', !v.storyPayment.ok)}</div>`;
+}
+function storyResult(v) {
+  if (v.story.version === 37) return campaignResult(v);
+  if (v.story.version === 36) return v36Result(v);
+  const won = v.s.status === 'won',
+    t = v.storyStats;
+  return `<section class="story-result ${won ? 'settled-scene' : ''}"><img class="result-scenery" src="./miniapp/assets/art-v34/ending-town.webp" alt="夕阳下，行商回望蜀地商镇"><span class="eyebrow">第一章</span><h1>${won ? '布匹之约' : '这趟，再想想'}</h1>${won ? '<span class="completion-stamp" aria-label="章节完成">完成</span>' : portrait(ShuNarrative.actor('阿禾', './miniapp/assets', 'thinking'), 'result-cast')}<div class="result-body"><div class="closing-quote"><b>${won ? '罗掌柜' : '阿禾'}</b><p>${won ? '今日这笔，账在你写的那页。' : '退回前一步看看，或者重新配好货款。'}</p></div>${won ? '<div class="receipt"><img src="./miniapp/assets/art-final/items/cloth.webp" alt=""><span>已交付青布 × 1</span></div>' : ''}<div class="account-summary"><div><span>实际路线</span><strong>${esc(v.pathText)}</strong></div><div><span>${t.steps} / 4 步 · 剩余 ${esc(v.remainingText)}</span>${btn('查看账簿', 'ledger', 'text-button')}</div></div><div class="result-actions">${won ? btn('继续旅程', 'chapters') : btn('撤销上一步', 'undo', 'primary', !v.canUndo)}<div class="result-secondary">${won ? btn('留在商行', 'stay', 'text-button') : ''}${btn('重走一趟', 'story-retry', 'text-button')}${btn('返回首页', 'home', 'text-button')}</div></div></div></section>`;
+}
+function storyModal(v) {
+  const m = v.modal;
+  if (!m) return null;
+  if (m.kind === 'history-note') return v36History(v);
+  if (m.kind === 'wallet' && v.story && v.story.phase === 'prepare') return `<div class="modal-backdrop purse-backdrop"><section class="rules-dialog purse-sheet" role="dialog" aria-modal="true" aria-label="整理钱袋"><div class="row"><h2>整理钱袋</h2>${btn('收起', 'close', 'text-button')}</div>${storyPrepare(v)}</section></div>`;
+  if (m.source === 'v4') {
+    const choices = m.atEnd && m.choices.length;
+    return `<div class="vn-overlay"><img class="vn-scenery" src="${v.story && v.story.version >= 36 ? ShuStoryScenes.background(m.background || m.scene.split('__')[0].split(':')[0]) : m.scene === 'greeting' ? './miniapp/assets/art-v34/market-lane.webp' : v.s.nodeId === 'warehouse' ? './miniapp/assets/art-v34/merchant-room.webp' : v.s.nodeId === 'shop' ? './miniapp/assets/art-v34/cloth-shop.webp' : './miniapp/assets/art-v34/market-lane.webp'}" alt=""><div class="vn-actor-stage" aria-hidden="true">${m.stageActor ? portrait(m.stageActor, 'vn-cast' + (m.stageSilent ? ' listening' : '')) : ''}</div><section class="vn-dialog rules-dialog" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="vn-toolbar">${btn('回看', 'backlog', 'text-button')}${btn('略过已读', 'story-skip-read', 'text-button', !m.canSkipRead)}${btn(v.autoEnabled ? '停止自动' : '自动', 'dialogue-auto', 'text-button')}${btn('声音', 'sounds', 'text-button')}</div><div class="vn-name">${esc(m.title)}</div><button class="vn-text" data-action="dialogue-next" ${choices ? 'disabled' : ''}>${esc(m.body)}</button><div class="vn-choices">${choices ? m.choices.map(c => btn(c.label, 'choice:' + c.id, 'secondary')).join('') : '<button class="text-button vn-continue" data-action="dialogue-next" aria-label="继续对白"><span aria-hidden="true">⌄</span></button>'}</div></section></div>`;
+  }
+  if (v.story && m.kind === 'move' && !m.canMove && m.nodeId === v.s.nodeId) return `<div class="modal-backdrop"><section class="rules-dialog node-context" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="row"><h2>${esc(m.title)}</h2>${btn('收起', 'close', 'text-button')}</div><div class="object-actions">${m.nodeId === 'shop' && v.story.tradeMap ? btn('进入布铺', 'shop-enter') : v.storyObjects.map(o => btn(o.label, o.action, 'secondary', o.disabled)).join('')}</div></section></div>`;
+  if (['prop', 'commission', 'ledger', 'wallet', 'legacy', 'clear-cache'].includes(m.kind)) {
+    let body = esc(m.body || '').replace(/\n/g, '<br>'),
+      art = '';
+    if (m.kind === 'prop') art = propArt(m);
+    if (m.kind === 'commission' && v.story && v.story.version === 36) body = '<b>罗记青布一批</b><p>货款 6，货重 2 格。布铺至少收 2 铁钱，其余可付交子。</p><p>4 步内送到前堂，钱袋承重 5 格。每次进入收费桥需 1 铁钱，绕巷免费、多走一步。</p>';
+    if (m.kind === 'wallet' && v.story.version === 37) body = esc(v.remainingText) + '<br>随身负重 ' + v.weight + ' / ' + v.level.capacity;else if (m.kind === 'wallet') body = `铁钱 ${v.storyMoney.iron} · 交子 ${v.storyMoney.note}<br>青布 ${v.storyMoney.cloth} 批 · 随身负重 ${v.weight} / 5`;
+    if (m.kind === 'ledger') body = v.ledger.map(r => `<p>${esc(r.text)}</p>`).join('') || '还没有提交钱货。';
+    return `<div class="modal-backdrop prop-backdrop"><section class="rules-dialog prop-dialog" role="dialog" aria-modal="true" aria-label="${esc(m.title)}"><div class="row"><h2>${esc(m.title)}</h2>${btn('收起', 'close', 'text-button')}</div>${art}<div class="prop-copy">${body}</div><div class="prop-actions">${m.kind === 'wallet' && v.story ? buttons(v.storyObjects.filter(o => ['note', 'old-question', 'order'].includes(o.id)).map(o => ({
+      label: o.label,
+      id: o.action,
+      kind: 'secondary'
+    }))) : ''}${m.kind === 'legacy' ? btn('重新开始第一关', 'legacy-restart') : m.kind === 'clear-cache' ? btn('确认删除本游戏记录', 'confirm-clear', 'primary') : buttons((m.actions || []).map(a => Object.assign({
+      kind: 'primary'
+    }, a)))}</div></section></div>`;
+  }
+  return null;
+}
+function propArt(m) {
+  const files = {
+    box: 'props/box',
+    'old-note': 'props/old-note',
+    'cloth-blue': 'items/cloth',
+    'cloth-grey': 'props/cloth-grey',
+    'cloth-white': 'props/cloth-white',
+    damp: 'props/damp'
+  };
+  if (files[m.asset]) return `<div class="prop-art"><img style="width:100%;height:190px;object-fit:contain" src="./miniapp/assets/art-final/${files[m.asset]}.webp" alt="${esc(m.title)}"></div>`;
+  if (m.asset === 'order') return '<div class="prop-art order-illustration"><img src="./miniapp/assets/art-final/props/order.webp" alt="纸质货单与青布布样"></div>';
+  if (m.asset === 'iron') return '<div class="prop-art"><img src="./miniapp/assets/generated/iron.webp" alt="铁钱"></div>';
+  return '';
+}
+function warehouseScene(v) {
+  return `<section class="warehouse-scene" aria-label="罗记后仓柜台"><img class="room-painting" src="./miniapp/assets/art-v34/warehouse-counter.webp" alt="木柜台上放着钱袋、账簿与水碗，左墙挂着空挂钩"><div class="room-wall"></div><div class="room-window"><i></i></div><div class="room-shelf"></div><div class="room-floor"></div><div class="room-counter"><div class="counter-top"></div><div class="counter-front"></div></div><span class="room-place">罗记后仓</span>${v.roomObjects.map(o => {
+    const content = `<span class="room-item-art ${o.id}-art">${o.id === 'coin' ? '<img class="floor-coin-image" src="./miniapp/assets/generated/iron.webp" alt="">' : o.id === 'box' ? '<img class="floor-box-image" src="./miniapp/assets/art-final/props/box.webp" alt="">' : '<i></i><b></b><em></em>'}</span><span class="room-item-name">${o.primary ? o.hint : o.label}</span>`;
+    return o.active ? `<button class="room-item room-${o.id} interactive ${o.primary ? 'primary-object' : ''}" data-action="${o.action}" aria-label="${o.label}" title="${o.label}">${content}</button>` : `<span class="room-item room-${o.id}" aria-hidden="true">${content}</span>`;
+  }).join('')}</section>`;
+}
+function storyOpening(v) {
+  return `<section class="chapter-stage"><img class="opening-scenery" src="./miniapp/assets/art-v34/merchant-room.webp" alt="罗记后仓"><header><span>第一程 · 初入商路</span><h1 class="opening-calligraphy"><img src="./miniapp/assets/title-v36/opening-calligraphy.webp" alt="布匹之约"></h1></header>${portrait(ShuNarrative.actor('罗掌柜', './miniapp/assets', 'neutral'), 'opening-cast')}<div class="opening-copy"><div class="opening-quote"><b>罗掌柜</b><p>布铺给我们留了一批青布。阿禾带你认路，你来核货、付账。</p></div><div class="opening-mission"><img src="./miniapp/assets/art-final/items/cloth.webp" alt=""><div><strong>买齐青布，送至前堂</strong><p>4 步以内　·　钱袋 5 格</p></div></div>${btn('出发', 'opening-start')}</div></section>`;
+}
+function shopScene(v) {
+  return `<section class="shop-stage" aria-label="布铺柜台"><img class="shop-scenery" src="./miniapp/assets/art-v34/cloth-shop.webp" alt="布铺木柜台">${portrait(ShuNarrative.actor('沈娘子', './miniapp/assets', v.error ? 'puzzled' : 'neutral'), 'shop-cast')}<div class="shop-sign">布铺</div><button class="shop-map-link text-button" data-action="trade-map">查看商路</button></section>`;
+}
+function arrivalScene(v) {
+  const met = v.story.flags.metAhe;
+  return `<section class="arrival-scene arrival-conversation" aria-label="罗记门前"><img class="arrival-backdrop" src="./miniapp/assets/art-v34/market-lane.webp" alt="晨间商街，罗记门前"><div class="arrival-person" aria-hidden="true">${portrait(ShuNarrative.actor('阿禾', './miniapp/assets', met ? 'smile' : 'neutral'), 'arrival-cast')}</div><section class="arrival-conversation-panel" aria-label="阿禾的招呼"><b class="arrival-speaker">阿禾</b><p>${met ? '进来吧，罗掌柜在柜台后头。' : '找罗掌柜？'}</p><div class="arrival-response">${met ? btn('进店见掌柜', 'object:enter', 'arrival-enter') : btn('上前交谈', 'object:greeting', 'arrival-enter')}</div></section></section>`;
+}

@@ -1,0 +1,10 @@
+/* Title composition follows the annotated layout; lettering remains a real button. */
+.title-home .title-mast{top:12.5%;left:0;right:0;padding:0 20px}
+.title-home .title-mast h1{font-size:52px;font-size:clamp(52px,15vw,72px);margin:0;line-height:1.3;letter-spacing:0}
+.title-home .title-mast p{position:absolute;top:calc(9.5vh + 5px);top:calc(9.5dvh + 5px);right:12%;margin:0;text-align:right;white-space:nowrap;font-size:12px;font-size:clamp(12px,3.4vw,15px);letter-spacing:1px}
+.title-home .title-actions{top:0;right:0;bottom:0;left:0;inset:0;--mini-gap:0;grid-gap:0;gap:0;pointer-events:none;display:block}
+.title-home .title-actions>.embark-round{position:absolute;right:7%;bottom:65px;bottom:max(65px,calc(55px + env(safe-area-inset-bottom)));width:104px;width:clamp(104px,29vw,132px);height:auto;aspect-ratio:1;min-height:0;padding:17px;border-radius:50%;border:1px solid #94774c;background:#f6e8c9ed;box-shadow:inset 0 0 0 5px #f8edda,inset 0 0 0 6px #b6a07b,0 4px 12px #26392e35;pointer-events:auto;display:flex;align-items:center;justify-content:center}
+.title-home .title-actions>.embark-round:after{display:none}.embark-round img,.embark-round image{width:100%;height:100%;max-height:91px;object-fit:contain;pointer-events:none}.embark-round:active{transform:scale(.97)}
+.title-home .title-actions>.row{position:absolute;left:20px;right:20px;bottom:10px;bottom:max(10px,env(safe-area-inset-bottom));margin:0;border:0;pointer-events:auto}
+.title-home .title-actions>p{position:absolute;bottom:54px;left:18px;max-width:55%;font-size:12px;color:#fff8e9}
+@media(max-height:740px){.title-home .title-mast{top:12%}.title-home .title-mast p{top:calc(11vh + 5px);top:calc(11dvh + 5px)}.title-home .title-actions>.embark-round{width:106px}}

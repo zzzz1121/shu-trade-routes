@@ -1,0 +1,29 @@
+/* Small, replaceable merchant marker. All coordinates remain map-relative. */
+.traveler{position:absolute;z-index:12;width:0;height:0;pointer-events:none;transition:left 30ms linear,top 30ms linear}
+.traveler-offset{position:absolute;display:block;left:2px;top:-44px;width:67.08px;height:48px}
+.traveler-figure{display:block;position:absolute;top:0;right:0;bottom:0;left:0;inset:0}
+.traveler-cell{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;display:block;overflow:hidden}
+.traveler-cell img,.traveler-cell image{position:absolute;display:block;width:300%;height:400%;max-width:none}
+.traveler-shadow{position:absolute;top:0;left:25px;width:18px;height:4px;border-radius:50%;background:#4c514633;display:block}
+.traveler-ahe{z-index:11}.traveler-ahe .traveler-offset{left:-27px;top:-36px;width:42px;height:42px}.traveler-ahe .traveler-shadow{left:-14px;top:3px;width:16px}
+.walking .traveler-figure{animation:merchant-bob 180ms ease-in-out infinite}
+.walking .leg-left{animation:merchant-stride 180ms ease-in-out infinite alternate}
+.walking .leg-right{animation:merchant-stride 180ms ease-in-out infinite alternate-reverse}
+.arriving .traveler-figure{animation:merchant-land 80ms ease-out}
+.travelling .you-marker{visibility:hidden}
+.route.walking-path{border-color:#997345!important;border-top-style:solid!important;opacity:.95!important}
+.home-sound{position:absolute;right:8px;top:0;color:var(--muted);font-size:14px}
+.journey-heading{position:relative}
+.sound-dialog{max-width:360px}
+.sound-dialog h2{margin:0;font-size:24px}
+.sound-setting{display:flex;align-items:center;justify-content:space-between;--mini-gap:12px;grid-gap:12px;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);font-size:16px}
+.sound-setting:last-child{border:0;padding-bottom:0}
+.sound-setting>.primary,.sound-setting>.secondary{min-width:76px;font-size:15px}
+.sound-volume{justify-content:flex-start;--mini-gap:8px;grid-gap:8px;gap:8px}.sound-volume>span,.sound-volume>text:first-child{margin-right:auto}
+.sound-volume output,.sound-volume .volume-value{min-width:45px;text-align:center;font-size:16px;font-variant-numeric:tabular-nums}
+.shell[aria-busy=true] button{cursor:wait}
+.shell[aria-busy=true] button[data-walk-lock=true],.travelling button:disabled{opacity:1}
+@keyframes merchant-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes merchant-stride{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+@keyframes merchant-land{0%{transform:translateY(-2px)}65%{transform:translateY(1px)}100%{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.walking .traveler-figure,.walking .traveler-leg,.arriving .traveler-figure{animation:none}}

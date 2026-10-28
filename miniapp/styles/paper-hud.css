@@ -1,0 +1,17 @@
+
+/* Thin paper slips: one display title, readable accounts, a notebook tab. */
+.story-game .story-hud{align-items:flex-start;--mini-gap:10px;grid-gap:10px;gap:10px;padding:10px 5px}
+.story-game .story-hud>.chapter-button,.story-game .story-hud>.hud-counts,.story-game .story-hud>.text-button{position:relative;isolation:isolate;background:#f4ecd9;border:1px solid #aa9574;border-radius:2px 6px 3px 5px;box-shadow:0 2px 4px #43392a24,inset 0 0 0 3px #fff7e9;min-height:52px}
+.story-game .story-hud>.chapter-button:after,.story-game .story-hud>.hud-counts:after,.story-game .story-hud>.text-button:after{content:'';position:absolute;top:4px;right:4px;bottom:4px;left:4px;inset:4px;border:1px solid #b8a27e75;border-radius:1px 4px 2px 3px;pointer-events:none}
+.story-game .story-hud>.chapter-button{padding:5px 13px;justify-content:center;min-width:116px;transform:rotate(-1deg)}
+.story-game .story-hud .chapter-button strong{display:block;width:90px;height:38px;font-size:0}.chapter-button strong img{display:block;width:100%;height:100%;object-fit:contain;filter:brightness(.24) sepia(.3)}
+.story-game .story-hud>.hud-counts{--mini-gap:0;grid-gap:0;gap:0;padding:7px 10px;background:#f5efdfed}
+.story-hud .hud-counts>span{display:flex;flex-direction:column;align-items:center;--mini-gap:1px;grid-gap:1px;gap:1px;padding:0 9px;line-height:1.25}.story-hud .hud-counts>span+span{border-left:1px solid #c4b4939c}.hud-counts small{font:10px/1.3 var(--type-ui);letter-spacing:1px;color:#82735d}.hud-counts b{font:500 17px/1.25 var(--type-body);font-variant-numeric:tabular-nums;color:#34483d}.hud-counts b i{font:10px/1.3 var(--type-ui);font-style:normal;color:#7d755f;margin-left:3px}
+.story-game .story-hud>.text-button{display:flex;flex-direction:column;align-items:center;justify-content:center;--mini-gap:2px;grid-gap:2px;gap:2px;padding:6px 10px;font:11px/1.3 var(--type-body);color:#655944;transform:rotate(1deg)}
+.story-hud>.text-button:before{content:'';display:block;width:16px;height:18px;border:1px solid #7b7059;border-radius:1px 3px 3px 1px;background:linear-gradient(90deg,transparent 3px,#9f9278 3px,#9f9278 4px,transparent 4px),linear-gradient(#c3b394,#c3b394) 7px 5px/6px 1px no-repeat}
+.story-game .story-dock{border:1px solid #bba785;border-radius:3px 7px 4px 6px;background:#f9f2e3f5;box-shadow:inset 0 0 0 3px #fff9ee,0 2px 6px #473b271a}
+.story-game .quest-track{top:76px;background:linear-gradient(90deg,#f8f2e4eb,#f8f2e4bb 88%,transparent);border-left:1px solid #b3a17e80;border-radius:2px 5px 3px 2px}
+.arrival-mode .story-hud>.hud-counts{display:none}
+@media(max-width:380px){.story-game .story-hud{--mini-gap:6px;grid-gap:6px;gap:6px;padding:8px 3px}.story-game .story-hud>.chapter-button{min-width:106px;padding-left:10px;padding-right:10px}.story-game .story-hud .chapter-button strong{width:84px}.story-game .story-hud>.hud-counts{padding-left:5px;padding-right:5px}.story-hud .hud-counts>span{padding-left:8px;padding-right:8px}}
+
+.story-game .story-hud>.notebook-toggle{width:44px;min-width:44px;padding:10px;--mini-gap:0;grid-gap:0;gap:0}.story-hud>.notebook-toggle:before{width:18px;height:22px;background-position:0 0,8px 6px}

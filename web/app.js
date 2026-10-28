@@ -1,0 +1,213 @@
+const game = ShuController.create(ShuMiniTool.storage, {
+  chapterLimit: 6
+});
+let typingFrame = 0;
+const root = document.querySelector('#app');
+let cacheEpoch = 0,
+  renderedEventCount = 0;
+const sound = ShuSound.create({
+  backend: ShuSoundBackends.browser(window),
+  read: ShuMiniTool.storage.read,
+  write: ShuMiniTool.storage.write
+});
+const experience = ShuExperience.create(game, {
+  sound,
+  levels: ['l01', 'l02', 'l03', 'l04', 'l05', 'l06'],
+  duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 120 : undefined,
+  landing: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 120,
+  changed: () => render(),
+  frame: (point, phase, pose) => {
+    ShuMapActors.cast(point, pose.heading, pose.frame, pose.companion).forEach(data => {
+      const actor = root.querySelector('.traveler-' + data.id);
+      if (actor) {
+        actor.style.cssText = data.style;
+        actor.classList.toggle('walking', phase === 'walking');
+        actor.classList.toggle('arriving', phase === 'arriving');
+        actor.querySelector('img').style.cssText = data.frameStyle;
+      }
+    });
+  }
+});
+const esc = value => String(value !== null && value !== void 0 ? value : '').replace(/[&<>"']/g, c => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+})[c]);
+function btn(label, id, kind = 'primary', disabled = false) {
+  return `<button class="${kind}" data-action="${id}" ${disabled ? 'disabled' : ''}>${esc(label)}</button>`;
+}
+function buttons(items) {
+  return items.map(b => btn(b.label, b.id, b.kind, b.disabled)).join('');
+}
+function sprite(i, cls = 'resource-icon') {
+  return `<span class="${cls} goods-sprite"><img src="./miniapp/assets/v2/goods.webp" style="left:${-(i % 2) * 100}%;top:${-Math.floor(i / 2) * 100}%" alt=""></span>`;
+}
+function icon(item) {
+  return item.asset ? `<span class="money-object"><img class="resource-icon" src="./miniapp/assets/generated/${item.asset}.webp" alt="">${item.seal ? `<i class="note-seal ${item.id}">${item.seal}</i>` : ''}</span>` : sprite(item.icon);
+}
+function mapView(v) {
+  const atlas = v.modular ? './miniapp/assets/v2/buildings.webp' : './miniapp/assets/approved/town-atlas.webp';
+  const tiles = items => items.map(t => `<div class="scene-tile ${t.market ? 'market-sprite' : ''}" style="${t.style}"><img src="${atlas}" style="${t.imageStyle}" alt="" draggable="false"></div>`).join('');
+  return `<div class="map-stage"><div class="scene-continuation" aria-hidden="true"><div class="continuation-frame"><img class="continuation-art" src="${v.modular ? './miniapp/assets/v2/terrain.webp' : './miniapp/assets/approved/town-extended.webp'}" alt=""></div></div><div class="map reference-map ${v.modular ? 'modular-map' : ''} ${experience.busy ? 'travelling' : ''}" aria-busy="${experience.busy}" aria-label="商路地图">
+ <div class="scene-art"><div class="scene-terrain">${tiles(v.terrainTiles)}</div><div class="scene-buildings">${tiles(v.artRegions)}</div></div>
+ <div class="road-layer" aria-hidden="true">${v.routeSegments.map(e => `<div class="route route-dash ${activeEdge(e.edge) ? 'walking-path' : ''}" data-edge="${e.edge}" style="${e.style}"></div>`).join('')}</div>
+ <div class="art-hit-layer">${v.artRegions.map(n => `<button class="atlas-building-hit" style="${n.style}" data-building="${n.id}" aria-label="查看${esc(n.name)}"></button>`).join('')}</div>
+ <div class="interaction-layer">${v.nodes.map(n => `<button class="node scene-node ${n.current ? 'current' : ''} ${n.reachable ? 'reachable' : ''}" style="${n.style}" data-node="${n.id}" aria-label="查看${esc(n.name)}${n.current ? '，当前所在地' : ''}"><span class="scene-placard">${esc(n.name)}</span><span class="scene-pin"><i></i></span>${n.current ? '<span class="you-marker">所在</span>' : ''}</button>`).join('')}</div>${experience.enabled(v.level) ? traveler(v) : ''}</div></div>`;
+}
+function activeEdge(edge) {
+  const m = experience.moving;
+  return !!m && (edge === m.edge || edge === m.to + '-' + m.from);
+}
+// Map actors use generated sheets with stable identities and four directional rows.
+function traveler(v) {
+  const m = experience.moving,
+    n = v.nodes.find(n => n.current),
+    p = m ? m.point : [n.x, n.y];
+  return ShuMapActors.cast(p, m ? m.heading : experience.heading, m ? m.frame || 0 : 0, m && m.companion).map(a => `<div class="traveler traveler-${a.id} ${m ? m.phase === 'walking' ? 'walking' : 'arriving' : ''}" style="${a.style}" role="img" aria-label="${a.name}${m ? '，正在行走' : '，位于' + esc(n.name)}"><span class="traveler-shadow"></span><span class="traveler-offset"><span class="traveler-figure"><span class="traveler-cell"><img src="${a.image}" style="${a.frameStyle}" alt="" draggable="false"></span></span></span></div>`).join('');
+}
+function panel(v) {
+  const p = v.panel;
+  return `<div class="action-panel ${p.kind}"><div class="panel-heading"><strong>${esc(p.title)}</strong><span class="muted">${esc(p.meta)}</span></div><button class="ask-guide" data-action="hint" aria-label="向阿禾询问提示">${portrait(v.guide, 'guide-face')}<span>问阿禾</span></button><div class="payment-controls">${p.steppers.map(s => `<div class="stepper ${s.key === 'x' ? 'exchange-stepper' : ''}">${btn('−', s.minus, 'small', s.minDisabled)}<span class="stepper-value">${esc(s.label)}${s.key === 'x' ? '' : ` <b>${s.value}</b>`}</span>${btn('+', s.plus, 'small', s.maxDisabled)}</div>`).join('')}</div>${p.choices.length ? `<div class="choice-buttons">${p.choices.map(c => btn(c.label, c.id, c.selected ? 'primary' : 'secondary')).join('')}</div>` : ''}<p class="preview">${esc(p.preview)}</p><div class="action-buttons">${buttons(p.buttons)}</div></div>`;
+}
+function portrait(a, cls = 'portrait') {
+  if (a.visible === false) return '';
+  return `<span class="${cls} actor-frame cast-${a.id || 'ahe'}" style="${a.aspectStyle}" data-expression="${a.expression}" data-pose="${a.pose}" role="img" aria-label="${esc(a.name)}"><span class="actor-cell" style="${a.aspectStyle}${a.cellStyle || 'top:0%;'}"><img src="${a.portrait}" style="${a.frameStyle}" alt="" draggable="false"></span></span>`;
+}
+function vignette(v, who) {
+  return `<div class="story-visual"><div class="vignette-scene scene-window"><img src="${v.narrative.scene}" style="${v.narrative.sceneStyle}" alt="${esc(v.narrative.tag)}场景"></div><div class="vignette-wash"></div>${portrait(who, 'hero-portrait')}<div class="vignette-caption"><span>${esc(v.narrative.subtitle)}</span></div></div>`;
+}
+function response(v) {
+  return `<div class="character-response ${v.historyLine ? 'history-response' : ''}">${portrait(v.outroActor)}<div><b>${esc(v.outroActor.name)}</b><p>${esc(v.outroText)}</p>${v.historyLine ? `<p class="history-line">${esc(v.historyLine)}</p>` : ''}</div></div>`;
+}
+function modal(v) {
+  const m = v.modal;
+  if (!m) return '';
+  const special = storyModal(v);
+  if (special !== null) return special;
+  let foot = '';
+  if (m.kind === 'sound') {
+    const c = sound.getSettings();
+    return `<div class="modal-backdrop sound-backdrop"><section class="rules-dialog sound-dialog" role="dialog" aria-modal="true" aria-label="声音设置"><div class="row"><h2>声音</h2>${btn('返回', 'close', 'text-button')}</div><div class="sound-setting"><span>剧情配乐</span><button class="secondary" data-action="sound:music" aria-pressed="${c.musicEnabled}">${c.musicEnabled ? '开启' : '关闭'}</button></div><div class="sound-setting sound-volume"><span>音乐音量</span>${btn('−', 'sound:music-down', 'small', c.musicVolume <= 0)}<span>${Math.round(c.musicVolume * 100)}%</span>${btn('+', 'sound:music-up', 'small', c.musicVolume >= 1)}</div><div class="sound-setting"><span>操作音效</span><button class="${c.effectsEnabled ? 'primary' : 'secondary'}" data-action="sound:effects" aria-pressed="${c.effectsEnabled}">${c.effectsEnabled ? '开启' : '关闭'}</button></div><div class="sound-setting"><span>环境氛围</span><button class="${c.ambienceEnabled ? 'primary' : 'secondary'}" data-action="sound:ambience" aria-pressed="${c.ambienceEnabled}">${c.ambienceEnabled ? '开启' : '关闭'}</button></div><div class="sound-setting sound-volume"><span>音量</span>${btn('−', 'sound:down', 'small', c.volume <= 0)}<output aria-live="polite">${Math.round(c.volume * 100)}%</output>${btn('+', 'sound:up', 'small', c.volume >= 1)}</div>${btn('重新启用声音', 'sound:retry', 'text-button')}</section></div>`;
+  }
+  if (m.kind === 'backlog') return `<div class="modal-backdrop"><section class="rules-dialog backlog-dialog" role="dialog" aria-modal="true" aria-label="对话回看"><div class="row"><h2>对话回看</h2>${btn('返回对白', 'backlog-return', 'text-button')}</div><div class="backlog-scroll">${v.backlog.length ? v.backlog.map(line => `<article>${portrait(line.actor, 'backlog-portrait')}<div><b>${esc(line.speaker)}</b><p>${esc(line.text)}</p></div></article>`).join('') : '<p>听过的对白会记在这里。</p>'}</div></section></div>`;
+  if (m.kind === 'menu') return `<div class="modal-backdrop menu-backdrop"><section class="rules-dialog journey-menu" role="dialog" aria-modal="true" aria-label="行商手记"><div class="row"><h2>行商手记</h2>${btn('收起', 'close', 'text-button')}</div><div class="journey-menu-items">${v.menuItems.map(i => `<button class="secondary" data-action="${i.action}"><span class="menu-icon" aria-hidden="true">${i.icon}</span>${i.label}<span class="menu-chevron" aria-hidden="true">›</span></button>`).join('')}</div>${btn('撤销上一步', 'undo', 'text-button', !v.canUndo)}</section></div>`;
+  if (m.kind === 'history') foot = btn('上一篇', 'history-prev', 'secondary', m.page === 0) + btn(m.page === 5 ? '返回首页' : '下一篇', m.page === 5 ? 'close' : 'history-next');else if (m.kind === 'move') foot = btn('返回', 'close', 'secondary') + (m.canMove ? btn('确认前往', 'confirm-move') : '');else if (m.kind === 'lesson') foot = btn('跳过教学', 'skip-tutorial', 'secondary') + btn('继续', 'lesson-next');else if (m.kind === 'hint') foot = btn('返回游戏', 'close', 'secondary') + btn(v.hintLevel === 1 ? '查看参考解法' : '再提示一点', 'hint-next', 'primary', v.hintLevel >= 2);else if (m.kind === 'rules') foot = btn('上一页', 'rule-prev', 'secondary', m.page === 0) + btn(m.page === m.count - 1 ? '返回游戏' : '下一页', m.page === m.count - 1 ? 'close' : 'rule-next') + btn('交子史话', 'history', 'text-button');else if (m.kind === 'story') foot = m.atEnd ? m.choices.map(c => btn(c.label, 'choice:' + c.id, 'secondary')).join('') : btn('继续', 'dialogue-next');else foot = btn('继续行商', 'close');
+  if (m.dialogue) return `<div class="modal-backdrop narrative-backdrop ${m.important ? 'important-dialogue' : 'teaching-backdrop'}"><section class="rules-dialog dialogue-card" role="${m.important ? 'dialog' : 'status'}" aria-modal="${m.important}" aria-label="${esc(m.title)}">${portrait(m.actor, 'dialogue-portrait')}<div class="dialogue-copy"><h2>${esc(m.actor.name)}</h2><p>${esc(m.body)}</p></div><div class="dialog-toolbar">${btn('回看', 'backlog', 'text-button')}${m.kind === 'story' ? btn('跳过', 'dialogue-skip', 'text-button') : ''}</div><div class="dialog-controls">${foot}</div></section></div>`;
+  return `<div class="modal-backdrop ${m.kind}-backdrop"><section class="rules-dialog" role="${m.kind === 'lesson' ? 'status' : 'dialog'}" aria-modal="${m.kind !== 'lesson'}" aria-label="${esc(m.title)}"><div class="row"><span class="eyebrow">${m.kind === 'lesson' ? '同行寄语' : m.kind === 'hint' ? `提示 ${v.hintLevel + 1} / 3` : '行商札记'}</span>${btn('关闭', 'close', 'text-button')}</div><h2>${esc(m.title)}</h2>${m.flavor ? `<div class="node-flavor">${portrait(m.actor, 'node-portrait')}<span>${esc(m.flavor)}</span></div>` : ''}<p>${esc(m.body).replace(/\n/g, '<br>')}</p><div class="dialog-controls">${foot}</div></section></div>`;
+}
+function render() {
+  var _v$s$events$at, _root$firstElementChi, _root$querySelector2;
+  const v = ShuStoryView.decorate(ShuNarrative.decorate(ShuScene.decorate(experience.moving && experience.moving.beforeView ? JSON.parse(JSON.stringify(experience.moving.beforeView)) : game.view())));
+  if (v.cacheEpoch !== cacheEpoch) {
+    cacheEpoch = v.cacheEpoch;
+    sound.resetPreferences();
+  }
+  v.autoEnabled = experience.autoEnabled;
+  if (experience.busy) v.modal = null;
+  const s = v.s,
+    l = v.level;
+  let html = '';
+  if (v.screen === 'home') html = titleHome(v);else if (v.screen === 'chapters') html = chapterJourney(v);else if (v.screen === 'opening') html = storyOpening(v);else if (v.story) html = storyPlay(v);else if (v.screen === 'intro') html = `<section class="chapter-opening"><header><span class="eyebrow">第 ${l.number} 关 / ${esc(v.narrative.tag)}</span><h1>${esc(l.title)}</h1><p class="opening-line">${esc(v.narrative.line)}</p></header>${vignette(v, v.narrative.speaker)}<div class="commission-card"><div class="speaker-line"><b>${esc(v.narrative.speaker.name)}</b><span>${esc(v.narrative.speaker.role)}</span></div><p>${esc(v.narrative.opening)}</p><div class="commission-details"><strong>${esc(l.mission)}</strong><div><span>${l.maxSteps} 步内送达</span><span>钱袋 ${l.capacity} 格</span></div></div></div><div class="approach-picker"><span>行商打算 · 可选</span><div>${btn(v.approach.speed, 'plan:speed', v.plan === 'speed' ? 'primary' : 'secondary')}${btn(v.approach.economy, 'plan:economy', v.plan === 'economy' ? 'primary' : 'secondary')}</div></div><div class="opening-actions">${btn('开始委托', 'play')}${btn('跳过教学，直接开始', 'skip-intro', 'text-button')}</div></section>`;else if (s.status !== 'playing') html = `<section class="result-screen"><span class="eyebrow">第 ${l.number} 关 · ${esc(l.title)}</span><h1 class="cover-title">${s.status === 'won' ? '委托完成' : '行程未成'}</h1>${response(v)}${s.status !== 'won' ? `<p class="result-copy">${esc(v.resultText)}</p>` : ''}<div class="result-stats"><span>行动<b>${s.stepsUsed} / ${l.maxSteps}</b></span><span>剩余资金<b>${v.total}</b></span><span>费用<b>${v.fee}</b></span></div><p class="muted">${esc(v.remainingText)}</p><p class="path">${esc(v.pathText)}</p><div class="ledger">${v.ledger.map(row => `<p>${esc(row.text)}</p>`).join('')}</div>${s.status === 'won' ? `<p class="route-review">${esc(v.routeReview)}${v.ending ? '<br>' + esc(v.ending) : ''}</p>` : ''}${v.plan ? `<p class="approach-result">${esc(v.approach.label)} · ${v.approach.met ? '也办到了' : '下趟再试试'}</p>` : ''}<div class="result-buttons">${s.status === 'won' ? btn(v.nextLabel, 'next') : ''}<div class="action-buttons">${btn('重新挑战', 'retry', 'secondary')}${btn(s.status === 'won' ? '返回交付前' : '撤回上一步', 'undo', 'secondary', !v.canUndo)}</div>${btn('返回章节', 'chapters', 'text-button')}</div></section>`;else html = `<div class="panel-terrain"><img src="${v.modular ? './miniapp/assets/v2/terrain.webp' : './miniapp/assets/approved/town-extended.webp'}" alt=""></div><header class="topbar"><div class="row"><div><h1 class="brand">蜀地钱路</h1><span class="chapter">第 ${l.number} 关 · ${esc(l.title)}</span></div><div class="top-actions">${btn('菜单', 'menu', 'menu-button')}</div></div><div class="mission"><span>${esc(l.mission)}</span><div class="journey-actions"><span class="steps"><b>${s.stepsUsed}</b> / ${l.maxSteps} 步</span><button class="undo-action" data-action="undo" aria-label="撤销上一步" title="撤销上一步" ${v.canUndo ? '' : 'disabled'}><span aria-hidden="true">↶</span><small>撤销</small></button></div></div></header>${mapView(v)}<section class="dock"><div class="wallet">${v.resources.map(r => `<div class="walletitem">${icon(r)}<div><span class="label">${esc(r.name)}</span><b>${r.value}</b></div></div>`).join('')}<div class="load"><span class="label">随身负重</span><b>${v.weight} / ${l.capacity}</b><div class="capacity">${v.slots.map(slot => `<i class="slot ${slot.kind}"></i>`).join('')}</div></div></div><div class="cargo-strip">${v.cargo.map(c => `<span>${icon(c)}${esc(c.name)} <b>${c.value}</b></span>`).join('')}</div>${v.message ? `<div class="feedback ${v.error ? 'error' : ''}" role="status">${esc(v.message)}</div>` : ''}${panel(v)}</section>`;
+  const traded = v.s.events.length > renderedEventCount && ['exchange', 'buy', 'deliver', 'depart'].includes((_v$s$events$at = v.s.events.at(-1)) === null || _v$s$events$at === void 0 ? void 0 : _v$s$events$at.type);
+  renderedEventCount = v.s.events.length;
+  root.classList.toggle('story-shell', !!v.story && v.screen === 'play');
+  root.classList.toggle('dialogue-active', !!(v.modal && v.modal.source === 'v4'));
+  cancelAnimationFrame(typingFrame);
+  root.innerHTML = html + modal(v) + (traded && v.story ? `<div class="trade-feedback" aria-hidden="true"><img src="./miniapp/assets/generated/${v.s.events.at(-1).type === 'buy' || v.s.events.at(-1).type === 'deliver' ? 'cloth' : 'note'}.webp" alt=""></div>` : '');
+  if (v.modal || v.story && v.story.version === 37 && v.story.tradeOpen) (_root$firstElementChi = root.firstElementChild) === null || _root$firstElementChi === void 0 || _root$firstElementChi.setAttribute('inert', '');
+  if (traded) {
+    var _root$querySelector;
+    (_root$querySelector = root.querySelector('.purse-button')) === null || _root$querySelector === void 0 || _root$querySelector.classList.add('money-changed');
+  }
+  root.setAttribute('aria-busy', String(experience.busy));
+  if (experience.busy) root.querySelectorAll('button').forEach(b => {
+    if (!b.disabled) {
+      b.dataset.walkLock = 'true';
+      b.disabled = true;
+    }
+  });
+  if (v.story && v.story.version >= 36 && v.modal && v.modal.source === 'v4' && !v.modal.revealed) {
+    const m = v.modal,
+      el = root.querySelector('.vn-text');
+    const paint = () => {
+      if (!el || !el.isConnected) return;
+      el.textContent = m.body.slice(0, Math.max(0, Math.floor((Date.now() - m.startedAt) / 18)));
+      if (Date.now() < m.readyAt) typingFrame = requestAnimationFrame(paint);else el.textContent = m.body;
+    };
+    paint();
+  }
+  if (v.modal && v.modal.kind !== 'lesson') (_root$querySelector2 = root.querySelector(v.modal.source === 'v4' ? '.vn-choices button:not(:disabled)' : '.rules-dialog button:not(:disabled)')) === null || _root$querySelector2 === void 0 || _root$querySelector2.focus({
+    preventScroll: true
+  });
+  ShuMiniToolEnhance(root);
+}
+function soundAction(id) {
+  if (!id.startsWith('sound:')) return false;
+  const config = sound.getSettings();
+  if (id === 'sound:retry') sound.activate();else if (id === 'sound:music') sound.configure({
+    musicEnabled: !config.musicEnabled
+  });else if (id === 'sound:music-up' || id === 'sound:music-down') sound.setVolume(config.musicVolume + (id === 'sound:music-up' ? .1 : -.1), 'music');else if (id === 'sound:effects') sound.configure({
+    effectsEnabled: !config.effectsEnabled
+  });else if (id === 'sound:ambience') sound.configure({
+    ambienceEnabled: !config.ambienceEnabled
+  });else if (id === 'sound:down' || id === 'sound:up') sound.setVolume(Math.round((config.volume + (id === 'sound:up' ? .1 : -.1)) * 100) / 100);
+  sound.play('ui.click');
+  render();
+  return true;
+}
+root.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b || b.disabled || experience.busy || experience.suspended || document.hidden) return;
+  sound.activate();
+  if (b.dataset.node || b.dataset.building) experience.selectNode(b.dataset.node || b.dataset.building);else if (!soundAction(b.dataset.action || '')) experience.dispatch(b.dataset.action);
+});
+root.addEventListener('keydown', e => {
+  var _v$story;
+  if (experience.busy) {
+    if (e.key === 'Tab' || e.key === 'Escape') e.preventDefault();
+    return;
+  }
+  const v = game.view(),
+    trade = !!((_v$story = v.story) !== null && _v$story !== void 0 && _v$story.tradeOpen),
+    modal = v.modal;
+  if (!trade && (!modal || modal.kind === 'lesson')) return;
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    if (trade) experience.dispatch('trade-close');else if (modal.source !== 'v4') experience.dispatch(modal.kind === 'backlog' ? 'backlog-return' : 'close');
+    return;
+  }
+  if (e.key === 'Tab') {
+    const scope = root.querySelector(trade ? '.campaign-trade' : '.rules-dialog') || root.querySelector('.vn-overlay');
+    const buttons = [...((scope === null || scope === void 0 ? void 0 : scope.querySelectorAll('button:not(:disabled)')) || [])].filter(b => b.getClientRects().length);
+    e.preventDefault();
+    if (!buttons.length) return;
+    const i = buttons.indexOf(document.activeElement);
+    buttons[i < 0 ? e.shiftKey ? buttons.length - 1 : 0 : (i + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length].focus();
+  }
+});
+root.addEventListener('load', e => {
+  var _e$target$classList, _e$target$closest;
+  if ((_e$target$classList = e.target.classList) !== null && _e$target$classList !== void 0 && _e$target$classList.contains('room-painting')) (_e$target$closest = e.target.closest('.warehouse-scene')) === null || _e$target$closest === void 0 || _e$target$closest.classList.add('room-painted');
+}, true);
+root.addEventListener('error', e => {
+  var _e$target$classList2, _e$target$closest2;
+  if ((_e$target$classList2 = e.target.classList) !== null && _e$target$classList2 !== void 0 && _e$target$classList2.contains('room-painting')) (_e$target$closest2 = e.target.closest('.warehouse-scene')) === null || _e$target$closest2 === void 0 || _e$target$closest2.classList.remove('room-painted');
+}, true);
+render();
+
+// A fresh load always starts at home. Also reset the visible screen after a cached Back visit.
+window.addEventListener('pageshow', event => {
+  if (event.persisted) {
+    experience.resume();
+    experience.dispatch('home');
+  }
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) experience.suspend();else experience.resume();
+});
+window.addEventListener('pagehide', () => experience.suspend());
+window.addEventListener('pageshow', () => {
+  if (!document.hidden) experience.resume();
+});

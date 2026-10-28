@@ -1,0 +1,20 @@
+/* A winding illustrated journey, rather than stacked directory cards. */
+.chapter-scroll{padding:20px 9px 40px;background:#f2ecd9}
+.chapter-scroll>header,.chapter-scroll>.row{align-items:flex-start;padding:0 5px}
+.chapter-calligraphy{width:220px;height:78px;margin:0;display:block;font-size:0}.chapter-calligraphy img,.chapter-calligraphy image{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}
+.chapter-scroll header .eyebrow{display:none}.chapter-scroll header>.text-button{margin-top:14px}.chapter-scroll .journey-count{margin:3px 5px 15px;font-size:12px;letter-spacing:0;color:#8a816c}
+.chapter-scroll .journey-road{position:relative;padding-left:37px;display:flex;flex-direction:column;--mini-gap:28px;grid-gap:28px;gap:28px}
+.chapter-scroll .journey-road:before{content:'';position:absolute;left:0;top:0;bottom:0;width:43px;border:0;background:url('../assets/title-v36/chapter-road.svg') center/100% 100% no-repeat;pointer-events:none}
+.chapter-scroll .journey-stop,.chapter-scroll .journey-stop.featured{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(104px,1fr);align-items:center;--mini-gap:10px;grid-gap:10px;gap:10px;min-height:185px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;width:100%;text-align:left;position:relative}
+.chapter-scroll .journey-scene,.chapter-scroll .featured .journey-scene{display:block;position:relative;width:100%;height:auto;aspect-ratio:1;margin:0;min-width:0;border-radius:0;overflow:hidden;filter:saturate(.48) contrast(.88) brightness(1.04) sepia(.12);-webkit-mask-image:radial-gradient(ellipse at center,#000 58%,transparent 76%);mask-image:radial-gradient(ellipse at center,#000 58%,transparent 76%)}
+.chapter-scroll .journey-number{left:-35px;top:calc(50% - 13px);width:26px;height:26px;border:1px solid #bcaa86;border-radius:50%;background:#f2ecd9;display:flex;align-items:center;justify-content:center;font:12px var(--type-ui);color:#8b7959;padding:0;z-index:1}
+.chapter-scroll .featured .journey-number{background:#8c805e;color:#fff7e7;border-color:#8c805e}
+.chapter-scroll .journey-label{display:flex;flex-direction:column;align-items:flex-start;--mini-gap:10px;grid-gap:10px;gap:10px;min-width:0;padding:0 2px 0 0}
+.chapter-scroll .journey-label strong,.chapter-scroll .stop-v4-title{font:600 20px/1.55 var(--type-body);letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word}
+.chapter-scroll .journey-label>span,.chapter-scroll .chapter-subline{font:13px/1.8 var(--type-body);color:#827c69}
+.chapter-scroll .journey-label b,.chapter-scroll .chapter-status{font:12px/1.4 var(--type-ui);font-weight:400;padding:4px 9px;border-radius:4px;background:#dfd6c2;color:#6f674f}
+.chapter-scroll .featured .journey-label b,.chapter-scroll .featured .chapter-status{background:#8e8161;color:#fff7e7}
+.chapter-scroll .journey-stop.locked{filter:none;opacity:.72}.chapter-scroll .locked .journey-scene{filter:grayscale(.85) saturate(.25) contrast(.88) brightness(1.04) sepia(.12)}.chapter-scroll .locked .journey-label b{background:transparent;border:1px solid #d4ccba;color:#908977}
+@media(max-width:380px){.chapter-scroll{padding-left:5px;padding-right:5px}.chapter-scroll .journey-road{padding-left:32px}.chapter-scroll .journey-stop,.chapter-scroll .journey-stop.featured{min-height:175px;--mini-gap:8px;grid-gap:8px;gap:8px;grid-template-columns:minmax(0,1.4fr) minmax(98px,1fr)}.chapter-scroll .journey-label strong{font-size:19px}.chapter-scroll .journey-number{left:-31px}.chapter-calligraphy{width:204px;height:74px}}
+
+.chapter-scroll .locked .chapter-status{background:transparent;border:1px solid #d4ccba;color:#908977}

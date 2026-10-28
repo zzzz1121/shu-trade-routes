@@ -1,0 +1,11 @@
+/* Shared visual tokens for the reference-led illustrated interface. */
+page,:root{
+ --art-saturation:.62;--modular-saturation:.55;--official-seal:#4c755b;
+ --paper:#f5f1e6;--white:#fffdf7;--surface:#eee9dc;--ink:#283943;--muted:#68766f;
+ --blue:#355d70;--gold:#b68e57;--brown:#886d4d;--green:#8fa48c;--water:#a9cbd0;
+ --line:#dfd9ca;--danger:#a35444;--radius:20px;--small-radius:12px;
+ --shadow:0 6px 20px rgba(64,73,59,.07);--node-shadow:0 3px 8px rgba(55,65,49,.13);
+ --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;
+ --font:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+ --text-xs:11px;--text-sm:12px;--text-base:14px;--text-lg:18px;--text-title:28px;
+}

@@ -1,0 +1,14 @@
+*{--mini-gap:0px}
+/* Focus, viewport and simulator/native safe areas remain usable on the baseline engine. */
+html,body{height:100%;touch-action:manipulation;-webkit-touch-callout:none}
+.shell,.shell.story-shell{height:100vh;height:var(--app-height,100vh);padding:0}
+button:focus{outline:2px solid #7c8d79;outline-offset:2px}
+.vn-overlay{padding-top:64px;padding-bottom:22px;padding-top:calc(64px + var(--safe-area-inset-top,0px));padding-bottom:calc(22px + var(--safe-area-inset-bottom,0px))}
+.vn-overlay{padding-top:128px;padding-top:calc(var(--host-toolbar-top,calc(76px + var(--safe-area-inset-top,0px))) + 52px)}
+/* Explicit bottom:auto clears the old short-screen bottom anchor. Older hosts
+   without getWindowInfo reserve a row below the platform controls. */
+.vn-overlay .vn-dialog .vn-toolbar{position:fixed;top:76px;top:var(--host-toolbar-top,calc(76px + var(--safe-area-inset-top,0px)));bottom:auto;left:auto;right:14px;right:14px;right:max(14px,calc((100vw - 480px)/2 + 14px));height:auto;min-height:44px;max-width:calc(100vw - 28px);margin:0;flex-wrap:wrap;--mini-gap:6px;grid-gap:6px;gap:6px}
+.chapter-scroll,.backlog,.history-note-copy,.campaign-trade{-webkit-overflow-scrolling:touch}
+[inert]{pointer-events:none}
+#minitool-storage-status{position:fixed;top:0;left:0;right:0;z-index:99;padding:8px;background:#f4ecd9;color:#73533c;font:13px/1.6 sans-serif}
+@supports(aspect-ratio:2/3){.shell{height:100vh;height:100dvh}.vn-overlay .vn-actor-stage .vn-cast.actor-frame{width:86%;height:auto;max-height:94%}}
